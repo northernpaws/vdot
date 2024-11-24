@@ -6,7 +6,7 @@ target_sources( ${PROJECT_NAME}
         Example.cpp
         GDExtensionTemplate.h
         GDExtensionTemplate.cpp
-        RegisterExtension.cpp
+        register_extension.cpp
 )
 
 target_include_directories( ${PROJECT_NAME}
