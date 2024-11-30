@@ -1,10 +1,8 @@
-// SPDX-License-Identifier: Unlicense
-
 #include "godot_cpp/core/class_db.hpp"
 #include "godot_cpp/core/version.hpp"
 
-#include "GDExtensionTemplate.h"
 #include "Version.h"
+#include "vdot.h"
 
 /// @file
 /// GDExtensionTemplate example implementation.
@@ -20,7 +18,7 @@ If there are no commits since the last tag, only the tag is shown.
 
 @return The version string (e.g. "Foo v1.2.3-gdedbd01").
 */
-godot::String GDExtensionTemplate::version()
+godot::String VDot::version()
 {
     return VersionInfo::VERSION_STR.data();
 }
@@ -33,7 +31,7 @@ The version string is generated using godot-cpp's core/version.hpp.
 
 @return The version string (e.g. "godot-cpp v4.2.0-stable").
 */
-godot::String GDExtensionTemplate::godotCPPVersion()
+godot::String VDot::godotCPPVersion()
 {
     return "godot-cpp v" + godot::uitos( GODOT_VERSION_MAJOR ) + "." +
            godot::uitos( GODOT_VERSION_MINOR ) + "." + godot::uitos( GODOT_VERSION_PATCH ) + "-" +
@@ -41,11 +39,11 @@ godot::String GDExtensionTemplate::godotCPPVersion()
 }
 
 /// Bind our methods so GDScript can access them.
-void GDExtensionTemplate::_bind_methods()
+void VDot::_bind_methods()
 {
     godot::ClassDB::bind_static_method( "GDExtensionTemplate", godot::D_METHOD( "version" ),
-                                        &GDExtensionTemplate::version );
+                                        &VDot::version );
     godot::ClassDB::bind_static_method( "GDExtensionTemplate",
                                         godot::D_METHOD( "godot_cpp_version" ),
-                                        &GDExtensionTemplate::godotCPPVersion );
+                                        &VDot::godotCPPVersion );
 }

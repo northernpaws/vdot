@@ -6,49 +6,49 @@
 #include "godot_cpp/core/defs.hpp"
 #include "godot_cpp/godot.hpp"
 
-#include "Example.h"
-#include "GDExtensionTemplate.h"
+#include "vdot.h"
+
+#include "tracking/live_link/live_link_server.h"
+#include "tracking/live_link/live_link_panel.h"
 
 /// @file
 /// Register our classes with Godot.
 
-namespace
-{
+namespace {
     /// @brief Called by Godot to let us register our classes with Godot.
     ///
     /// @param p_level the level being initialized by Godot
     ///
     /// @see GDExtensionInit
-    void initializeExtension( godot::ModuleInitializationLevel p_level )
-    {
-        if ( p_level != godot::MODULE_INITIALIZATION_LEVEL_SCENE )
-        {
-            return;
+    void initializeExtension( godot::ModuleInitializationLevel p_level ) {
+        if ( p_level == godot::MODULE_INITIALIZATION_LEVEL_SCENE ) {
+//            godot::ClassDB::register_class<ExampleRef>();
+//            godot::ClassDB::register_class<ExampleMin>();
+//            godot::ClassDB::register_class<Example>();
+//            godot::ClassDB::register_class<ExampleVirtual>( true );
+//            godot::ClassDB::register_abstract_class<ExampleAbstract>();
+
+            godot::ClassDB::register_class<VDot>();
+
+            godot::ClassDB::register_class<LiveLinkClientData>();
+            godot::ClassDB::register_class<LiveLinkClient>();
+            godot::ClassDB::register_class<LiveLinkServer>();
+
+            godot::ClassDB::register_class<LiveLinkPanel>();
         }
-
-        godot::ClassDB::register_class<ExampleRef>();
-        godot::ClassDB::register_class<ExampleMin>();
-        godot::ClassDB::register_class<Example>();
-        godot::ClassDB::register_class<ExampleVirtual>( true );
-        godot::ClassDB::register_abstract_class<ExampleAbstract>();
-
-        godot::ClassDB::register_class<GDExtensionTemplate>();
     }
 
     /// @brief Called by Godot to let us do any cleanup.
     ///
     /// @see GDExtensionInit
-    void uninitializeExtension( godot::ModuleInitializationLevel p_level )
-    {
-        if ( p_level != godot::MODULE_INITIALIZATION_LEVEL_SCENE )
-        {
+    void uninitializeExtension( godot::ModuleInitializationLevel p_level ) {
+        if ( p_level != godot::MODULE_INITIALIZATION_LEVEL_SCENE ) {
             return;
         }
     }
 }
 
-extern "C"
-{
+extern "C" {
     /// @brief This is the entry point for the shared library.
     ///
     /// @note The name of this function must match the "entry_symbol" in
@@ -61,8 +61,7 @@ extern "C"
     /// @returns GDExtensionBool
     GDExtensionBool GDE_EXPORT GDExtensionInit(
         GDExtensionInterfaceGetProcAddress p_get_proc_address, GDExtensionClassLibraryPtr p_library,
-        GDExtensionInitialization *r_initialization )
-    {
+        GDExtensionInitialization *r_initialization ) {
         {
             godot::GDExtensionBinding::InitObject init_obj( p_get_proc_address, p_library,
                                                             r_initialization );

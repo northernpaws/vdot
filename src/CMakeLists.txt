@@ -2,10 +2,14 @@
 
 target_sources( ${PROJECT_NAME}
     PRIVATE
-        Example.h
-        Example.cpp
-        GDExtensionTemplate.h
-        GDExtensionTemplate.cpp
+        tracking/arkit/blend_shapes.h
+        tracking/arkit/blend_shapes.cpp
+        tracking/live_link/live_link_server.h
+        tracking/live_link/live_link_server.cpp
+        tracking/live_link/live_link_panel.h
+        tracking/live_link/live_link_panel.cpp
+        vdot.h
+        vdot.cpp
         register_extension.cpp
 )
 

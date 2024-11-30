@@ -1,5 +1,5 @@
-#pragma once
-// SPDX-License-Identifier: Unlicense
+#ifndef VDOT_H
+#define VDOT_H
 
 #include "godot_cpp/classes/object.hpp"
 
@@ -8,9 +8,9 @@ namespace godot
     class ClassDB;
 };
 
-class GDExtensionTemplate : public godot::Object
+class VDot : public godot::Object
 {
-    GDCLASS( GDExtensionTemplate, godot::Object )
+    GDCLASS( VDot, godot::Object )
 
 public:
     static godot::String version();
@@ -19,3 +19,5 @@ public:
 private:
     static void _bind_methods();
 };
+
+#endif // VDOT_H
