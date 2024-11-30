@@ -18,7 +18,7 @@ if ( CLANG_FORMAT_PROGRAM )
     list( FILTER CLANG_FORMAT_SOURCES EXCLUDE REGEX ".*/extern/.*" )
     list( FILTER CLANG_FORMAT_SOURCES EXCLUDE REGEX ".*/gen/.*" )
     list( FILTER CLANG_FORMAT_SOURCES EXCLUDE REGEX ".*/*.gdextension.in" )
-    list( FILTER CLANG_FORMAT_SOURCES EXCLUDE REGEX ".*/Version.h.in" )
+    list( FILTER CLANG_FORMAT_SOURCES EXCLUDE REGEX ".*/version.h.in" )
 
     add_custom_target( clang-format
         COMMAND "${CLANG_FORMAT_PROGRAM}" --style=file -i ${CLANG_FORMAT_SOURCES}

@@ -19,7 +19,7 @@ if ( GIT_PROGRAM )
 
     string( TOUPPER ${PROJECT_NAME} UPPER_PROJECT_NAME )
 
-    set( VERSION_INPUT_FILE "src/Version.h.in" )
+    set( VERSION_INPUT_FILE "src/version.h.in" )
     set( VERSION_OUTPUT_FILE "${CMAKE_BINARY_DIR}/gen/Version.h" )
 
     configure_file( "${VERSION_INPUT_FILE}" "${VERSION_OUTPUT_FILE}" )
