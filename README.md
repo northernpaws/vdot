@@ -1,8 +1,8 @@
-<h1 style="text-align: center;">
+<h1 align="center" style="text-align: center;">
   VDot
 </h1>
 
-<p style="text-align: center;">
+<p align="center" style="text-align: center;">
   Godot Extension for rendering, tracking, and lip-syncing various VTube models and environments.  
 </p>
 
