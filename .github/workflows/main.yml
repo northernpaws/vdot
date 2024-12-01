@@ -85,7 +85,7 @@ jobs:
         if: matrix.build_type == 'Debug'
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ github.event.repository.name }}-Debug GDExtension
+          name: gdextension-${{ matrix.config.platform }}
           path: |
             ${{ github.workspace }}/install-${{ matrix.build_type }}/*
 
@@ -93,9 +93,44 @@ jobs:
         if: matrix.build_type == 'Release'
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ github.event.repository.name }}-Release GDExtension
+          name: gdextension-${{ matrix.config.platform }}
           path: |
             ${{ github.workspace }}/install-${{ matrix.build_type }}/*
+
+  client:
+    needs: build
+
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: ['Debug', 'Release']
+        config:
+          - { name: '🍏 macOS Clang', platform: mac }
+          - { name: '🐧 Linux GCC', platform: linux }
+          - { name: '🪟 Windows MSVC', platform: windows }
+
+    name: 🛠 Build / ${{ matrix.config.name }} (${{ matrix.build_type }})
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      # Retrieve the platform-specific GDExtension build from the `build` step.
+      - uses: actions/download-artifact@v4
+        with:
+          #name: gdextension-${{ matrix.config.platform }}
+          pattern: gdextension-*
+          path: project/addons
+          merge-multiple: true
+
+      - name: Display structure of repository
+        run: ls
+
+      - name: Display structure of project
+        run: ls -R project
 
       - name: Godot Build (Debug)
         if: matrix.build_type == 'Debug'
@@ -103,7 +138,7 @@ jobs:
         uses: manleydev/build-godot-action@v1.4.1
         with:
           name: vdot
-          preset: ${{ matrix.config.template }}
+          preset: ${{ matrix.config.platform }}
           debugMode: "true"
 
       - name: Godot Build (Release)
@@ -119,7 +154,7 @@ jobs:
         if: matrix.build_type == 'Debug'
         uses: actions/upload-artifact@v3
         with:
-          name: Client - ${{ matrix.platform }}
+          name: Client - ${{ matrix.config.platform }}
           path: ${{ github.workspace }}/${{ steps.godot-debug.outputs.build }}
 
       - name: Upload Client artifact (Release)
