@@ -76,13 +76,6 @@ jobs:
 
       # Build the GDExtension containing the C++ sources.
       - name: Build
-        if: matrix.config.platform != 'windows'
-        env:
-          CC: clang
-          CXX: clang++
-        run: cmake --build GDExtension-build
-      - name: Build
-        if: matrix.config.platform == 'windows'
         run: cmake --build GDExtension-build
 
       # Install the GDExtension files into the `project/` directory.
