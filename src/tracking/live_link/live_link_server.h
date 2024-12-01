@@ -217,7 +217,7 @@ class LiveLinkClient : public godot::Object {
     godot::String _id;
     godot::String _name;
 
-    int _last_seen;
+    uint64_t _last_seen;
     godot::Ref<godot::PacketPeerUDP> _connection;
 
     LiveLinkClientData *_values; // tODO: use ref?
@@ -234,7 +234,7 @@ class LiveLinkServer : public godot::Node {
 
     using PeerList = godot::List<godot::Ref<godot::PacketPeerUDP>>;
 
-    int _port = 11111;
+    uint16_t _port = 11111;
 
     godot::UDPServer *_server;
     godot::Mutex _server_mutex;
