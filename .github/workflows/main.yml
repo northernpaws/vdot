@@ -55,6 +55,8 @@ jobs:
       - name: Setup MSVC (Windows)
         if: matrix.config.os == 'windows-latest'
         uses: ilammy/msvc-dev-cmd@v1
+        with:
+          vsversion: 2022 # latest supported by Live2D
 
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
