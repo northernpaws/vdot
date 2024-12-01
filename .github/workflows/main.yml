@@ -109,7 +109,7 @@ jobs:
           - { name: '🐧 Linux GCC', platform: linux }
           - { name: '🪟 Windows MSVC', platform: windows }
 
-    name: 🛠 Build / ${{ matrix.config.name }} (${{ matrix.build_type }})
+    name: 🖥️ Client / ${{ matrix.config.name }} (${{ matrix.build_type }})
     runs-on: ubuntu-latest
 
     steps:
