@@ -35,64 +35,33 @@ void LiveLinkPanel::_process( double delta ) {
     }
 }
 
-godot::StringName LiveLinkPanel::blend_shape_name(int i) {
+godot::StringName LiveLinkPanel::blend_shape_name( int i ) {
     // TODO: optimize
     return godot::Array::make(
-        "blend_shapes/eyeBlinkLeft",
-        "blend_shapes/eyeLookDownLeft",
-        "blend_shapes/eyeLookInLeft",
-        "blend_shapes/eyeLookOutLeft",
-        "blend_shapes/eyeLookUpLeft",
-        "blend_shapes/eyeSquintLeft",
-        "blend_shapes/eyeWideLeft",
-        "blend_shapes/eyeBlinkRight",
-        "blend_shapes/eyeLookDownRight",
-        "blend_shapes/eyeLookInRight",
-        "blend_shapes/eyeLookOutRight",
-        "blend_shapes/eyeLookUpRight",
-        "blend_shapes/eyeSquintRight",
-        "blend_shapes/eyeWideRight",
-        "blend_shapes/jawForward", "blend_shapes/jawRight",
-        "blend_shapes/jawLeft", "blend_shapes/jawOpen",
-        "blend_shapes/mouthClose", "blend_shapes/mouthFunnel",
-        "blend_shapes/mouthPucker", "blend_shapes/mouthRight",
-        "blend_shapes/mouthLeft",
-        "blend_shapes/mouthSmileLeft",
-        "blend_shapes/mouthSmileRight",
-        "blend_shapes/mouthFrownLeft",
-        "blend_shapes/mouthFrownRight",
-        "blend_shapes/mouthDimpleLeft",
-        "blend_shapes/mouthDimpleRight",
-        "blend_shapes/mouthStretchLeft",
-        "blend_shapes/mouthStretchRight",
-        "blend_shapes/mouthRollLower",
-        "blend_shapes/mouthRollUpper",
-        "blend_shapes/mouthShrugLower",
-        "blend_shapes/mouthShrugUpper",
-        "blend_shapes/mouthPressLeft",
-        "blend_shapes/mouthPressRight",
-        "blend_shapes/mouthLowerDownLeft",
-        "blend_shapes/mouthLowerDownRight",
-        "blend_shapes/mouthUpperUpLeft",
-        "blend_shapes/mouthUpperUpRight",
-        "blend_shapes/browDownLeft",
-        "blend_shapes/browDownRight",
-        "blend_shapes/browInnerUp",
-        "blend_shapes/browOuterUpLeft",
-        "blend_shapes/browOuterUpRight",
-        "blend_shapes/cheekPuff",
-        "blend_shapes/cheekSquintLeft",
-        "blend_shapes/cheekSquintRight",
-        "blend_shapes/noseSneerLeft",
-        "blend_shapes/noseSneerRight",
-        "blend_shapes/tongueOut", "blend_shapes/headYaw",
-        "blend_shapes/headPitch", "blend_shapes/headRoll",
-        "blend_shapes/leftEyeYaw",
-        "blend_shapes/leftEyePitch",
-        "blend_shapes/leftEyeRoll",
-        "blend_shapes/rightEyeYaw",
-        "blend_shapes/rightEyePitch",
-        "blend_shapes/rightEyeRoll" )[i];
+        "blend_shapes/eyeBlinkLeft", "blend_shapes/eyeLookDownLeft", "blend_shapes/eyeLookInLeft",
+        "blend_shapes/eyeLookOutLeft", "blend_shapes/eyeLookUpLeft", "blend_shapes/eyeSquintLeft",
+        "blend_shapes/eyeWideLeft", "blend_shapes/eyeBlinkRight", "blend_shapes/eyeLookDownRight",
+        "blend_shapes/eyeLookInRight", "blend_shapes/eyeLookOutRight",
+        "blend_shapes/eyeLookUpRight", "blend_shapes/eyeSquintRight", "blend_shapes/eyeWideRight",
+        "blend_shapes/jawForward", "blend_shapes/jawRight", "blend_shapes/jawLeft",
+        "blend_shapes/jawOpen", "blend_shapes/mouthClose", "blend_shapes/mouthFunnel",
+        "blend_shapes/mouthPucker", "blend_shapes/mouthRight", "blend_shapes/mouthLeft",
+        "blend_shapes/mouthSmileLeft", "blend_shapes/mouthSmileRight",
+        "blend_shapes/mouthFrownLeft", "blend_shapes/mouthFrownRight",
+        "blend_shapes/mouthDimpleLeft", "blend_shapes/mouthDimpleRight",
+        "blend_shapes/mouthStretchLeft", "blend_shapes/mouthStretchRight",
+        "blend_shapes/mouthRollLower", "blend_shapes/mouthRollUpper",
+        "blend_shapes/mouthShrugLower", "blend_shapes/mouthShrugUpper",
+        "blend_shapes/mouthPressLeft", "blend_shapes/mouthPressRight",
+        "blend_shapes/mouthLowerDownLeft", "blend_shapes/mouthLowerDownRight",
+        "blend_shapes/mouthUpperUpLeft", "blend_shapes/mouthUpperUpRight",
+        "blend_shapes/browDownLeft", "blend_shapes/browDownRight", "blend_shapes/browInnerUp",
+        "blend_shapes/browOuterUpLeft", "blend_shapes/browOuterUpRight", "blend_shapes/cheekPuff",
+        "blend_shapes/cheekSquintLeft", "blend_shapes/cheekSquintRight",
+        "blend_shapes/noseSneerLeft", "blend_shapes/noseSneerRight", "blend_shapes/tongueOut",
+        "blend_shapes/headYaw", "blend_shapes/headPitch", "blend_shapes/headRoll",
+        "blend_shapes/leftEyeYaw", "blend_shapes/leftEyePitch", "blend_shapes/leftEyeRoll",
+        "blend_shapes/rightEyeYaw", "blend_shapes/rightEyePitch", "blend_shapes/rightEyeRoll" )[i];
 }
 
 void LiveLinkPanel::update_mesh( const LiveLinkClientData *data ) {
@@ -103,7 +72,7 @@ void LiveLinkPanel::update_mesh( const LiveLinkClientData *data ) {
 
     for ( int i = 0; i < data->_data.size(); ++i ) {
         auto value = data->_data[i];
-        auto shape = _mesh->find_blend_shape_by_name( blend_shape_name(i) );
+        auto shape = _mesh->find_blend_shape_by_name( blend_shape_name( i ) );
         _mesh->set_blend_shape_value( shape, value );
     }
 }

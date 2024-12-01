@@ -27,7 +27,7 @@ class LiveLinkPanel : public godot::Control {
 
     void _process( double delta ) override;
 
-    godot::StringName blend_shape_name(int i);
+    godot::StringName blend_shape_name( int i );
 
     void update_mesh( const LiveLinkClientData *data );
 
