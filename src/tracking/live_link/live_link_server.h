@@ -130,8 +130,6 @@ class LiveLinkClientData : public godot::Object {
         RightEyeRoll = 61,
     };
 
-    static const godot::Array key_map;
-
     uint64_t _timecode;
     godot::PackedFloat32Array _data;
 
