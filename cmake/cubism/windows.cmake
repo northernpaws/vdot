@@ -26,10 +26,11 @@ elseif(MSVC_VERSION GREATER_EQUAL 1930 AND MSVC_VERSION LESS 1940)
     # Visual Studio 2022
     set(COMPILER 143)
 elseif(MSVC)
-    message(FATAL_ERROR "[${APP_NAME}] Unsupported Visual C++ compiler used.")
+    message(FATAL_ERROR "[${APP_NAME}] Unsupported Visual C++ compiler used. MSVC_VERSION: ${MSVC_VERSION}")
 else()
     message(FATAL_ERROR "[${APP_NAME}] Unsupported compiler used.")
 endif()
+
 # Detect core crt.
 if(CORE_CRL_MD)
     set(CRT MD)
