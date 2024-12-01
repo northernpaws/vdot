@@ -51,11 +51,11 @@ class CubismEffectHitArea : public CubismEffect {
   private:
     godot::Vector2 _target;
     bool _initialized = false;
-    bool _target_update;
+    bool _target_update = false;
     bool _monitoring = true;
     godot::Dictionary _dict_monitoring;
 
-    godot::Rect2 build_rect2( const godot::Ref<godot::ArrayMesh> &ref_ary_mesh ) const {
+    static godot::Rect2 build_rect2( const godot::Ref<godot::ArrayMesh> &ref_ary_mesh ) {
         godot::Array ary = ref_ary_mesh->surface_get_arrays( 0 );
         godot::PackedVector2Array ary_vtx = ary[godot::Mesh::ARRAY_VERTEX];
         const int64_t vtx_count = ary_vtx.size();
@@ -69,9 +69,9 @@ class CubismEffectHitArea : public CubismEffect {
         return check_rect;
     }
 
-    godot::Array check_collide_triangle( const godot::Ref<godot::ArrayMesh> &ref_ary_mesh ) const {
+    [[nodiscard]] godot::Array check_collide_triangle( const godot::Ref<godot::ArrayMesh> &ref_ary_mesh ) const {
         if ( ref_ary_mesh->surface_get_primitive_type( 0 ) != godot::Mesh::PRIMITIVE_TRIANGLES ) {
-            return godot::Array();
+            return {};
         }
 
         godot::Array ary = ref_ary_mesh->surface_get_arrays( 0 );
@@ -81,9 +81,9 @@ class CubismEffectHitArea : public CubismEffect {
         godot::Array ary_result;
 
         for ( int64_t i = 0; i < ary_idx.size(); i += 3 ) {
-            const int32_t ia = ary_idx[i + 0];
-            const int32_t ib = ary_idx[i + 1];
-            const int32_t ic = ary_idx[i + 2];
+            const int32_t ia = ary_idx[static_cast<int>(i) + 0];
+            const int32_t ib = ary_idx[static_cast<int>(i) + 1];
+            const int32_t ic = ary_idx[static_cast<int>(i) + 2];
 
             const godot::Vector2 ab = ary_vtx[ib] - ary_vtx[ia];
             const godot::Vector2 bc = ary_vtx[ic] - ary_vtx[ib];
@@ -115,35 +115,35 @@ class CubismEffectHitArea : public CubismEffect {
     }
 
     godot::Dictionary get_detail( const CubismModel *model, const godot::String &id ) {
-        if ( this->_initialized == false ) {
-            return godot::Dictionary();
+        if ( !this->_initialized ) {
+            return {};
         }
         if ( model == nullptr ) {
-            return godot::Dictionary();
+            return {};
         }
-        if ( model->is_initialized() == false ) {
-            return godot::Dictionary();
+        if ( !model->is_initialized() ) {
+            return {};
         }
 
         const godot::Dictionary dict_mesh = model->get_meshes();
-        if ( dict_mesh.is_empty() == true ) {
-            return godot::Dictionary();
+        if ( dict_mesh.is_empty() ) {
+            return {};
         }
 
         godot::Ref<godot::ArrayMesh> ref_ary_mesh = dict_mesh[id];
-        if ( ref_ary_mesh.is_null() == true ) {
-            return godot::Dictionary();
+        if ( ref_ary_mesh.is_null() ) {
+            return {};
         }
         if ( ref_ary_mesh->surface_get_array_index_len( 0 ) < 3 ) {
-            return godot::Dictionary();
+            return {};
         }
 
         godot::Dictionary dict_result;
 
-        godot::Rect2 rect = this->build_rect2( ref_ary_mesh );
+        godot::Rect2 rect = build_rect2( ref_ary_mesh );
         dict_result["rect"] = rect;
 
-        if ( rect.has_point( this->_target ) == true ) {
+        if ( rect.has_point( this->_target ) ) {
             godot::Array vertices = this->check_collide_triangle( ref_ary_mesh );
             if ( vertices.size() == 3 ) {
                 dict_result["vertices"] = vertices;
@@ -158,11 +158,11 @@ class CubismEffectHitArea : public CubismEffect {
         this->_monitoring = value;
     }
 
-    bool get_monitoring() const {
+    [[nodiscard]] bool get_monitoring() const {
         return this->_monitoring;
     }
 
-    virtual void _cubism_init( CubismModelProxy *internal_model ) override {
+    void _cubism_init( CubismModelProxy *internal_model ) override {
         if ( internal_model == nullptr ) {
             return;
         }
@@ -171,12 +171,12 @@ class CubismEffectHitArea : public CubismEffect {
         this->_initialized = true;
     }
 
-    virtual void _cubism_term( CubismModelProxy *internal_model ) override {
+    void _cubism_term( CubismModelProxy *internal_model ) override {
         this->_initialized = false;
     }
 
-    virtual void _cubism_process( CubismModelProxy *model, const float delta ) override {
-        if ( this->_active == false ) {
+    void _cubism_process( CubismModelProxy *model, const float delta ) override {
+        if ( !this->_active ) {
             return;
         }
 
@@ -186,7 +186,7 @@ class CubismEffectHitArea : public CubismEffect {
         for ( int64_t i = 0; i < ary.size(); i++ ) {
             const godot::String id =
                 static_cast<godot::Dictionary>( ary[i] ).get( "id", godot::String() );
-            if ( dict_mesh.has( id ) != true ) {
+            if ( !dict_mesh.has( id ) ) {
                 continue;
             }
 
@@ -195,11 +195,11 @@ class CubismEffectHitArea : public CubismEffect {
                 continue;
             }
 
-            godot::Rect2 check_rect = this->build_rect2( ref_ary_mesh );
+            godot::Rect2 check_rect = CubismEffectHitArea::build_rect2( ref_ary_mesh );
 
-            if ( this->_target_update == true && check_rect.has_point( this->_target ) == true ) {
-                if ( this->_monitoring == true ) {
-                    if ( static_cast<bool>( this->_dict_monitoring.get( id, false ) ) == false ) {
+            if ( this->_target_update && check_rect.has_point( this->_target ) ) {
+                if ( this->_monitoring ) {
+                    if ( !static_cast<bool>( this->_dict_monitoring.get( id, false ) ) ) {
                         this->emit_signal( SIGNAL_EFFECT_HIT_AREA_ENTERED, model->_owner_viewport,
                                            id );
                     }
@@ -208,7 +208,7 @@ class CubismEffectHitArea : public CubismEffect {
                 }
                 this->_dict_monitoring[id] = true;
             } else {
-                if ( static_cast<bool>( this->_dict_monitoring.get( id, false ) ) == true ) {
+                if ( static_cast<bool>( this->_dict_monitoring.get( id, false ) ) ) {
                     this->emit_signal( SIGNAL_EFFECT_HIT_AREA_EXITED, model->_owner_viewport, id );
                 }
                 this->_dict_monitoring[id] = false;
@@ -216,7 +216,7 @@ class CubismEffectHitArea : public CubismEffect {
         }
     }
 
-    virtual void _cubism_epilogue( CubismModelProxy *model, const float delta ) override {
+    void _cubism_epilogue( CubismModelProxy *model, const float delta ) override {
         this->_target_update = false;
     }
 };

@@ -29,7 +29,7 @@ class CubismEffect : public godot::Node {
     void set_active( const bool active ) {
         this->_active = active;
     }
-    bool get_active() const {
+    [[nodiscard]] bool get_active() const {
         return this->_active;
     }
 

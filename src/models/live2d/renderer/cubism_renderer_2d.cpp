@@ -24,13 +24,11 @@ godot::PackedVector2Array make_PackedArrayVector3( const Live2D::Cubism::Core::c
                                                    const int32_t &size,
                                                    const Csm::csmFloat32 &ppunit,
                                                    const godot::Vector2 &vct_adjust );
-const godot::Vector4 make_vector4( const Live2D::Cubism::Core::csmVector4 &src_vec4 );
+godot::Vector4 make_vector4( const Live2D::Cubism::Core::csmVector4 &src_vec4 );
 
-CubismRenderer2D::CubismRenderer2D() {
-}
+CubismRenderer2D::CubismRenderer2D() = default;
 
-CubismRenderer2D::~CubismRenderer2D() {
-}
+CubismRenderer2D::~CubismRenderer2D() = default;
 
 godot::Ref<godot::ShaderMaterial> CubismRenderer2D::make_ShaderMaterial(
     const Csm::CubismModel *model, const Csm::csmInt32 index, const ::CubismRenderer &res ) const {
@@ -55,7 +53,7 @@ godot::Ref<godot::ShaderMaterial> CubismRenderer2D::make_ShaderMaterial(
                 break;
         }
     } else {
-        if ( model->GetDrawableInvertedMask( index ) == false ) {
+        if ( !model->GetDrawableInvertedMask( index ) ) {
             switch ( model->GetDrawableBlendMode( index ) ) {
                 case CubismBlendMode_Additive:
                     e = CUBISM_SHADER_MASK_ADD;
@@ -130,7 +128,7 @@ void CubismRenderer2D::make_ArrayMesh_prepare( const Csm::CubismModel *model,
     res.CALCULATED_ORIGIN_M = ( godot::Vector2( res.vct_mask_size ) * vct_origin ) / vct_size;
     res.RATIO = float( res.vct_mask_size.x ) / float( res.vct_canvas_size.x );
 
-    if ( res._owner_viewport->auto_scale == true ) {
+    if ( res._owner_viewport->auto_scale ) {
         float fdstC = godot::MIN( static_cast<float>( res.vct_canvas_size.x ),
                                   static_cast<float>( res.vct_canvas_size.y ) );
         float fdstM = godot::MIN( static_cast<float>( res.vct_mask_size.x ),
@@ -154,8 +152,8 @@ godot::Ref<godot::ArrayMesh> CubismRenderer2D::make_ArrayMesh( const Csm::Cubism
 
     ary.resize( godot::Mesh::ARRAY_MAX );
 
-    if ( maskmode == true ) {
-        if ( res._owner_viewport->auto_scale == true ) {
+    if ( maskmode ) {
+        if ( res._owner_viewport->auto_scale ) {
             ary[godot::Mesh::ARRAY_VERTEX] = make_PackedArrayVector3(
                 model->GetDrawableVertexPositions( index ), model->GetDrawableVertexCount( index ),
                 res.CALCULATED_PPUNIT_M, res.CALCULATED_ORIGIN_M + adjust_pos * res.RATIO );
@@ -217,7 +215,7 @@ godot::Vector2 CubismRenderer2D::get_size( const Csm::CubismModel *model ) const
 
     Live2D::Cubism::Core::csmReadCanvasInfo( model->GetModel(), &vct_size, &vct_origin, &ppunit );
 
-    return godot::Vector2( vct_size.X, vct_size.Y );
+    return { vct_size.X, vct_size.Y };
 }
 
 godot::Vector2 CubismRenderer2D::get_origin( const Csm::CubismModel *model ) const {
@@ -227,7 +225,7 @@ godot::Vector2 CubismRenderer2D::get_origin( const Csm::CubismModel *model ) con
 
     Live2D::Cubism::Core::csmReadCanvasInfo( model->GetModel(), &vct_size, &vct_origin, &ppunit );
 
-    return godot::Vector2( vct_origin.X, vct_origin.Y );
+    return { vct_origin.X, vct_origin.Y };
 }
 
 float CubismRenderer2D::get_ppunit( const Csm::CubismModel *model ) const {
@@ -280,7 +278,7 @@ void CubismRenderer2D::update( ::CubismRenderer &res ) {
     // 描画
     for ( Csm::csmInt32 index = 0; index < model->GetDrawableCount(); index++ ) {
         // Drawableが表示状態でなければ処理をパスする
-        if ( model->GetDrawableDynamicFlagIsVisible( index ) == false ) {
+        if ( !model->GetDrawableDynamicFlagIsVisible( index ) ) {
             continue;
         }
         if ( model->GetDrawableVertexCount( index ) == 0 ) {
@@ -348,7 +346,7 @@ void CubismRenderer2D::update( ::CubismRenderer &res, const bool update_node,
 
     for ( Csm::csmInt32 index = 0; index < model->GetDrawableCount(); index++ ) {
 
-        if ( model->GetDrawableDynamicFlagIsVisible( index ) == false ) {
+        if ( !model->GetDrawableDynamicFlagIsVisible( index ) ) {
             continue;
         }
         if ( model->GetDrawableVertexCount( index ) == 0 ) {
@@ -411,6 +409,6 @@ godot::PackedVector2Array make_PackedArrayVector3( const Live2D::Cubism::Core::c
     return ary;
 }
 
-const godot::Vector4 make_vector4( const Live2D::Cubism::Core::csmVector4 &src_vec4 ) {
+godot::Vector4 make_vector4( const Live2D::Cubism::Core::csmVector4 &src_vec4 ) {
     return godot::Vector4( src_vec4.X, src_vec4.Y, src_vec4.Z, src_vec4.W );
 }

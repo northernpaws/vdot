@@ -14,18 +14,18 @@
 
 class CubismAllocator : public Live2D::Cubism::Framework::ICubismAllocator {
   public:
-    virtual void *Allocate( const Csm::csmSizeType size ) override {
+    void *Allocate( const Csm::csmSizeType size ) override {
         return memalloc( size );
     }
 
-    virtual void Deallocate( void *addr ) override {
+    void Deallocate( void *addr ) override {
         if ( addr == nullptr ) {
             return;
         }
         memfree( addr );
     }
 
-    virtual void *AllocateAligned( const Csm::csmSizeType size,
+    void *AllocateAligned( const Csm::csmSizeType size,
                                    const Csm::csmUint32 alignment ) override {
         size_t offset, shift, aligned_address;
         void *allocation, **preamble;
@@ -48,7 +48,7 @@ class CubismAllocator : public Live2D::Cubism::Framework::ICubismAllocator {
         return reinterpret_cast<void *>( aligned_address );
     }
 
-    virtual void DeallocateAligned( void *aligned_addr ) override {
+    void DeallocateAligned( void *aligned_addr ) override {
         void **addr = reinterpret_cast<void **>( aligned_addr );
         this->Deallocate( addr[-1] );
     }

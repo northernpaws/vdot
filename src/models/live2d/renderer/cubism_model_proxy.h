@@ -34,7 +34,7 @@ class CubismModelProxy : public Csm::CubismUserModel {
 
   public:
     CubismModelProxy( CubismModel *owner_viewport, godot::Node *parent_node );
-    virtual ~CubismModelProxy();
+    ~CubismModelProxy() override;
 
   public:
     CubismModel *_owner_viewport = nullptr;
@@ -69,7 +69,7 @@ class CubismModelProxy : public Csm::CubismUserModel {
         const bool loop_fade_in, void *custom_data );
     void motion_stop();
 
-    virtual void MotionEventFired( const Csm::csmString &eventValue ) override;
+    void MotionEventFired( const Csm::csmString &eventValue ) override;
 
   private:
     void expression_load();

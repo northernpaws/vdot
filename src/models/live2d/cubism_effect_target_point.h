@@ -105,21 +105,21 @@ class CubismEffectTargetPoint : public CubismEffect {
         this->head_angle_x = id;
         this->initialized = false;
     }
-    godot::String get_head_angle_x() const {
+    [[nodiscard]] godot::String get_head_angle_x() const {
         return this->head_angle_x;
     }
     void set_head_angle_y( const godot::String id ) {
         this->head_angle_y = id;
         this->initialized = false;
     }
-    godot::String get_head_angle_y() const {
+    [[nodiscard]] godot::String get_head_angle_y() const {
         return this->head_angle_y;
     }
     void set_head_angle_z( const godot::String id ) {
         this->head_angle_z = id;
         this->initialized = false;
     }
-    godot::String get_head_angle_z() const {
+    [[nodiscard]] godot::String get_head_angle_z() const {
         return this->head_angle_z;
     }
 
@@ -127,7 +127,7 @@ class CubismEffectTargetPoint : public CubismEffect {
         this->body_angle_x = id;
         this->initialized = false;
     }
-    godot::String get_body_angle_x() const {
+    [[nodiscard]] godot::String get_body_angle_x() const {
         return this->body_angle_x;
     }
 
@@ -135,14 +135,14 @@ class CubismEffectTargetPoint : public CubismEffect {
         this->eyes_ball_x = id;
         this->initialized = false;
     }
-    godot::String get_eyes_ball_x() const {
+    [[nodiscard]] godot::String get_eyes_ball_x() const {
         return this->eyes_ball_x;
     }
     void set_eyes_ball_y( const godot::String id ) {
         this->eyes_ball_y = id;
         this->initialized = false;
     }
-    godot::String get_eyes_ball_y() const {
+    [[nodiscard]] godot::String get_eyes_ball_y() const {
         return this->eyes_ball_y;
     }
 
@@ -176,21 +176,21 @@ class CubismEffectTargetPoint : public CubismEffect {
     void set_head_range( const float range ) {
         this->_headRange = range;
     }
-    float get_head_range() const {
+    [[nodiscard]] float get_head_range() const {
         return this->_headRange;
     }
 
     void set_body_range( const float range ) {
         this->_bodyRange = range;
     }
-    float get_body_range() const {
+    [[nodiscard]] float get_body_range() const {
         return this->_bodyRange;
     }
 
     void set_eyes_range( const float range ) {
         this->_eyesRange = range;
     }
-    float get_eyes_range() const {
+    [[nodiscard]] float get_eyes_range() const {
         return this->_eyesRange;
     }
 
@@ -205,19 +205,19 @@ class CubismEffectTargetPoint : public CubismEffect {
 
     godot::Vector2 get_target() const {
         if ( this->_target_point == nullptr ) {
-            return godot::Vector2();
+            return {};
         }
-        return godot::Vector2( this->_target_point->GetX(), this->_target_point->GetY() );
+        return { this->_target_point->GetX(), this->_target_point->GetY() };
     }
 
-    virtual void _cubism_init( CubismModelProxy *model ) override {
+    void _cubism_init( CubismModelProxy *model ) override {
         this->_target_point = memnew( Csm::CubismTargetPoint );
         this->_target_point->Set( 0.0, 0.0 );
         this->_map_param_idx.Clear();
         this->initialized = false;
     }
 
-    virtual void _cubism_term( CubismModelProxy *model ) override {
+    void _cubism_term( CubismModelProxy *model ) override {
 
         this->_map_param_idx.Clear();
 
@@ -231,13 +231,13 @@ class CubismEffectTargetPoint : public CubismEffect {
         if ( this->_target_point == nullptr ) {
             return;
         }
-        if ( this->_active == false ) {
+        if ( !this->_active ) {
             return;
         }
 
         Csm::CubismModel *_model = model->GetModel();
 
-        if ( this->initialized == false ) {
+        if ( !this->initialized ) {
             Csm::csmInt32 v;
             // ANGLE_X
             v = this->find_idx( _model, Csm::csmString( this->head_angle_x.utf8().ptr() ) );

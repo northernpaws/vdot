@@ -113,19 +113,19 @@ void _recurisive_dispose_node( const godot::Node *parent_node, const bool node_r
             continue;
         }
 
-        godot::MeshInstance2D *m_node =
+        auto *m_node =
             godot::Object::cast_to<godot::MeshInstance2D>( ary_node[i] );
         if ( m_node != nullptr ) {
             m_node->set_material( nullptr );
         }
 
-        godot::Node *node = godot::Object::cast_to<godot::Node>( ary_node[i] );
+        auto *node = godot::Object::cast_to<godot::Node>( ary_node[i] );
         if ( node != nullptr ) {
             _recurisive_dispose_node( node, node_release );
             if ( node->get_parent() != nullptr ) {
                 node->get_parent()->remove_child( node );
             }
-            if ( node_release == true ) {
+            if ( node_release ) {
                 node->queue_free();
             }
         }

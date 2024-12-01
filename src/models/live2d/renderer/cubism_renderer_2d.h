@@ -28,7 +28,7 @@ class CubismRenderer2D : public Live2D::Cubism::Framework::Rendering::CubismRend
 
   public:
     CubismRenderer2D();
-    virtual ~CubismRenderer2D();
+    ~CubismRenderer2D() override;
 
   private:
     godot::Ref<godot::ShaderMaterial> make_ShaderMaterial( const Csm::CubismModel *model,
@@ -44,8 +44,8 @@ class CubismRenderer2D : public Live2D::Cubism::Framework::Rendering::CubismRend
                       ::CubismRenderer &res );
 
   public:
-    Csm::csmInt32 calc_viewport_count() const;
-    Csm::csmInt32 calc_mesh_instance_count() const;
+    [[nodiscard]] Csm::csmInt32 calc_viewport_count() const;
+    [[nodiscard]] Csm::csmInt32 calc_mesh_instance_count() const;
     godot::Vector2 get_size( const Csm::CubismModel *model ) const;
     godot::Vector2 get_origin( const Csm::CubismModel *model ) const;
     float get_ppunit( const Csm::CubismModel *model ) const;
@@ -53,10 +53,10 @@ class CubismRenderer2D : public Live2D::Cubism::Framework::Rendering::CubismRend
     void update( ::CubismRenderer &res );
     void update( ::CubismRenderer &res, const bool update_node, const bool update_mesh );
 
-    virtual void Initialize( Csm::CubismModel *model, Csm::csmInt32 maskBufferCount );
-    void DoDrawModel();
-    void SaveProfile();
-    void RestoreProfile();
+    void Initialize( Csm::CubismModel *model, Csm::csmInt32 maskBufferCount ) override;
+    void DoDrawModel() override;
+    void SaveProfile() override;
+    void RestoreProfile() override;
 };
 
 #endif // VDOT_CUBISM_RENDERER_2D_H

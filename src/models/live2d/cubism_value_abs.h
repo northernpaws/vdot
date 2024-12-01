@@ -38,8 +38,8 @@ class CubismValueAbs : public godot::Resource {
 
   protected:
     godot::String id;
-    float _value;
-    float *raw_value;
+    float _value = 0;
+    float *raw_value = nullptr;
     bool changed;
     const ValueType _value_type = UNKONWN;
 
@@ -48,12 +48,11 @@ class CubismValueAbs : public godot::Resource {
     }
 
   public:
-    CubismValueAbs() {
-    }
-    CubismValueAbs( const ValueType value_type ) : _value_type( value_type ) {
+    CubismValueAbs() = default;
+    explicit CubismValueAbs( const ValueType value_type ) : _value_type( value_type ) {
     }
 
-    godot::String get_id() const {
+    [[nodiscard]] godot::String get_id() const {
         return this->id;
     }
     void set_value( const float value ) {
@@ -65,7 +64,7 @@ class CubismValueAbs : public godot::Resource {
     }
 
     void set_raw_value() {
-        if ( this->changed == true ) {
+        if ( this->changed ) {
             *this->raw_value = this->_value;
             this->changed = false;
         }

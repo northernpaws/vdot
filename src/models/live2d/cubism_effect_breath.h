@@ -27,7 +27,7 @@ class CubismEffectBreath : public CubismEffect {
     Csm::CubismBreath *_breath = nullptr;
 
   public:
-    virtual void _cubism_init( CubismModelProxy *model ) override {
+    void _cubism_init( CubismModelProxy *model ) override {
         this->_breath = Csm::CubismBreath::Create();
 
         Csm::csmVector<Csm::CubismBreath::BreathParameterData> param;
@@ -56,18 +56,18 @@ class CubismEffectBreath : public CubismEffect {
         this->_breath->SetParameters( param );
     }
 
-    virtual void _cubism_term( CubismModelProxy *model ) override {
+    void _cubism_term( CubismModelProxy *model ) override {
         if ( this->_breath != nullptr ) {
             Csm::CubismBreath::Delete( this->_breath );
             this->_breath = nullptr;
         }
     }
 
-    virtual void _cubism_process( CubismModelProxy *model, const float delta ) override {
+    void _cubism_process( CubismModelProxy *model, const float delta ) override {
         if ( this->_breath == nullptr ) {
             return;
         }
-        if ( this->_active == false ) {
+        if ( !this->_active ) {
             return;
         }
         this->_breath->UpdateParameters( model->GetModel(), delta );

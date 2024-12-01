@@ -35,7 +35,7 @@ class CubismMotionQueueEntryHandle : public godot::Resource {
     }
 
   public:
-    HandleError get_error() const {
+    [[nodiscard]] HandleError get_error() const {
         if ( this->_handle == Csm::InvalidMotionQueueEntryHandleValue ) {
             return FAILED;
         }
@@ -58,7 +58,7 @@ class CubismMotionEntry : public godot::Resource {
     }
 
   private:
-    Csm::CubismMotionQueueEntry *_entry;
+    Csm::CubismMotionQueueEntry *_entry = nullptr;
 };
 
 #endif // VDOT_CUBISM_MOTION_ENTRY_H

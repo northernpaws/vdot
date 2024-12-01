@@ -61,7 +61,7 @@ bool CubismModelProxy::model_load( const godot::String &model_pathname ) {
     }
 
     // Expression
-    if ( this->_owner_viewport->enable_load_expressions == true ) {
+    if ( this->_owner_viewport->enable_load_expressions ) {
         this->expression_load();
     }
 
@@ -96,7 +96,7 @@ bool CubismModelProxy::model_load( const godot::String &model_pathname ) {
     this->_model->SaveParameters();
 
     // Motion
-    if ( this->_owner_viewport->enable_load_motions == true ) {
+    if ( this->_owner_viewport->enable_load_motions ) {
         this->motion_load();
     }
 
@@ -117,7 +117,7 @@ bool CubismModelProxy::model_load( const godot::String &model_pathname ) {
     // The process to make the mesh available immediately after initialization.
     // The process is almost the same as the CubismModelProxy::update_node() function.
     {
-        CubismRenderer2D *renderer = this->GetRenderer<CubismRenderer2D>();
+        auto *renderer = this->GetRenderer<CubismRenderer2D>();
 
         // Update Adjust Parameter(s)
         this->_renderer_resource.adjust_scale = this->_owner_viewport->adjust_scale;
@@ -162,7 +162,7 @@ void CubismModelProxy::model_load_resource() {
 }
 
 void CubismModelProxy::pro_update( const float delta ) {
-    if ( this->IsInitialized() == false ) {
+    if ( !this->IsInitialized() ) {
         return;
     }
     if ( this->_model_setting == nullptr ) {
@@ -188,7 +188,7 @@ void CubismModelProxy::pro_update( const float delta ) {
 }
 
 void CubismModelProxy::efx_update( const float delta ) {
-    if ( this->IsInitialized() == false ) {
+    if ( !this->IsInitialized() ) {
         return;
     }
     if ( this->_model_setting == nullptr ) {
@@ -198,7 +198,7 @@ void CubismModelProxy::efx_update( const float delta ) {
         return;
     }
 
-    if ( this->_owner_viewport->check_cubism_effect_dirty() == true ) {
+    if ( this->_owner_viewport->check_cubism_effect_dirty() ) {
         this->effect_term();
         this->effect_init();
         this->_owner_viewport->cubism_effect_dirty_reset();
@@ -208,7 +208,7 @@ void CubismModelProxy::efx_update( const float delta ) {
 }
 
 void CubismModelProxy::epi_update( const float delta ) {
-    if ( this->IsInitialized() == false ) {
+    if ( !this->IsInitialized() ) {
         return;
     }
     if ( this->_model_setting == nullptr ) {
@@ -230,11 +230,11 @@ void CubismModelProxy::epi_update( const float delta ) {
 }
 
 void CubismModelProxy::update_node() {
-    if ( this->IsInitialized() == false ) {
+    if ( !this->IsInitialized() ) {
         return;
     }
 
-    CubismRenderer2D *renderer = this->GetRenderer<CubismRenderer2D>();
+    auto *renderer = this->GetRenderer<CubismRenderer2D>();
 
     // Update Adjust Parameter(s)
     this->_renderer_resource.adjust_scale = this->_owner_viewport->adjust_scale;
@@ -299,8 +299,6 @@ void CubismModelProxy::stop() {
 }
 
 void CubismModelProxy::expression_set( const char *expression_id ) {
-    Live2D::Cubism::Framework::csmString id = expression_id;
-
     Live2D::Cubism::Framework::ACubismMotion *motion =
         this->_map_expression[Live2D::Cubism::Framework::csmString( expression_id )];
 
@@ -379,8 +377,8 @@ void CubismModelProxy::expression_load() {
             this->_model_pathname.get_base_dir().path_join( gd_filename );
 
         godot::PackedByteArray buffer = godot::FileAccess::get_file_as_bytes( expression_pathname );
-        Live2D::Cubism::Framework::CubismExpressionMotion *motion =
-            static_cast<Live2D::Cubism::Framework::CubismExpressionMotion *>( this->LoadExpression(
+        auto *motion =
+            dynamic_cast<Live2D::Cubism::Framework::CubismExpressionMotion *>( this->LoadExpression(
                 buffer.ptr(), static_cast<Live2D::Cubism::Framework::csmSizeInt>( buffer.size() ),
                 this->_model_setting->GetExpressionName( i ) ) );
 
@@ -472,8 +470,8 @@ void CubismModelProxy::motion_load() {
                 this->_model_pathname.get_base_dir().path_join( gd_filename );
 
             godot::PackedByteArray buffer = godot::FileAccess::get_file_as_bytes( motion_pathname );
-            Live2D::Cubism::Framework::CubismMotion *motion =
-                static_cast<Live2D::Cubism::Framework::CubismMotion *>( this->LoadMotion(
+            auto *motion =
+                dynamic_cast<Live2D::Cubism::Framework::CubismMotion *>( this->LoadMotion(
                     buffer.ptr(),
                     static_cast<Live2D::Cubism::Framework::csmSizeInt>( buffer.size() ),
                     name.GetRawString() ) );

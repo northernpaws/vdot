@@ -28,14 +28,14 @@ void CubismEffect::_cubism_epilogue( CubismModelProxy *model, const float delta 
 }
 
 void CubismEffect::_enter_tree() {
-    CubismModel *node = godot::Object::cast_to<CubismModel>( this->get_parent() );
+    auto *node = godot::Object::cast_to<CubismModel>( this->get_parent() );
     if ( node != nullptr ) {
         node->_on_append_child_act( this );
     }
 }
 
 void CubismEffect::_exit_tree() {
-    CubismModel *node = godot::Object::cast_to<CubismModel>( this->get_parent() );
+    auto *node = godot::Object::cast_to<CubismModel>( this->get_parent() );
     if ( node != nullptr ) {
         node->_on_remove_child_act( this );
     }

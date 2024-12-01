@@ -299,7 +299,7 @@ void CubismModel::set_assets( const godot::String p_assets ) {
     this->assets = p_assets;
 
     godot::Ref<godot::FileAccess> f = godot::FileAccess::open( p_assets, godot::FileAccess::READ );
-    if ( f.is_null() == true ) {
+    if ( f.is_null() ) {
         this->clear();
         return;
     }
@@ -307,11 +307,11 @@ void CubismModel::set_assets( const godot::String p_assets ) {
     this->clear();
     this->proxy_model = CSM_NEW CubismModelProxy( this, this );
 
-    if ( this->proxy_model->model_load( p_assets ) == false ) {
+    if ( !this->proxy_model->model_load( p_assets ) ) {
         this->clear();
         return;
     }
-    if ( this->proxy_model->IsInitialized() == false ) {
+    if ( !this->proxy_model->IsInitialized() ) {
         this->clear();
         return;
     }
@@ -433,8 +433,8 @@ bool CubismModel::get_auto_scale() const {
 
 godot::Dictionary CubismModel::get_motions() const {
     ERR_FAIL_COND_V( this->is_initialized() == false, godot::Dictionary() );
-    if ( this->enable_load_motions == false ) {
-        return godot::Dictionary();
+    if ( !this->enable_load_motions ) {
+        return {};
     }
 
     Csm::ICubismModelSetting *setting = this->proxy_model->_model_setting;
@@ -463,7 +463,7 @@ godot::Ref<CubismMotionQueueEntryHandle> CubismModel::start_motion_loop(
     godot::Ref<CubismMotionQueueEntryHandle> queue_handle;
     queue_handle.instantiate();
 
-    if ( this->is_initialized() == false ) {
+    if ( !this->is_initialized() ) {
         return queue_handle;
     }
 
@@ -493,7 +493,7 @@ godot::Array CubismModel::get_cubism_motion_queue_entries() const {
 }
 
 void CubismModel::stop_motion() {
-    if ( this->is_initialized() == false ) {
+    if ( !this->is_initialized() ) {
         return;
     }
 
@@ -502,8 +502,8 @@ void CubismModel::stop_motion() {
 
 godot::Array CubismModel::get_expressions() const {
     ERR_FAIL_COND_V( this->is_initialized() == false, godot::Array() );
-    if ( this->enable_load_expressions == false ) {
-        return godot::Array();
+    if ( !this->enable_load_expressions ) {
+        return {};
     }
 
     Csm::ICubismModelSetting *setting = this->proxy_model->_model_setting;
@@ -521,7 +521,7 @@ godot::Array CubismModel::get_expressions() const {
 }
 
 void CubismModel::start_expression( const godot::String str_expression_id ) {
-    if ( this->is_initialized() == false ) {
+    if ( !this->is_initialized() ) {
         return;
     }
 
@@ -529,7 +529,7 @@ void CubismModel::start_expression( const godot::String str_expression_id ) {
 }
 
 void CubismModel::stop_expression() {
-    if ( this->is_initialized() == false ) {
+    if ( !this->is_initialized() ) {
         return;
     }
 
@@ -593,8 +593,8 @@ void CubismModel::_update( const float delta ) {
 
     for ( Csm::csmInt32 index = 0; index < this->ary_parameter.size(); index++ ) {
         godot::Ref<CubismParameter> param = this->ary_parameter[index];
-        if ( param.is_null() != true ) {
-            if ( param->hold == true ) {
+        if ( !param.is_null() ) {
+            if ( param->hold ) {
                 param->set_raw_value();
                 param->changed = true;
             } else {
@@ -606,7 +606,7 @@ void CubismModel::_update( const float delta ) {
 
     for ( Csm::csmInt32 index = 0; index < this->ary_part_opacity.size(); index++ ) {
         godot::Ref<CubismPartOpacity> param = this->ary_part_opacity[index];
-        if ( param.is_null() != true ) {
+        if ( !param.is_null() ) {
             param->set_raw_value();
             param->get_raw_value();
         }
@@ -648,13 +648,13 @@ void CubismModel::setup_property() {
     this->dict_anim_expression.Clear();
     this->dict_anim_motion.Clear();
 
-    if ( this->is_initialized() == false ) {
+    if ( !this->is_initialized() ) {
         return;
     }
     Csm::ICubismModelSetting *setting = this->proxy_model->_model_setting;
 
     // Property - Expression
-    if ( this->enable_load_expressions == true ) {
+    if ( this->enable_load_expressions ) {
         for ( Csm::csmInt32 i = 0; i < setting->GetExpressionCount(); i++ ) {
             const Csm::csmChar *expression_id = setting->GetExpressionName( i );
             anim_expression anim_e( expression_id );
@@ -664,7 +664,7 @@ void CubismModel::setup_property() {
     }
 
     // Property - Motion
-    if ( this->enable_load_motions == true ) {
+    if ( this->enable_load_motions ) {
         for ( Csm::csmInt32 i = 0; i < setting->GetMotionGroupCount(); i++ ) {
             const Csm::csmChar *group = setting->GetMotionGroupName( i );
             for ( Csm::csmInt32 no = 0; no < setting->GetMotionCount( group ); no++ ) {
@@ -677,14 +677,14 @@ void CubismModel::setup_property() {
 }
 
 bool CubismModel::_set( const godot::StringName &p_name, const godot::Variant &p_value ) {
-    if ( this->is_initialized() == false ) {
+    if ( !this->is_initialized() ) {
         return false;
     }
     Csm::CubismModel *model = this->proxy_model->GetModel();
 
     if ( p_name == godot::String( PROP_ANIM_EXPRESSION ) ) {
         this->curr_anim_expression_key = p_value;
-        if ( this->dict_anim_expression.IsExist( this->curr_anim_expression_key ) == true ) {
+        if ( this->dict_anim_expression.IsExist( this->curr_anim_expression_key ) ) {
             anim_expression anim_e = this->dict_anim_expression[this->curr_anim_expression_key];
             this->start_expression( anim_e.expression_id );
         }
@@ -694,7 +694,7 @@ bool CubismModel::_set( const godot::StringName &p_name, const godot::Variant &p
 
     if ( p_name == godot::String( PROP_ANIM_MOTION ) ) {
         this->curr_anim_motion_key = p_value;
-        if ( this->dict_anim_motion.IsExist( this->curr_anim_motion_key ) == true ) {
+        if ( this->dict_anim_motion.IsExist( this->curr_anim_motion_key ) ) {
             anim_motion anim_m = this->dict_anim_motion[this->curr_anim_motion_key];
             this->start_motion_loop( anim_m.group, anim_m.no, Priority::PRIORITY_FORCE,
                                      this->anim_loop, this->anim_loop_fade_in );
@@ -736,7 +736,7 @@ bool CubismModel::_set( const godot::StringName &p_name, const godot::Variant &p
 }
 
 bool CubismModel::_get( const godot::StringName &p_name, godot::Variant &r_ret ) const {
-    if ( this->is_initialized() == false ) {
+    if ( !this->is_initialized() ) {
         return false;
     }
     Csm::CubismModel *model = this->proxy_model->GetModel();
@@ -784,7 +784,7 @@ bool CubismModel::_get( const godot::StringName &p_name, godot::Variant &r_ret )
 }
 
 bool CubismModel::_property_can_revert( const godot::StringName &p_name ) const {
-    if ( this->is_initialized() == false ) {
+    if ( !this->is_initialized() ) {
         return false;
     }
     Csm::CubismModel *model = this->proxy_model->GetModel();
@@ -810,7 +810,7 @@ bool CubismModel::_property_can_revert( const godot::StringName &p_name ) const 
 
 bool CubismModel::_property_get_revert( const godot::StringName &p_name,
                                         godot::Variant &r_property ) const {
-    if ( this->is_initialized() == false ) {
+    if ( !this->is_initialized() ) {
         return false;
     }
     Csm::CubismModel *model = this->proxy_model->GetModel();
@@ -838,7 +838,7 @@ bool CubismModel::_property_get_revert( const godot::StringName &p_name,
 }
 
 void CubismModel::_get_property_list( godot::List<godot::PropertyInfo> *p_list ) {
-    if ( this->is_initialized() == false ) {
+    if ( !this->is_initialized() ) {
         return;
     }
     Csm::ICubismModelSetting *setting = this->proxy_model->_model_setting;
@@ -853,7 +853,7 @@ void CubismModel::_get_property_list( godot::List<godot::PropertyInfo> *p_list )
 
     // Property - Expression
     ary_enum.clear();
-    if ( this->enable_load_expressions == true ) {
+    if ( this->enable_load_expressions ) {
         for ( Csm::csmInt32 i = 0; i < setting->GetExpressionCount(); i++ ) {
             const Csm::csmChar *expression_id = setting->GetExpressionName( i );
             anim_expression anim_e( expression_id );
@@ -868,7 +868,7 @@ void CubismModel::_get_property_list( godot::List<godot::PropertyInfo> *p_list )
 
     // Property - Motion
     ary_enum.clear();
-    if ( this->enable_load_motions == true ) {
+    if ( this->enable_load_motions ) {
         for ( Csm::csmInt32 i = 0; i < setting->GetMotionGroupCount(); i++ ) {
             const Csm::csmChar *group = setting->GetMotionGroupName( i );
             for ( Csm::csmInt32 no = 0; no < setting->GetMotionCount( group ); no++ ) {
@@ -938,37 +938,37 @@ void CubismModel::_ready() {
 }
 
 void CubismModel::_enter_tree() {
-    if ( this->is_initialized() == false ) {
+    if ( !this->is_initialized() ) {
         return;
     }
 }
 
 void CubismModel::_exit_tree() {
-    if ( this->is_initialized() == false ) {
+    if ( !this->is_initialized() ) {
         return;
     }
 }
 
 void CubismModel::_process( double delta ) {
-    if ( this->is_initialized() == false ) {
+    if ( !this->is_initialized() ) {
         return;
     }
     if ( this->playback_process_mode != IDLE ) {
         return;
     }
 
-    this->_update( delta );
+    this->_update( static_cast<float>(delta) );
 }
 
 void CubismModel::_physics_process( double delta ) {
-    if ( this->is_initialized() == false ) {
+    if ( !this->is_initialized() ) {
         return;
     }
     if ( this->playback_process_mode != PHYSICS ) {
         return;
     }
 
-    this->_update( delta );
+    this->_update( static_cast<float>(delta) );
 }
 
 void CubismModel::_on_append_child_act( CubismEffect *node ) {

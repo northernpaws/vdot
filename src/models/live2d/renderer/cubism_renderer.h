@@ -37,7 +37,7 @@ class CubismRenderer {
     void dispose_node( const bool node_release );
 
     // Shader
-    godot::Ref<godot::Shader> get_shader( const CubismShader e ) const {
+    [[nodiscard]] godot::Ref<godot::Shader> get_shader( const CubismShader e ) const {
         return this->ary_shader[e];
     }
 
@@ -60,9 +60,9 @@ class CubismRenderer {
     // Render parameters
     godot::Vector2i vct_canvas_size;
     godot::Vector2i vct_mask_size;
-    float RATIO;
-    float CALCULATED_PPUNIT_C;
-    float CALCULATED_PPUNIT_M;
+    float RATIO = 0;
+    float CALCULATED_PPUNIT_C = 0;
+    float CALCULATED_PPUNIT_M = 0;
     godot::Vector2 CALCULATED_ORIGIN_C;
     godot::Vector2 CALCULATED_ORIGIN_M;
 };

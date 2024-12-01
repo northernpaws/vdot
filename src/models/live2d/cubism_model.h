@@ -30,13 +30,12 @@ struct anim_expression {
     godot::String expression_id;
 
   public:
-    anim_expression() {
-    }
-    anim_expression( const Csm::csmChar *c_expression_id ) :
+    anim_expression() = default;
+    explicit anim_expression( const Csm::csmChar *c_expression_id ) :
         expression_id( godot::String( c_expression_id ) ) {
     }
 
-    godot::String to_string() const {
+    [[nodiscard]] godot::String to_string() const {
         return godot::String( this->expression_id );
     }
 };
@@ -44,16 +43,15 @@ struct anim_expression {
 class anim_motion {
   public:
     godot::String group;
-    int32_t no;
+    int32_t no = 0;
 
   public:
-    anim_motion() {
-    }
+    anim_motion() = default;
     anim_motion( const Csm::csmChar *c_group, const int32_t c_no ) :
         group( godot::String( c_group ) ), no( c_no ) {
     }
 
-    godot::String to_string() const {
+    [[nodiscard]] godot::String to_string() const {
         godot::Array ary;
         ary.append( this->group );
         ary.append( this->no );
@@ -67,7 +65,7 @@ class CubismModel : public godot::SubViewport {
 
   public:
     CubismModel();
-    ~CubismModel();
+    ~CubismModel() override;
 
   public:
     enum moc3FileFormatVersion {
@@ -122,34 +120,34 @@ class CubismModel : public godot::SubViewport {
     moc3FileFormatVersion csm_get_moc_version();
 
     void set_assets( const godot::String assets );
-    godot::String get_assets() const;
+    [[nodiscard]] godot::String get_assets() const;
 
     void set_load_expressions( const bool enable );
-    bool get_load_expressions() const;
+    [[nodiscard]] bool get_load_expressions() const;
     void set_load_motions( const bool enable );
-    bool get_load_motions() const;
+    [[nodiscard]] bool get_load_motions() const;
 
-    godot::Dictionary get_canvas_info() const;
+    [[nodiscard]] godot::Dictionary get_canvas_info() const;
 
-    bool is_initialized() const;
+    [[nodiscard]] bool is_initialized() const;
     void clear();
 
     void set_parameter_mode( const ParameterMode value );
-    CubismModel::ParameterMode get_parameter_mode() const;
+    [[nodiscard]] CubismModel::ParameterMode get_parameter_mode() const;
 
     void set_process_callback( const MotionProcessCallback value );
-    CubismModel::MotionProcessCallback get_process_callback() const;
+    [[nodiscard]] CubismModel::MotionProcessCallback get_process_callback() const;
 
     void set_speed_scale( const float speed );
-    float get_speed_scale() const;
+    [[nodiscard]] float get_speed_scale() const;
 
     void set_auto_scale( const bool value );
-    bool get_auto_scale() const;
+    [[nodiscard]] bool get_auto_scale() const;
 
     void set_adjust_scale( const float scale ) {
         this->adjust_scale = scale;
     }
-    float get_adjust_scale() const {
+    [[nodiscard]] float get_adjust_scale() const {
         return this->adjust_scale;
     }
 
@@ -167,7 +165,7 @@ class CubismModel : public godot::SubViewport {
         return this->mask_viewport_size;
     }
 
-    godot::Dictionary get_motions() const;
+    [[nodiscard]] godot::Dictionary get_motions() const;
     godot::Ref<CubismMotionQueueEntryHandle> start_motion( const godot::String str_group,
                                                            const int32_t no,
                                                            const Priority priority );
@@ -176,98 +174,98 @@ class CubismModel : public godot::SubViewport {
                                                                 const Priority priority,
                                                                 const bool loop,
                                                                 const bool loop_fade_in );
-    godot::Array get_cubism_motion_queue_entries() const;
+    [[nodiscard]] godot::Array get_cubism_motion_queue_entries() const;
     void stop_motion();
 
-    godot::Array get_expressions() const;
+    [[nodiscard]] godot::Array get_expressions() const;
     void start_expression( const godot::String expression_id );
     void stop_expression();
 
-    godot::Array get_hit_areas() const;
+    [[nodiscard]] godot::Array get_hit_areas() const;
 
-    godot::Array get_parameters() const;
-    godot::Array get_part_opacities() const;
+    [[nodiscard]] godot::Array get_parameters() const;
+    [[nodiscard]] godot::Array get_part_opacities() const;
 
-    godot::Dictionary get_meshes() const;
+    [[nodiscard]] godot::Dictionary get_meshes() const;
 
-    void set_shader( const CubismShader e, godot::Ref<godot::Shader> shader ) {
+    void set_shader( const CubismShader e, const godot::Ref<godot::Shader>& shader ) {
         this->ary_shader[e] = shader;
     }
-    godot::Ref<godot::Shader> get_shader( const CubismShader e ) const {
+    [[nodiscard]] godot::Ref<godot::Shader> get_shader( const CubismShader e ) const {
         return this->ary_shader[e];
     }
 
     // NormAdd
-    void set_shader_add( godot::Ref<godot::Shader> shader ) {
+    void set_shader_add( const godot::Ref<godot::Shader>& shader ) {
         this->set_shader( CUBISM_SHADER_NORM_ADD, shader );
     }
-    godot::Ref<godot::Shader> get_shader_add() const {
+    [[nodiscard]] godot::Ref<godot::Shader> get_shader_add() const {
         return this->get_shader( CUBISM_SHADER_NORM_ADD );
     }
 
     // NormMix
-    void set_shader_mix( godot::Ref<godot::Shader> shader ) {
+    void set_shader_mix( const godot::Ref<godot::Shader>& shader ) {
         this->set_shader( CUBISM_SHADER_NORM_MIX, shader );
     }
-    godot::Ref<godot::Shader> get_shader_mix() const {
+    [[nodiscard]] godot::Ref<godot::Shader> get_shader_mix() const {
         return this->get_shader( CUBISM_SHADER_NORM_MIX );
     }
 
     // NormMul
-    void set_shader_mul( godot::Ref<godot::Shader> shader ) {
+    void set_shader_mul( const godot::Ref<godot::Shader>& shader ) {
         this->set_shader( CUBISM_SHADER_NORM_MUL, shader );
     }
-    godot::Ref<godot::Shader> get_shader_mul() const {
+    [[nodiscard]] godot::Ref<godot::Shader> get_shader_mul() const {
         return this->get_shader( CUBISM_SHADER_NORM_MUL );
     }
 
     // Mask
-    void set_shader_mask( godot::Ref<godot::Shader> shader ) {
+    void set_shader_mask( const godot::Ref<godot::Shader>& shader ) {
         this->set_shader( CUBISM_SHADER_MASK, shader );
     }
-    godot::Ref<godot::Shader> get_shader_mask() const {
+    [[nodiscard]] godot::Ref<godot::Shader> get_shader_mask() const {
         return this->get_shader( CUBISM_SHADER_MASK );
     }
 
     // MaskAdd
-    void set_shader_mask_add( godot::Ref<godot::Shader> shader ) {
+    void set_shader_mask_add( const godot::Ref<godot::Shader>& shader ) {
         this->set_shader( CUBISM_SHADER_MASK_ADD, shader );
     }
-    godot::Ref<godot::Shader> get_shader_mask_add() const {
+    [[nodiscard]] godot::Ref<godot::Shader> get_shader_mask_add() const {
         return this->get_shader( CUBISM_SHADER_MASK_ADD );
     }
-    void set_shader_mask_add_inv( godot::Ref<godot::Shader> shader ) {
+    void set_shader_mask_add_inv( const godot::Ref<godot::Shader>& shader ) {
         this->set_shader( CUBISM_SHADER_MASK_ADD_INV, shader );
     }
-    godot::Ref<godot::Shader> get_shader_mask_add_inv() const {
+    [[nodiscard]] godot::Ref<godot::Shader> get_shader_mask_add_inv() const {
         return this->get_shader( CUBISM_SHADER_MASK_ADD_INV );
     }
 
     // MaskMix
-    void set_shader_mask_mix( godot::Ref<godot::Shader> shader ) {
+    void set_shader_mask_mix( const godot::Ref<godot::Shader>& shader ) {
         this->set_shader( CUBISM_SHADER_MASK_MIX, shader );
     }
-    godot::Ref<godot::Shader> get_shader_mask_mix() const {
+    [[nodiscard]] godot::Ref<godot::Shader> get_shader_mask_mix() const {
         return this->get_shader( CUBISM_SHADER_MASK_MIX );
     }
-    void set_shader_mask_mix_inv( godot::Ref<godot::Shader> shader ) {
+    void set_shader_mask_mix_inv( const godot::Ref<godot::Shader>& shader ) {
         this->set_shader( CUBISM_SHADER_MASK_MIX_INV, shader );
     }
-    godot::Ref<godot::Shader> get_shader_mask_mix_inv() const {
+    [[nodiscard]] godot::Ref<godot::Shader> get_shader_mask_mix_inv() const {
         return this->get_shader( CUBISM_SHADER_MASK_MIX_INV );
     }
 
     // MaskMul
-    void set_shader_mask_mul( godot::Ref<godot::Shader> shader ) {
+    void set_shader_mask_mul( const godot::Ref<godot::Shader>& shader ) {
         this->set_shader( CUBISM_SHADER_MASK_MUL, shader );
     }
-    godot::Ref<godot::Shader> get_shader_mask_mul() const {
+    [[nodiscard]] godot::Ref<godot::Shader> get_shader_mask_mul() const {
         return this->get_shader( CUBISM_SHADER_MASK_MUL );
     }
-    void set_shader_mask_mul_inv( godot::Ref<godot::Shader> shader ) {
+    void set_shader_mask_mul_inv( const godot::Ref<godot::Shader>& shader ) {
         this->set_shader( CUBISM_SHADER_MASK_MUL_INV, shader );
     }
-    godot::Ref<godot::Shader> get_shader_mask_mul_inv() const {
+    [[nodiscard]] godot::Ref<godot::Shader> get_shader_mask_mul_inv() const {
         return this->get_shader( CUBISM_SHADER_MASK_MUL_INV );
     }
 
@@ -278,7 +276,7 @@ class CubismModel : public godot::SubViewport {
 
     void advance( const float delta );
 
-    bool check_cubism_effect_dirty() const;
+    [[nodiscard]] bool check_cubism_effect_dirty() const;
     void cubism_effect_dirty_reset();
 
     // Properties
