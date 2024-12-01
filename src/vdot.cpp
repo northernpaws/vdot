@@ -38,8 +38,8 @@ godot::String VDot::godotCPPVersion() {
 
 /// Bind our methods so GDScript can access them.
 void VDot::_bind_methods() {
-    godot::ClassDB::bind_static_method( "GDExtensionTemplate", godot::D_METHOD( "version" ),
+    godot::ClassDB::bind_static_method( "VDot", godot::D_METHOD( "version" ),
                                         &VDot::version );
     godot::ClassDB::bind_static_method(
-        "GDExtensionTemplate", godot::D_METHOD( "godot_cpp_version" ), &VDot::godotCPPVersion );
+        "VDot", godot::D_METHOD( "godot_cpp_version" ), &VDot::godotCPPVersion );
 }

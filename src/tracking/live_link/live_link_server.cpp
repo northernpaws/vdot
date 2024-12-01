@@ -33,488 +33,427 @@ LiveLinkPacket LiveLinkPacket::from_bytes( const godot::PackedByteArray &bytes )
 void LiveLinkClientData::_bind_methods() {
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_blink_left" ),
                                  &LiveLinkClientData::_get_eye_blink_left );
-    godot::ClassDB::add_property(
-        "eye_blink_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "eye_blink_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_eye_blink_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_look_down_left" ),
                                  &LiveLinkClientData::_get_eye_look_down_left );
-    godot::ClassDB::add_property(
-        "eye_look_down_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "eye_look_down_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_eye_look_down_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_look_in_left" ),
                                  &LiveLinkClientData::_get_eye_look_in_left );
-    godot::ClassDB::add_property(
-        "eye_look_in_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "eye_look_in_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_eye_look_in_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_look_out_left" ),
                                  &LiveLinkClientData::_get_eye_look_out_left );
-    godot::ClassDB::add_property(
-        "eye_look_out_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "eye_look_out_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_eye_look_out_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_look_up_left" ),
                                  &LiveLinkClientData::_get_eye_look_up_left );
-    godot::ClassDB::add_property(
-        "eye_look_up_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "eye_look_up_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_eye_look_up_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_squint_left" ),
                                  &LiveLinkClientData::_get_eye_squint_left );
-    godot::ClassDB::add_property(
-        "eye_squint_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "eye_squint_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_eye_squint_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_wide_left" ),
                                  &LiveLinkClientData::_get_eye_wide_left );
-    godot::ClassDB::add_property(
-        "eye_wide_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "eye_wide_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_eye_wide_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_blink_right" ),
                                  &LiveLinkClientData::_get_eye_blink_right );
-    godot::ClassDB::add_property(
-        "eye_blink_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "eye_blink_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_eye_blink_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_look_down_right" ),
                                  &LiveLinkClientData::_get_eye_look_down_right );
-    godot::ClassDB::add_property(
-        "eye_look_down_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "eye_look_down_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_eye_look_down_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_look_in_right" ),
                                  &LiveLinkClientData::_get_eye_look_in_right );
-    godot::ClassDB::add_property(
-        "eye_look_in_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "eye_look_in_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_eye_look_in_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_look_out_right" ),
                                  &LiveLinkClientData::_get_eye_look_out_right );
-    godot::ClassDB::add_property(
-        "eye_look_out_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "eye_look_out_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_eye_look_out_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_look_up_right" ),
                                  &LiveLinkClientData::_get_eye_look_up_right );
-    godot::ClassDB::add_property(
-        "eye_look_up_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "eye_look_up_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_eye_look_up_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_squint_right" ),
                                  &LiveLinkClientData::_get_eye_squint_right );
-    godot::ClassDB::add_property(
-        "eye_squint_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "eye_squint_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_eye_squint_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_wide_right" ),
                                  &LiveLinkClientData::_get_eye_wide_right );
-    godot::ClassDB::add_property(
-        "eye_wide_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "eye_wide_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_eye_wide_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_jaw_forward" ),
                                  &LiveLinkClientData::_get_jaw_forward );
-    godot::ClassDB::add_property(
-        "jaw_forward",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "jaw_forward",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_jaw_forward" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_jaw_right" ),
                                  &LiveLinkClientData::_get_jaw_right );
-    godot::ClassDB::add_property(
-        "jaw_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "jaw_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_jaw_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_jaw_left" ),
                                  &LiveLinkClientData::_get_jaw_left );
-    godot::ClassDB::add_property(
-        "jaw_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "jaw_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_jaw_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_jaw_open" ),
                                  &LiveLinkClientData::_get_jaw_open );
-    godot::ClassDB::add_property(
-        "jaw_open",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "jaw_open",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_jaw_open" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_close" ),
                                  &LiveLinkClientData::_get_mouth_close );
-    godot::ClassDB::add_property(
-        "mouth_close",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_close",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_close" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_funnel" ),
                                  &LiveLinkClientData::_get_mouth_funnel );
-    godot::ClassDB::add_property(
-        "mouth_funnel",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_funnel",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_funnel" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_pucker" ),
                                  &LiveLinkClientData::_get_mouth_pucker );
-    godot::ClassDB::add_property(
-        "mouth_pucker",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_pucker",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_pucker" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_right" ),
                                  &LiveLinkClientData::_get_mouth_right );
-    godot::ClassDB::add_property(
-        "mouth_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_left" ),
                                  &LiveLinkClientData::_get_mouth_left );
-    godot::ClassDB::add_property(
-        "mouth_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_smile_left" ),
                                  &LiveLinkClientData::_get_mouth_smile_left );
-    godot::ClassDB::add_property(
-        "mouth_smile_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_smile_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_smile_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_smile_right" ),
                                  &LiveLinkClientData::_get_mouth_smile_right );
-    godot::ClassDB::add_property(
-        "mouth_smile_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_smile_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_smile_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_frown_left" ),
                                  &LiveLinkClientData::_get_mouth_frown_left );
-    godot::ClassDB::add_property(
-        "mouth_frown_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_frown_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_frown_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_frown_right" ),
                                  &LiveLinkClientData::_get_mouth_frown_right );
-    godot::ClassDB::add_property(
-        "mouth_frown_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_frown_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_frown_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_dimple_left" ),
                                  &LiveLinkClientData::_get_mouth_dimple_left );
-    godot::ClassDB::add_property(
-        "mouth_dimple_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_dimple_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_dimple_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_dimple_right" ),
                                  &LiveLinkClientData::_get_mouth_dimple_right );
-    godot::ClassDB::add_property(
-        "mouth_dimple_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_dimple_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_dimple_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_stretch_left" ),
                                  &LiveLinkClientData::_get_mouth_stretch_left );
-    godot::ClassDB::add_property(
-        "mouth_stretch_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_stretch_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_stretch_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_stretch_right" ),
                                  &LiveLinkClientData::_get_mouth_stretch_right );
-    godot::ClassDB::add_property(
-        "mouth_stretch_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_stretch_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_stretch_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_roll_lower" ),
                                  &LiveLinkClientData::_get_mouth_roll_lower );
-    godot::ClassDB::add_property(
-        "mouth_roll_lower",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_roll_lower",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_roll_lower" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_roll_upper" ),
                                  &LiveLinkClientData::_get_mouth_roll_upper );
-    godot::ClassDB::add_property(
-        "mouth_roll_upper",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_roll_upper",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_roll_upper" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_shrug_lower" ),
                                  &LiveLinkClientData::_get_mouth_shrug_lower );
-    godot::ClassDB::add_property(
-        "mouth_shrug_lower",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_shrug_lower",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_shrug_lower" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_shrug_upper" ),
                                  &LiveLinkClientData::_get_mouth_shrug_upper );
-    godot::ClassDB::add_property(
-        "mouth_shrug_upper",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_shrug_upper",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_shrug_upper" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_press_left" ),
                                  &LiveLinkClientData::_get_mouth_press_left );
-    godot::ClassDB::add_property(
-        "mouth_press_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_press_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_press_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_press_right" ),
                                  &LiveLinkClientData::_get_mouth_press_right );
-    godot::ClassDB::add_property(
-        "mouth_press_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_press_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_press_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_lower_down_left" ),
                                  &LiveLinkClientData::_get_mouth_lower_down_left );
-    godot::ClassDB::add_property(
-        "mouth_lower_down_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_lower_down_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_lower_down_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_lower_down_right" ),
                                  &LiveLinkClientData::_get_mouth_lower_down_right );
-    godot::ClassDB::add_property(
-        "mouth_lower_down_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_lower_down_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_lower_down_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_upper_up_left" ),
                                  &LiveLinkClientData::_get_mouth_upper_up_left );
-    godot::ClassDB::add_property(
-        "mouth_upper_up_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_upper_up_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_upper_up_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_upper_up_right" ),
                                  &LiveLinkClientData::_get_mouth_upper_up_right );
-    godot::ClassDB::add_property(
-        "mouth_upper_up_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "mouth_upper_up_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_mouth_upper_up_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_brow_down_left" ),
                                  &LiveLinkClientData::_get_brow_down_left );
-    godot::ClassDB::add_property(
-        "brow_down_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "brow_down_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_brow_down_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_brow_down_right" ),
                                  &LiveLinkClientData::_get_brow_down_right );
-    godot::ClassDB::add_property(
-        "brow_down_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "brow_down_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_brow_down_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_brow_inner_up" ),
                                  &LiveLinkClientData::_get_brow_inner_up );
-    godot::ClassDB::add_property(
-        "brow_inner_up",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "brow_inner_up",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_brow_inner_up" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_brow_outer_up_left" ),
                                  &LiveLinkClientData::_get_brow_outer_up_left );
-    godot::ClassDB::add_property(
-        "brow_outer_up_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "brow_outer_up_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_brow_outer_up_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_brow_outer_up_right" ),
                                  &LiveLinkClientData::_get_brow_outer_up_right );
-    godot::ClassDB::add_property(
-        "brow_outer_up_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "brow_outer_up_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_brow_outer_up_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_cheek_puff" ),
                                  &LiveLinkClientData::_get_cheek_puff );
-    godot::ClassDB::add_property(
-        "cheek_puff",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "cheek_puff",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_cheek_puff" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_cheek_squint_left" ),
                                  &LiveLinkClientData::_get_cheek_squint_left );
-    godot::ClassDB::add_property(
-        "cheek_squint_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "cheek_squint_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_cheek_squint_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_cheek_squint_right" ),
                                  &LiveLinkClientData::_get_cheek_squint_right );
-    godot::ClassDB::add_property(
-        "cheek_squint_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "cheek_squint_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_cheek_squint_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_nose_sneer_left" ),
                                  &LiveLinkClientData::_get_nose_sneer_left );
-    godot::ClassDB::add_property(
-        "nose_sneer_left",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "nose_sneer_left",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_nose_sneer_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_nose_sneer_right" ),
                                  &LiveLinkClientData::_get_nose_sneer_right );
-    godot::ClassDB::add_property(
-        "nose_sneer_right",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "nose_sneer_right",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_nose_sneer_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_tongue_out" ),
                                  &LiveLinkClientData::_get_tongue_out );
-    godot::ClassDB::add_property(
-        "tongue_out",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "tongue_out",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_tongue_out" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_head_yaw" ),
                                  &LiveLinkClientData::_get_head_yaw );
-    godot::ClassDB::add_property(
-        "head_yaw",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "head_yaw",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_head_yaw" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_head_pitch" ),
                                  &LiveLinkClientData::_get_head_pitch );
-    godot::ClassDB::add_property(
-        "head_pitch",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "head_pitch",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_head_pitch" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_head_roll" ),
                                  &LiveLinkClientData::_get_head_roll );
-    godot::ClassDB::add_property(
-        "head_roll",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "head_roll",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_head_roll" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_left_eye_yaw" ),
                                  &LiveLinkClientData::_get_left_eye_yaw );
-    godot::ClassDB::add_property(
-        "left_eye_yaw",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "left_eye_yaw",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_left_eye_yaw" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_left_eye_pitch" ),
                                  &LiveLinkClientData::_get_left_eye_pitch );
-    godot::ClassDB::add_property(
-        "left_eye_pitch",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "left_eye_pitch",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_left_eye_pitch" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_left_eye_roll" ),
                                  &LiveLinkClientData::_get_left_eye_roll );
-    godot::ClassDB::add_property(
-        "left_eye_roll",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "left_eye_roll",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_left_eye_roll" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_right_eye_yaw" ),
                                  &LiveLinkClientData::_get_right_eye_yaw );
-    godot::ClassDB::add_property(
-        "right_eye_yaw",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "right_eye_yaw",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_right_eye_yaw" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_right_eye_pitch" ),
                                  &LiveLinkClientData::_get_right_eye_pitch );
-    godot::ClassDB::add_property(
-        "right_eye_pitch",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "right_eye_pitch",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
         "", "_get_right_eye_pitch" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_right_eye_roll" ),
                                  &LiveLinkClientData::_get_right_eye_roll );
-    godot::ClassDB::add_property(
-        "right_eye_roll",
+    ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::FLOAT, "right_eye_roll",
                              godot::PropertyHint::PROPERTY_HINT_NONE, "",
                              godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
@@ -916,7 +855,7 @@ void LiveLinkServer::_bind_methods() {
 
     godot::ClassDB::bind_method( godot::D_METHOD( "get_port" ), &LiveLinkServer::get_port );
     godot::ClassDB::bind_method( godot::D_METHOD( "set_port", "port" ), &LiveLinkServer::set_port );
-    godot::ClassDB::add_property( "Item", godot::PropertyInfo( godot::Variant::INT, "port" ),
+    ADD_PROPERTY( "Item", godot::PropertyInfo( godot::Variant::INT, "port" ),
                                   "set_port", "get_port" );
 
     godot::ClassDB::bind_method( godot::D_METHOD( "listen" ), &LiveLinkServer::listen );
