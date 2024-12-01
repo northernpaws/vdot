@@ -86,7 +86,7 @@ jobs:
         if: matrix.build_type == 'Debug'
         uses: actions/upload-artifact@v3
         with:
-          name: gdextension-${{ matrix.config.platform }}
+          name: gdextension-Debug-${{ matrix.config.platform }}
           path: |
             ${{ github.workspace }}/install-${{ matrix.build_type }}/*
 
@@ -94,9 +94,46 @@ jobs:
         if: matrix.build_type == 'Release'
         uses: actions/upload-artifact@v3
         with:
-          name: gdextension-${{ matrix.config.platform }}
+          name: gdextension-Release-${{ matrix.config.platform }}
           path: |
             ${{ github.workspace }}/install-${{ matrix.build_type }}/*
+
+  bundle:
+    needs: build
+
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: [ 'Debug', 'Release' ]
+
+    name: 🖥️ Bundle GDExtension
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      # Retrieve the GDExtension build artifacts from the `build` step.
+      - uses: actions/download-artifact@v4
+        with:
+          # Retrieve all platforms, and merge them into a directory so that all the binaries are available.
+          pattern: gdextension-${{ matrix.build_type }}-*
+          path: project/addons
+          merge-multiple: true
+
+      - name: Display structure of repository
+        run: ls
+
+      - name: Display structure of project
+        run: ls -R project
+
+      - name: Upload Client artifact (${{ matrix.build_type }})
+        uses: actions/upload-artifact@v3
+        with:
+          name: Client - ${{ matrix.config.platform }} (${{ matrix.build_type }})
+          path: project/addons/vdot
 
   client:
     needs: build
