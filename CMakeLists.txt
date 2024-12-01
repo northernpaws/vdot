@@ -25,7 +25,10 @@ if ( APPLE )
 endif()
 
 # Install the build plugin files to the project directory.
-set ( CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/project/addons" )
+if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    set (CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/project/addons"
+            CACHE PATH "default install path" FORCE)
+endif()
 
 # Main project information
 project( vdot
