@@ -24,6 +24,9 @@ if ( APPLE )
     set( CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "" )
 endif()
 
+# Install the build plugin files to the project directory.
+set ( CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/project/addons" )
+
 # Main project information
 project( vdot
     LANGUAGES
