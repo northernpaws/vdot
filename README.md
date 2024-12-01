@@ -33,7 +33,7 @@ People and projects that helped make this possible.
 
 * [MizunagiKB](https://github.com/MizunagiKB) for [gd_cubism](https://github.com/MizunagiKB/gd_cubism) (MIT License)
   * Used as the foundation for the Live2D Cubism rendering components, including code, and shaders.
-  * Heavily modified to expose more settings, and to directly integrate face-tracking and lip-syncing support.
+  * Modified to expose more settings, and to directly integrate face-tracking and lip-syncing support.
 
 ### Tracking
 

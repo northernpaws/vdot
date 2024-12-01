@@ -16,6 +16,7 @@ target_sources( ${PROJECT_NAME}
         models/live2d/renderer/cubism_renderer_2d.cpp
         models/live2d/renderer/cubism_model_proxy.h
         models/live2d/renderer/cubism_model_proxy.cpp
+        models/live2d/renderer/cubism_renderer_impl.cpp
         models/live2d/cubism_motion_entry.h
         models/live2d/cubism_value_abs.h
         models/live2d/cubism_value_parameter.h

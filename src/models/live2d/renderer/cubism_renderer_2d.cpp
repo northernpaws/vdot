@@ -11,8 +11,8 @@
 #include <Model/CubismModel.hpp>
 #include <Rendering/CubismRenderer.hpp>
 
-#include "cubism_renderer.h"
 #include "cubism_model_proxy.h"
+#include "cubism_renderer.h"
 
 #include "cubism_renderer_2d.h"
 

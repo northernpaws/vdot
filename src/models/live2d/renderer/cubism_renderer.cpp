@@ -16,6 +16,8 @@
 
 void _recurisive_dispose_node(const godot::Node* parent_node, const bool node_release);
 
+
+
 CubismRenderer::CubismRenderer(CubismModel *owner_viewport, godot::Node *parent_node)
     : _owner_viewport(owner_viewport)
     , _parent_node(parent_node)
@@ -123,3 +125,4 @@ void _recurisive_dispose_node(const godot::Node* parent_node, const bool node_re
         }
     }
 }
+
