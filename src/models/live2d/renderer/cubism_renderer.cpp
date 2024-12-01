@@ -113,8 +113,7 @@ void _recurisive_dispose_node( const godot::Node *parent_node, const bool node_r
             continue;
         }
 
-        auto *m_node =
-            godot::Object::cast_to<godot::MeshInstance2D>( ary_node[i] );
+        auto *m_node = godot::Object::cast_to<godot::MeshInstance2D>( ary_node[i] );
         if ( m_node != nullptr ) {
             m_node->set_material( nullptr );
         }

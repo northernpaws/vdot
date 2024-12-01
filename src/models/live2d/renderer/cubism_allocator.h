@@ -25,8 +25,7 @@ class CubismAllocator : public Live2D::Cubism::Framework::ICubismAllocator {
         memfree( addr );
     }
 
-    void *AllocateAligned( const Csm::csmSizeType size,
-                                   const Csm::csmUint32 alignment ) override {
+    void *AllocateAligned( const Csm::csmSizeType size, const Csm::csmUint32 alignment ) override {
         size_t offset, shift, aligned_address;
         void *allocation, **preamble;
 

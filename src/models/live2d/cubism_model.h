@@ -188,7 +188,7 @@ class CubismModel : public godot::SubViewport {
 
     [[nodiscard]] godot::Dictionary get_meshes() const;
 
-    void set_shader( const CubismShader e, const godot::Ref<godot::Shader>& shader ) {
+    void set_shader( const CubismShader e, const godot::Ref<godot::Shader> &shader ) {
         this->ary_shader[e] = shader;
     }
     [[nodiscard]] godot::Ref<godot::Shader> get_shader( const CubismShader e ) const {
@@ -196,7 +196,7 @@ class CubismModel : public godot::SubViewport {
     }
 
     // NormAdd
-    void set_shader_add( const godot::Ref<godot::Shader>& shader ) {
+    void set_shader_add( const godot::Ref<godot::Shader> &shader ) {
         this->set_shader( CUBISM_SHADER_NORM_ADD, shader );
     }
     [[nodiscard]] godot::Ref<godot::Shader> get_shader_add() const {
@@ -204,7 +204,7 @@ class CubismModel : public godot::SubViewport {
     }
 
     // NormMix
-    void set_shader_mix( const godot::Ref<godot::Shader>& shader ) {
+    void set_shader_mix( const godot::Ref<godot::Shader> &shader ) {
         this->set_shader( CUBISM_SHADER_NORM_MIX, shader );
     }
     [[nodiscard]] godot::Ref<godot::Shader> get_shader_mix() const {
@@ -212,7 +212,7 @@ class CubismModel : public godot::SubViewport {
     }
 
     // NormMul
-    void set_shader_mul( const godot::Ref<godot::Shader>& shader ) {
+    void set_shader_mul( const godot::Ref<godot::Shader> &shader ) {
         this->set_shader( CUBISM_SHADER_NORM_MUL, shader );
     }
     [[nodiscard]] godot::Ref<godot::Shader> get_shader_mul() const {
@@ -220,7 +220,7 @@ class CubismModel : public godot::SubViewport {
     }
 
     // Mask
-    void set_shader_mask( const godot::Ref<godot::Shader>& shader ) {
+    void set_shader_mask( const godot::Ref<godot::Shader> &shader ) {
         this->set_shader( CUBISM_SHADER_MASK, shader );
     }
     [[nodiscard]] godot::Ref<godot::Shader> get_shader_mask() const {
@@ -228,13 +228,13 @@ class CubismModel : public godot::SubViewport {
     }
 
     // MaskAdd
-    void set_shader_mask_add( const godot::Ref<godot::Shader>& shader ) {
+    void set_shader_mask_add( const godot::Ref<godot::Shader> &shader ) {
         this->set_shader( CUBISM_SHADER_MASK_ADD, shader );
     }
     [[nodiscard]] godot::Ref<godot::Shader> get_shader_mask_add() const {
         return this->get_shader( CUBISM_SHADER_MASK_ADD );
     }
-    void set_shader_mask_add_inv( const godot::Ref<godot::Shader>& shader ) {
+    void set_shader_mask_add_inv( const godot::Ref<godot::Shader> &shader ) {
         this->set_shader( CUBISM_SHADER_MASK_ADD_INV, shader );
     }
     [[nodiscard]] godot::Ref<godot::Shader> get_shader_mask_add_inv() const {
@@ -242,13 +242,13 @@ class CubismModel : public godot::SubViewport {
     }
 
     // MaskMix
-    void set_shader_mask_mix( const godot::Ref<godot::Shader>& shader ) {
+    void set_shader_mask_mix( const godot::Ref<godot::Shader> &shader ) {
         this->set_shader( CUBISM_SHADER_MASK_MIX, shader );
     }
     [[nodiscard]] godot::Ref<godot::Shader> get_shader_mask_mix() const {
         return this->get_shader( CUBISM_SHADER_MASK_MIX );
     }
-    void set_shader_mask_mix_inv( const godot::Ref<godot::Shader>& shader ) {
+    void set_shader_mask_mix_inv( const godot::Ref<godot::Shader> &shader ) {
         this->set_shader( CUBISM_SHADER_MASK_MIX_INV, shader );
     }
     [[nodiscard]] godot::Ref<godot::Shader> get_shader_mask_mix_inv() const {
@@ -256,13 +256,13 @@ class CubismModel : public godot::SubViewport {
     }
 
     // MaskMul
-    void set_shader_mask_mul( const godot::Ref<godot::Shader>& shader ) {
+    void set_shader_mask_mul( const godot::Ref<godot::Shader> &shader ) {
         this->set_shader( CUBISM_SHADER_MASK_MUL, shader );
     }
     [[nodiscard]] godot::Ref<godot::Shader> get_shader_mask_mul() const {
         return this->get_shader( CUBISM_SHADER_MASK_MUL );
     }
-    void set_shader_mask_mul_inv( const godot::Ref<godot::Shader>& shader ) {
+    void set_shader_mask_mul_inv( const godot::Ref<godot::Shader> &shader ) {
         this->set_shader( CUBISM_SHADER_MASK_MUL_INV, shader );
     }
     [[nodiscard]] godot::Ref<godot::Shader> get_shader_mask_mul_inv() const {

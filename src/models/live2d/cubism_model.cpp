@@ -957,7 +957,7 @@ void CubismModel::_process( double delta ) {
         return;
     }
 
-    this->_update( static_cast<float>(delta) );
+    this->_update( static_cast<float>( delta ) );
 }
 
 void CubismModel::_physics_process( double delta ) {
@@ -968,7 +968,7 @@ void CubismModel::_physics_process( double delta ) {
         return;
     }
 
-    this->_update( static_cast<float>(delta) );
+    this->_update( static_cast<float>( delta ) );
 }
 
 void CubismModel::_on_append_child_act( CubismEffect *node ) {

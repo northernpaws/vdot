@@ -63,13 +63,14 @@ class CubismEffectHitArea : public CubismEffect {
         godot::Rect2 check_rect( ary_vtx[0].x, ary_vtx[0].y, 0, 0 );
 
         for ( int64_t i = 1; i < vtx_count; i++ ) {
-            check_rect.expand_to( ary_vtx[i] );
+            check_rect.expand_to( ary_vtx[static_cast<int>( i )] );
         }
 
         return check_rect;
     }
 
-    [[nodiscard]] godot::Array check_collide_triangle( const godot::Ref<godot::ArrayMesh> &ref_ary_mesh ) const {
+    [[nodiscard]] godot::Array check_collide_triangle(
+        const godot::Ref<godot::ArrayMesh> &ref_ary_mesh ) const {
         if ( ref_ary_mesh->surface_get_primitive_type( 0 ) != godot::Mesh::PRIMITIVE_TRIANGLES ) {
             return {};
         }
@@ -81,9 +82,9 @@ class CubismEffectHitArea : public CubismEffect {
         godot::Array ary_result;
 
         for ( int64_t i = 0; i < ary_idx.size(); i += 3 ) {
-            const int32_t ia = ary_idx[static_cast<int>(i) + 0];
-            const int32_t ib = ary_idx[static_cast<int>(i) + 1];
-            const int32_t ic = ary_idx[static_cast<int>(i) + 2];
+            const int32_t ia = ary_idx[static_cast<int>( i ) + 0];
+            const int32_t ib = ary_idx[static_cast<int>( i ) + 1];
+            const int32_t ic = ary_idx[static_cast<int>( i ) + 2];
 
             const godot::Vector2 ab = ary_vtx[ib] - ary_vtx[ia];
             const godot::Vector2 bc = ary_vtx[ic] - ary_vtx[ib];
@@ -184,8 +185,8 @@ class CubismEffectHitArea : public CubismEffect {
         godot::Dictionary dict_mesh = model->_owner_viewport->get_meshes();
 
         for ( int64_t i = 0; i < ary.size(); i++ ) {
-            const godot::String id =
-                static_cast<godot::Dictionary>( ary[i] ).get( "id", godot::String() );
+            const godot::String id = static_cast<godot::Dictionary>( ary[static_cast<int>( i )] )
+                                         .get( "id", godot::String() );
             if ( !dict_mesh.has( id ) ) {
                 continue;
             }
