@@ -99,7 +99,7 @@ jobs:
 
       - name: Godot Build (Debug)
         if: matrix.build_type == 'Debug'
-        id: godot
+        id: godot-debug
         uses: manleydev/build-godot-action@v1.4.1
         with:
           name: vdot
@@ -108,7 +108,7 @@ jobs:
 
       - name: Godot Build (Release)
         if: matrix.build_type == 'Release'
-        id: godot
+        id: godot-release
         uses: manleydev/build-godot-action@v1.4.1
         with:
           name: vdot
@@ -120,11 +120,11 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Client - ${{ matrix.platform }}
-          path: ${{ github.workspace }}/${{ steps.godot.outputs.build }}
+          path: ${{ github.workspace }}/${{ steps.godot-debug.outputs.build }}
 
       - name: Upload Client artifact (Release)
         if: matrix.build_type == 'Release'
         uses: actions/upload-artifact@v3
         with:
           name: Client - ${{ matrix.config.platform }}
-          path: ${{ github.workspace }}/${{ steps.godot.outputs.build }}
+          path: ${{ github.workspace }}/${{ steps.godot-release.outputs.build }}
