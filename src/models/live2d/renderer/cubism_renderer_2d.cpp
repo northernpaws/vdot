@@ -131,8 +131,8 @@ void CubismRenderer2D::make_ArrayMesh_prepare( const Csm::CubismModel *model,
     res.RATIO = float( res.vct_mask_size.x ) / float( res.vct_canvas_size.x );
 
     if ( res._owner_viewport->auto_scale == true ) {
-        float fdstC = godot::MIN( res.vct_canvas_size.x, res.vct_canvas_size.y );
-        float fdstM = godot::MIN( res.vct_mask_size.x, res.vct_mask_size.y );
+        float fdstC = godot::MIN( static_cast< float >(res.vct_canvas_size.x), static_cast< float >(res.vct_canvas_size.y) );
+        float fdstM = godot::MIN( static_cast< float >(res.vct_mask_size.x), static_cast< float >(res.vct_mask_size.y) );
         float fsrc = godot::MAX( vct_size.x, vct_size.y );
 
         res.CALCULATED_PPUNIT_C = ( fdstC * ppunit ) / fsrc;
@@ -402,7 +402,7 @@ godot::PackedVector2Array make_PackedArrayVector3( const Live2D::Cubism::Core::c
     godot::PackedVector2Array ary;
     ary.resize( size );
     for ( int i = 0; i < size; i++ ) {
-        ary.set( i, ( godot::Vector2( ptr[i].X, ptr[i].Y * -1.0 ) * ppunit ) + vct_adjust );
+        ary.set( i, ( godot::Vector2( ptr[i].X, static_cast< real_t>(ptr[i].Y * -1.0) ) * ppunit ) + vct_adjust );
     }
     return ary;
 }

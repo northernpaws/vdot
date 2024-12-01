@@ -40,7 +40,7 @@ bool CubismModelProxy::model_load( const godot::String &model_pathname ) {
     this->clear();
 
     this->_model_setting =
-        CSM_NEW Live2D::Cubism::Framework::CubismModelSettingJson( buffer.ptr(), buffer.size() );
+        CSM_NEW Live2D::Cubism::Framework::CubismModelSettingJson( buffer.ptr(), static_cast<Live2D::Cubism::Framework::csmSizeInt>(buffer.size()) );
 
     // setup Live2D model
     if ( strcmp( this->_model_setting->GetModelFileName(), "" ) == 0 ) {
@@ -51,10 +51,10 @@ bool CubismModelProxy::model_load( const godot::String &model_pathname ) {
         godot::String moc3_pathname = this->_model_pathname.get_base_dir().path_join( gd_filename );
 
         buffer = godot::FileAccess::get_file_as_bytes( moc3_pathname );
-        this->LoadModel( buffer.ptr(), buffer.size() );
+        this->LoadModel( buffer.ptr(), static_cast<Live2D::Cubism::Framework::csmSizeInt>(buffer.size()) );
 
         const Live2D::Cubism::Core::csmVersion version =
-            Live2D::Cubism::Core::csmGetMocVersion( buffer.ptr(), buffer.size() );
+            Live2D::Cubism::Core::csmGetMocVersion( buffer.ptr(), static_cast<Live2D::Cubism::Framework::csmSizeInt>(buffer.size()) );
         this->_moc3_file_format_version =
             static_cast<CubismModel::moc3FileFormatVersion>( version );
     }
@@ -380,7 +380,7 @@ void CubismModelProxy::expression_load() {
         godot::PackedByteArray buffer = godot::FileAccess::get_file_as_bytes( expression_pathname );
         Live2D::Cubism::Framework::CubismExpressionMotion *motion =
             static_cast<Live2D::Cubism::Framework::CubismExpressionMotion *>( this->LoadExpression(
-                buffer.ptr(), buffer.size(), this->_model_setting->GetExpressionName( i ) ) );
+                buffer.ptr(), static_cast<Live2D::Cubism::Framework::csmSizeInt>(buffer.size()), this->_model_setting->GetExpressionName( i ) ) );
 
         if ( this->_map_expression[name] != nullptr ) {
             Live2D::Cubism::Framework::ACubismMotion::Delete( this->_map_expression[name] );
@@ -402,7 +402,7 @@ void CubismModelProxy::physics_load() {
 
     godot::PackedByteArray buffer = godot::FileAccess::get_file_as_bytes( physics_pathname );
     if ( buffer.size() > 0 ) {
-        this->LoadPhysics( buffer.ptr(), buffer.size() );
+        this->LoadPhysics( buffer.ptr(), static_cast<Live2D::Cubism::Framework::csmSizeInt>(buffer.size() ));
     }
 }
 
@@ -417,7 +417,7 @@ void CubismModelProxy::pose_load() {
 
     godot::PackedByteArray buffer = godot::FileAccess::get_file_as_bytes( pose_pathname );
     if ( buffer.size() > 0 ) {
-        this->LoadPose( buffer.ptr(), buffer.size() );
+        this->LoadPose( buffer.ptr(), static_cast<Live2D::Cubism::Framework::csmSizeInt>(buffer.size()) );
     }
 }
 
@@ -432,7 +432,7 @@ void CubismModelProxy::userdata_load() {
 
     godot::PackedByteArray buffer = godot::FileAccess::get_file_as_bytes( userdata_pathname );
     if ( buffer.size() > 0 ) {
-        this->LoadUserData( buffer.ptr(), buffer.size() );
+        this->LoadUserData( buffer.ptr(), static_cast<Live2D::Cubism::Framework::csmSizeInt>(buffer.size() ));
     }
 }
 
@@ -469,7 +469,7 @@ void CubismModelProxy::motion_load() {
             godot::PackedByteArray buffer = godot::FileAccess::get_file_as_bytes( motion_pathname );
             Live2D::Cubism::Framework::CubismMotion *motion =
                 static_cast<Live2D::Cubism::Framework::CubismMotion *>(
-                    this->LoadMotion( buffer.ptr(), buffer.size(), name.GetRawString() ) );
+                    this->LoadMotion( buffer.ptr(), static_cast<Live2D::Cubism::Framework::csmSizeInt>(buffer.size()), name.GetRawString() ) );
 
             Live2D::Cubism::Framework::csmFloat32 fade_time_sec =
                 this->_model_setting->GetMotionFadeInTimeValue( group, im );

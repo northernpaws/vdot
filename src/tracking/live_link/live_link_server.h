@@ -24,7 +24,7 @@ struct LiveLinkPacket {
     godot::String device_id;
     godot::String device_name;
     uint64_t time_stamp;
-    uint8_t magic_2;
+    uint64_t magic_2;
 
     godot::PackedFloat32Array blend_shapes;
 
