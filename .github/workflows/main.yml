@@ -106,7 +106,7 @@ jobs:
       matrix:
         build_type: [ 'Debug', 'Release' ]
 
-    name: 🖥️ Bundle GDExtension
+    name: 🖥️ Bundle GDExtension (${{ matrix.build_type }})
     runs-on: ubuntu-latest
 
     steps:
