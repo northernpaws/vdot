@@ -63,7 +63,7 @@ jobs:
           max-size: '10G'
           key: ${{ matrix.config.os }}-${{ matrix.build_type }}
 
-      - name: Configure
+      - name: CMake Configure
         run: >
           mkdir GDExtension-build
 
@@ -75,11 +75,11 @@ jobs:
           .
 
       # Build the GDExtension containing the C++ sources.
-      - name: Build
+      - name: CMake Build
         run: cmake --build GDExtension-build
 
       # Install the GDExtension files into the `project/` directory.
-      - name: Install
+      - name: CMake Install
         run: cmake --install GDExtension-build
 
       - name: Upload GDExtension artifact (Debug)
@@ -130,13 +130,14 @@ jobs:
         run: ls -R project
 
       - name: Upload Client artifact (${{ matrix.build_type }})
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: Client - ${{ matrix.config.platform }} (${{ matrix.build_type }})
+          name: GDExtension (${{ matrix.build_type }})
           path: project/addons/vdot
 
   client:
     needs: build
+    runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
@@ -146,15 +147,14 @@ jobs:
           - { name: '🍏 macOS Clang', platform: mac }
           - { name: '🐧 Linux GCC', platform: linux }
           - { name: '🪟 Windows MSVC', platform: windows }
-
     name: 🖥️ Client / ${{ matrix.config.name }} (${{ matrix.build_type }})
-    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           submodules: recursive
+          lfs: true
 
       # Retrieve the platform-specific GDExtension build from the `build` step.
       - uses: actions/download-artifact@v4
@@ -173,31 +173,35 @@ jobs:
       - name: Godot Build (Debug)
         if: matrix.build_type == 'Debug'
         id: godot-debug
-        uses: manleydev/build-godot-action@v1.4.1
+        # ref: https://github.com/yeslayla/build-godot-action/issues/32
+        uses: felix-schindler/build-godot-action@v2.0.0
         with:
           name: vdot
           preset: ${{ matrix.config.platform }}
           debugMode: "true"
+          projectDir: project
 
       - name: Godot Build (Release)
         if: matrix.build_type == 'Release'
         id: godot-release
-        uses: manleydev/build-godot-action@v1.4.1
+        # ref: https://github.com/yeslayla/build-godot-action/issues/32
+        uses: felix-schindler/build-godot-action@v2.0.0
         with:
           name: vdot
           preset: ${{ matrix.config.platform }}
           debugMode: "false"
+          projectDir: project
 
       - name: Upload Client artifact (Debug)
         if: matrix.build_type == 'Debug'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Client - ${{ matrix.config.platform }}
           path: ${{ github.workspace }}/${{ steps.godot-debug.outputs.build }}
 
       - name: Upload Client artifact (Release)
         if: matrix.build_type == 'Release'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Client - ${{ matrix.config.platform }}
           path: ${{ github.workspace }}/${{ steps.godot-release.outputs.build }}
