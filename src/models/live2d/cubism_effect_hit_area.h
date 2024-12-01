@@ -69,7 +69,6 @@ private:
         godot::Array ary = ref_ary_mesh->surface_get_arrays(0);
         godot::PackedVector2Array ary_vtx = ary[godot::Mesh::ARRAY_VERTEX];
         godot::PackedInt32Array ary_idx = ary[godot::Mesh::ARRAY_INDEX];
-        const int64_t vtx_count = ary_vtx.size();
 
         godot::Array ary_result;
 
@@ -150,7 +149,6 @@ public:
     virtual void _cubism_process(CubismModelProxy* model, const float delta) override {
         if(this->_active == false) return;
 
-        Csm::ICubismModelSetting* setting = model->_model_setting;
         godot::Array ary = model->_owner_viewport->get_hit_areas();
         godot::Dictionary dict_mesh = model->_owner_viewport->get_meshes();
 

@@ -13,7 +13,7 @@
 #include "renderer/cubism_model_proxy.h"
 
 class CubismEffectCustom : public CubismEffect {
-    GDCLASS(CubismEffectCustom, CubismEffect);
+    GDCLASS(CubismEffectCustom, CubismEffect)
 
 protected:
     static void _bind_methods() {

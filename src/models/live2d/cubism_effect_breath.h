@@ -27,7 +27,6 @@ private:
 
 public:
     virtual void _cubism_init(CubismModelProxy* model) override {
-        Csm::ICubismModelSetting* _model_setting = model->_model_setting;
         this->_breath = Csm::CubismBreath::Create();
 
         Csm::csmVector<Csm::CubismBreath::BreathParameterData> param;
