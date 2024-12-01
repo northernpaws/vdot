@@ -1,5 +1,9 @@
 // SPDX-License-Identifier: MIT
 // SPDX-FileCopyrightText: 2023 MizunagiKB <mizukb@live.jp>
+
+// SPDX-License-Identifier: MIT
+// SPDX-FileCopyrightText: 2024 northernpaws
+
 // GDCubism shader: Mask + AddInv
 shader_type canvas_item;
 render_mode blend_premul_alpha, unshaded;
