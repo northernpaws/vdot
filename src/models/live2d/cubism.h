@@ -2,8 +2,10 @@
 #ifndef VDOT_CUBISM_H
 #define VDOT_CUBISM_H
 
+#if defined(__GNUC__) || defined(__GNUG__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-variable"
+#endif
 
 enum CubismShader {
     CUBISM_SHADER_NORM_ADD,
@@ -39,6 +41,8 @@ const static char *SIGNAL_EFFECT_HIT_AREA_EXITED = "hit_area_exited";
 const static char *SIGNAL_MOTION_FINISHED = "motion_finished";
 #endif // CUBISM_MOTION_CUSTOMDATA
 
+#if defined(__GNUC__) || defined(__GNUG__)
 #pragma GCC diagnostic pop
+#endif
 
 #endif // VDOT_CUBISM_H
