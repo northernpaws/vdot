@@ -7,7 +7,21 @@
 </p>
 
 -----
+## Dependencies
 
+- git
+- cmake
+- C++ compiler
+- Live2D Cubism SDK (see below)
+
+### Live2D Cubism SDK
+
+The repository for the Cubism Native SDK is missing some of the core SDK files,
+so instead of using the repository as a submodule the files need
+to be downloaded.
+
+Download the SDK from the [Live2D Cubism SDK for Native](https://www.live2d.com/en/sdk/download/native/) page, and extract
+the contents into the `extern/cubism` directory.
 
 ## Credits
 

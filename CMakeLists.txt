@@ -1,5 +1,3 @@
-# SPDX-License-Identifier: Unlicense
-
 cmake_minimum_required( VERSION 3.22 )
 
 message( STATUS "Using CMake ${CMAKE_VERSION}" )
@@ -136,13 +134,22 @@ set_target_properties( godot-cpp
         CXX_VISIBILITY_PRESET hidden    # visibility needs to be the same as the main library
 )
 
-target_link_libraries( ${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME}
     PRIVATE
         godot-cpp
 )
 
 # cubism-sdk
 # From here: https://github.com/Live2D/CubismNativeFramework
+# Set directory paths.
+
+include(cmake/CubismSDK.cmake)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE Framework)
+
+
+
+
 #if ( NOT EXISTS "${CMAKE_CURRENT_LIST_DIR}/extern/cubism/CMakeLists.txt" )
 #    message(
 #            FATAL_ERROR

@@ -1,0 +1,5 @@
+# Disable all checks in this folder.
+#
+# Prevents the Clang compiler from raising documentation errors
+# on documentation strings contained within third-party code.
+Checks: '-*'
