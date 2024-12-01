@@ -264,8 +264,8 @@ class LiveLinkServer : public godot::Node {
 
     godot::Error poll();
 
-    int get_port() const;
-    void set_port( int port );
+    [[nodiscard]] uint16_t get_port() const;
+    void set_port( uint16_t port );
 
     void _thread_poll();
 };

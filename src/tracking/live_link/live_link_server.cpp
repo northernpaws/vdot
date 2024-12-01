@@ -1083,11 +1083,11 @@ godot::Error LiveLinkServer::poll() {
     return godot::OK;
 }
 
-int LiveLinkServer::get_port() const {
+uint16_t LiveLinkServer::get_port() const {
     return _port;
 }
 
-void LiveLinkServer::set_port( int port ) {
+void LiveLinkServer::set_port( uint16_t port ) {
     _port = port;
 
     stop();
