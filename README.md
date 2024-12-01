@@ -3,25 +3,16 @@
 </h1>
 
 <p align="center" style="text-align: center;">
-  Godot Extension for rendering, tracking, and lip-syncing various VTube models and environments.  
+  Godot-based program and GDExtension for rendering, tracking, and lip-syncing various VTube models and environments.  
 </p>
 
 -----
 ## Dependencies
 
-- git
-- cmake
-- C++ compiler
-- Live2D Cubism SDK (see below)
-
-### Live2D Cubism SDK
-
-The repository for the Cubism Native SDK is missing some of the core SDK files,
-so instead of using the repository as a submodule the files need
-to be downloaded.
-
-Download the SDK from the [Live2D Cubism SDK for Native](https://www.live2d.com/en/sdk/download/native/) page, and extract
-the contents into the `extern/cubism` directory.
+- Git 
+- CMake <=3.22
+- C/C++ Compiler (GCC, Clang, or MSVC)
+- [Live2D Cubism SDK for Native](https://www.live2d.com/en/sdk/download/native/) (downloaded automatically by cmake)
 
 ## Developing
 
