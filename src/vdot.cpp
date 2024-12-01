@@ -18,8 +18,7 @@ If there are no commits since the last tag, only the tag is shown.
 
 @return The version string (e.g. "Foo v1.2.3-gdedbd01").
 */
-godot::String VDot::version()
-{
+godot::String VDot::version() {
     return VersionInfo::VERSION_STR.data();
 }
 
@@ -31,19 +30,16 @@ The version string is generated using godot-cpp's core/version.hpp.
 
 @return The version string (e.g. "godot-cpp v4.2.0-stable").
 */
-godot::String VDot::godotCPPVersion()
-{
+godot::String VDot::godotCPPVersion() {
     return "godot-cpp v" + godot::uitos( GODOT_VERSION_MAJOR ) + "." +
            godot::uitos( GODOT_VERSION_MINOR ) + "." + godot::uitos( GODOT_VERSION_PATCH ) + "-" +
            GODOT_VERSION_STATUS;
 }
 
 /// Bind our methods so GDScript can access them.
-void VDot::_bind_methods()
-{
+void VDot::_bind_methods() {
     godot::ClassDB::bind_static_method( "GDExtensionTemplate", godot::D_METHOD( "version" ),
                                         &VDot::version );
-    godot::ClassDB::bind_static_method( "GDExtensionTemplate",
-                                        godot::D_METHOD( "godot_cpp_version" ),
-                                        &VDot::godotCPPVersion );
+    godot::ClassDB::bind_static_method(
+        "GDExtensionTemplate", godot::D_METHOD( "godot_cpp_version" ), &VDot::godotCPPVersion );
 }

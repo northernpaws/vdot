@@ -22,24 +22,26 @@
 class CubismModel;
 
 class CubismRenderer {
-public:
-    CubismRenderer(CubismModel *owner_viewport, godot::Node *parent_node);
+  public:
+    CubismRenderer( CubismModel *owner_viewport, godot::Node *parent_node );
     ~CubismRenderer();
-    
+
     void clear();
 
-    godot::SubViewport* request_viewport();
-    godot::MeshInstance2D* request_mesh_instance();
+    godot::SubViewport *request_viewport();
+    godot::MeshInstance2D *request_mesh_instance();
 
-    void pro_proc(const Csm::csmInt32 viewport_count, const Csm::csmInt32 mesh_instance_count);
+    void pro_proc( const Csm::csmInt32 viewport_count, const Csm::csmInt32 mesh_instance_count );
     void epi_proc();
 
-    void dispose_node(const bool node_release);
+    void dispose_node( const bool node_release );
 
     // Shader
-    godot::Ref<godot::Shader> get_shader(const CubismShader e) const { return this->ary_shader[e]; }
+    godot::Ref<godot::Shader> get_shader( const CubismShader e ) const {
+        return this->ary_shader[e];
+    }
 
-public:
+  public:
     const CubismModel *_owner_viewport;
     godot::Node *_parent_node;
 
@@ -64,6 +66,5 @@ public:
     godot::Vector2 CALCULATED_ORIGIN_C;
     godot::Vector2 CALCULATED_ORIGIN_M;
 };
-
 
 #endif // VDOT_CUBISM_RENDERER_H

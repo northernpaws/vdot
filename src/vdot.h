@@ -3,20 +3,18 @@
 
 #include "godot_cpp/classes/object.hpp"
 
-namespace godot
-{
+namespace godot {
     class ClassDB;
 };
 
-class VDot : public godot::Object
-{
+class VDot : public godot::Object {
     GDCLASS( VDot, godot::Object )
 
-public:
+  public:
     static godot::String version();
     static godot::String godotCPPVersion();
 
-private:
+  private:
     static void _bind_methods();
 };
 

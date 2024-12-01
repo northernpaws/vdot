@@ -10,26 +10,28 @@
 #include "live_link_server.h"
 
 class LiveLinkPanel : public godot::Control {
-    GDCLASS(LiveLinkPanel, godot::Object)
+    GDCLASS( LiveLinkPanel, godot::Object )
 
-    godot::MeshInstance3D* _mesh;
+    godot::MeshInstance3D *_mesh;
 
-    LiveLinkServer* _server;
+    LiveLinkServer *_server;
 
     bool _server_active = false;
-protected:
+
+  protected:
     static void _bind_methods();
-public:
+
+  public:
     LiveLinkPanel();
     ~LiveLinkPanel() override;
 
-    void _process(double delta) override;
+    void _process( double delta ) override;
 
-    void update_mesh(const LiveLinkClientData* data);
+    void update_mesh( const LiveLinkClientData *data );
 
-    void _on_server_client_connected (LiveLinkClient* client);
-    void _on_server_client_disconnected (LiveLinkClient* client);
-    void _on_server_client_updated (LiveLinkClient* client);
+    void _on_server_client_connected( LiveLinkClient *client );
+    void _on_server_client_disconnected( LiveLinkClient *client );
+    void _on_server_client_updated( LiveLinkClient *client );
 };
 
 #endif // VDOT_LIVE_LINK_PANEL_H

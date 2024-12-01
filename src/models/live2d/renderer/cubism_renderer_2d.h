@@ -26,33 +26,34 @@
 class CubismRenderer2D : public Live2D::Cubism::Framework::Rendering::CubismRenderer {
     friend class ::CubismRenderer;
 
-public:
+  public:
     CubismRenderer2D();
     virtual ~CubismRenderer2D();
 
-private:
-    godot::Ref<godot::ShaderMaterial> make_ShaderMaterial(const Csm::CubismModel *model, const Csm::csmInt32 index, const ::CubismRenderer &res) const;
-    void make_ArrayMesh_prepare(const Csm::CubismModel *model, ::CubismRenderer &res);
+  private:
+    godot::Ref<godot::ShaderMaterial> make_ShaderMaterial( const Csm::CubismModel *model,
+                                                           const Csm::csmInt32 index,
+                                                           const ::CubismRenderer &res ) const;
+    void make_ArrayMesh_prepare( const Csm::CubismModel *model, ::CubismRenderer &res );
 
-    godot::Ref<godot::ArrayMesh> make_ArrayMesh(
-        const Csm::CubismModel *model,
-        const Csm::csmInt32 index,
-        const bool makemask,
-        const ::CubismRenderer &res) const;
+    godot::Ref<godot::ArrayMesh> make_ArrayMesh( const Csm::CubismModel *model,
+                                                 const Csm::csmInt32 index, const bool makemask,
+                                                 const ::CubismRenderer &res ) const;
 
-    void update_mask(godot::SubViewport *viewport, const Csm::csmInt32 index, ::CubismRenderer &res);
+    void update_mask( godot::SubViewport *viewport, const Csm::csmInt32 index,
+                      ::CubismRenderer &res );
 
-public:
+  public:
     Csm::csmInt32 calc_viewport_count() const;
     Csm::csmInt32 calc_mesh_instance_count() const;
-    godot::Vector2 get_size(const Csm::CubismModel *model) const;
-    godot::Vector2 get_origin(const Csm::CubismModel *model) const;
-    float get_ppunit(const Csm::CubismModel *model) const;
+    godot::Vector2 get_size( const Csm::CubismModel *model ) const;
+    godot::Vector2 get_origin( const Csm::CubismModel *model ) const;
+    float get_ppunit( const Csm::CubismModel *model ) const;
 
-    void update(::CubismRenderer &res);
-    void update(::CubismRenderer &res, const bool update_node, const bool update_mesh);
+    void update( ::CubismRenderer &res );
+    void update( ::CubismRenderer &res, const bool update_node, const bool update_mesh );
 
-    virtual void Initialize(Csm::CubismModel *model, Csm::csmInt32 maskBufferCount);
+    virtual void Initialize( Csm::CubismModel *model, Csm::csmInt32 maskBufferCount );
     void DoDrawModel();
     void SaveProfile();
     void RestoreProfile();

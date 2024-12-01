@@ -10,8 +10,8 @@
 #include "../cubism.h"
 
 #ifdef WINDOWS_ENABLED
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
 #endif // WINDOWS_ENABLED
 #include <string>
 
@@ -19,21 +19,20 @@
 
 #include <CubismFramework.hpp>
 
-void PrintLog(const Csm::csmChar* format, ...) {
+void PrintLog( const Csm::csmChar *format, ... ) {
 #ifdef DEBUG_ENABLED
     va_list args;
     Csm::csmChar buf[MAX_PRINTLOG_LENGTH];
-    va_start(args, format);
-    vsnprintf(buf, sizeof(buf), format, args);
-    WARN_PRINT(buf);
-    va_end(args);
+    va_start( args, format );
+    vsnprintf( buf, sizeof( buf ), format, args );
+    WARN_PRINT( buf );
+    va_end( args );
 #endif // DEBUG_ENABLED
 }
 
-
-void PrintMessage(const Csm::csmChar* message) {
+void PrintMessage( const Csm::csmChar *message ) {
 #ifdef DEBUG_ENABLED
-    PrintLog("%s", message);
+    PrintLog( "%s", message );
 #endif // DEBUG_ENABLED
 }
 

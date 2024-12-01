@@ -91,6 +91,6 @@ namespace ARKit {
     };
 }
 
-VARIANT_ENUM_CAST(ARKit::BlendShape);
+VARIANT_ENUM_CAST( ARKit::BlendShape );
 
 #endif // VDOT_BLEND_SHAPES_H

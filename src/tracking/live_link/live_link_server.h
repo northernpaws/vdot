@@ -8,10 +8,10 @@
 
 #include "godot_cpp/classes/node.hpp"
 
-#include "godot_cpp/classes/udp_server.hpp"
+#include "godot_cpp/classes/mutex.hpp"
 #include "godot_cpp/classes/packet_peer_udp.hpp"
 #include "godot_cpp/classes/thread.hpp"
-#include "godot_cpp/classes/mutex.hpp"
+#include "godot_cpp/classes/udp_server.hpp"
 #include "godot_cpp/variant/array.hpp"
 #include "godot_cpp/variant/packed_byte_array.hpp"
 
@@ -28,17 +28,18 @@ struct LiveLinkPacket {
 
     godot::PackedFloat32Array blend_shapes;
 
-    static LiveLinkPacket from_bytes(const godot::PackedByteArray& bytes);
+    static LiveLinkPacket from_bytes( const godot::PackedByteArray &bytes );
 };
 
 /**
  * Holds and decodes packet data received from a Live Link client.
  */
 class LiveLinkClientData : public godot::Object {
-    GDCLASS(LiveLinkClientData, godot::Object)
-protected:
+    GDCLASS( LiveLinkClientData, godot::Object )
+  protected:
     static void _bind_methods();
-public:
+
+  public:
     enum DataIndex {
         BlendShapeCount = 0,
 
@@ -137,7 +138,7 @@ public:
     LiveLinkClientData();
     ~LiveLinkClientData() override;
 
-    float get_blend_shape(ARKit::BlendShape blendShape);
+    float get_blend_shape( ARKit::BlendShape blendShape );
 
     [[nodiscard]] float _get_eye_blink_left() const;
     [[nodiscard]] float _get_eye_look_down_left() const;
@@ -202,7 +203,7 @@ public:
     [[nodiscard]] float _get_right_eye_roll() const;
 };
 
-VARIANT_ENUM_CAST(LiveLinkClientData::DataIndex);
+VARIANT_ENUM_CAST( LiveLinkClientData::DataIndex );
 
 /**
  * Represents a client device connected to the Live Link server.
@@ -210,17 +211,18 @@ VARIANT_ENUM_CAST(LiveLinkClientData::DataIndex);
  * Contains information about the connected client, and the client's current blend-shape values.
  */
 class LiveLinkClient : public godot::Object {
-    GDCLASS(LiveLinkClient, godot::Object)
-protected:
+    GDCLASS( LiveLinkClient, godot::Object )
+  protected:
     static void _bind_methods();
-public:
+
+  public:
     godot::String _id;
     godot::String _name;
 
     int _last_seen;
     godot::Ref<godot::PacketPeerUDP> _connection;
 
-    LiveLinkClientData* _values; // tODO: use ref?
+    LiveLinkClientData *_values; // tODO: use ref?
 
     LiveLinkClient();
     ~LiveLinkClient();
@@ -230,24 +232,24 @@ public:
  * Serves a Live Link server on the specified port that the Live Link Face app can connect to.
  */
 class LiveLinkServer : public godot::Node {
-    GDCLASS(LiveLinkServer, godot::Node)
+    GDCLASS( LiveLinkServer, godot::Node )
 
     using PeerList = godot::List<godot::Ref<godot::PacketPeerUDP>>;
 
     int _port = 11111;
 
-    godot::UDPServer* _server;
+    godot::UDPServer *_server;
     godot::Mutex _server_mutex;
     bool _running = true;
 
     PeerList _unidentified_clients;
-    std::map<godot::String, LiveLinkClient*> _clients;
+    std::map<godot::String, LiveLinkClient *> _clients;
 
-    godot::Thread* _thread; // tODO: ref?
-protected:
+    godot::Thread *_thread; // tODO: ref?
+  protected:
     static void _bind_methods();
 
-public:
+  public:
     bool _disable_polling = false;
 
     LiveLinkServer();
@@ -255,7 +257,7 @@ public:
 
     void _ready() override;
 
-    void _process(double delta) override;
+    void _process( double delta ) override;
 
     void _exit_tree() override;
 
@@ -265,7 +267,7 @@ public:
     godot::Error poll();
 
     int get_port() const;
-    void set_port(int port);
+    void set_port( int port );
 
     void _thread_poll();
 };
