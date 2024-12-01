@@ -20,6 +20,21 @@ include_directories(SYSTEM ${CUBISM_CORE_PATH}/include)
 
 add_subdirectory(${CUBISM_FRAMEWORK_PATH} ${CMAKE_CURRENT_BINARY_DIR}/Framework)
 
+# There's an issue with Cubsim trying to force us to select a pre-existing renderer,
+# defaulting to Cocos. Strip the Cocos files from the target so they don't try to build.
+get_target_property(Framework_Sources Framework SOURCES)
+list(REMOVE_ITEM Framework_Sources ${CUBISM_FRAMEWORK_PATH}/src/Rendering/Cocos2d/CubismOffscreenSurface_Cocos2dx.cpp)
+list(REMOVE_ITEM Framework_Sources ${CUBISM_FRAMEWORK_PATH}/src/Rendering/Cocos2d/CubismOffscreenSurface_Cocos2dx.hpp)
+list(REMOVE_ITEM Framework_Sources ${CUBISM_FRAMEWORK_PATH}/src/Rendering/Cocos2d/CubismRenderer_Cocos2dx.cpp)
+list(REMOVE_ITEM Framework_Sources ${CUBISM_FRAMEWORK_PATH}/src/Rendering/Cocos2d/CubismRenderer_Cocos2dx.hpp)
+list(REMOVE_ITEM Framework_Sources ${CUBISM_FRAMEWORK_PATH}/src/Rendering/Cocos2d/CubismShader_Cocos2dx.cpp)
+list(REMOVE_ITEM Framework_Sources ${CUBISM_FRAMEWORK_PATH}/src/Rendering/Cocos2d/CubismShader_Cocos2dx.hpp)
+list(REMOVE_ITEM Framework_Sources ${CUBISM_FRAMEWORK_PATH}/src/Rendering/Cocos2d/CubismCommandBuffer_Cocos2dx.cpp)
+list(REMOVE_ITEM Framework_Sources ${CUBISM_FRAMEWORK_PATH}/src/Rendering/Cocos2d/CubismCommandBuffer_Cocos2dx.hpp)
+set_target_properties(Framework PROPERTIES
+        SOURCES "${Framework_Sources}"
+)
+
 # Re-write the scope of the Framework includes to be system,
 # otherwise we get warnings and errors from them.
 get_target_property(Framework_Public_Include Framework INTERFACE_INCLUDE_DIRECTORIES)
