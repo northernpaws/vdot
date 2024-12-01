@@ -70,7 +70,7 @@ namespace {
 #ifdef DEBUG_ENABLED
             csm_options.LoggingLevel = Csm::CubismFramework::Option::LogLevel::LogLevel_Verbose;
 #else
-            option.LoggingLevel = Csm::CubismFramework::Option::LogLevel::LogLevel_Off;
+            csm_options.LoggingLevel = Csm::CubismFramework::Option::LogLevel::LogLevel_Off;
 #endif // DEBUG_ENABLED
 
             // Initialize the Cubism framework before registering it's resources.
