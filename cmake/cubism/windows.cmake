@@ -39,7 +39,7 @@ else()
 endif()
 
 # Find library path.
-set(CORE_LIB_SUFFIX ${CUBISM_CORE_PATH}/lib/windows/${ARCH}/${COMPILER})
+set(CUBISM_CORE_LIB_SUFFIX ${CUBISM_CORE_PATH}/lib/windows/${ARCH}/${COMPILER})
 set_target_properties(Live2DCubismCore
         PROPERTIES
         IMPORTED_LOCATION_DEBUG
