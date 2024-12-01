@@ -48,15 +48,13 @@ jobs:
           sudo apt-get install -y ccache ninja-build
 
       - name: Install Dependencies (Windows)
-        if: matrix.config.os == 'windows-latest'
+        if: matrix.config.os == 'windows-2022'
         run: |
           choco upgrade ccache ninja
 
       - name: Setup MSVC (Windows)
-        if: matrix.config.os == 'windows-latest'
+        if: matrix.config.os == 'windows-2022'
         uses: ilammy/msvc-dev-cmd@v1
-        with:
-          vsversion: 2022 # latest supported by Live2D
 
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
