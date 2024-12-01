@@ -11,6 +11,8 @@
 
 #include "cubism_effect.h"
 
+#include "renderer/cubism_model_proxy.h"
+
 class CubismEffectEyeBlink : public CubismEffect {
     GDCLASS( CubismEffectEyeBlink, CubismEffect )
 
