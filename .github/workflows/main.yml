@@ -26,7 +26,9 @@ jobs:
         config:
           - { name: '🍏 macOS Clang', os: macos-latest, platform: mac }
           - { name: '🐧 Linux GCC', os: ubuntu-latest, platform: linux }
-          - { name: '🪟 Windows MSVC', os: windows-2022, platform: windows }
+          # Live2D SDK requires MSVC 2022 at the newest, but the windows-2022 image has MSVC > 1940 limit, so we use 2019.
+          # https://github.com/actions/runner-images/blob/main/images/windows/Windows2019-Readme.md
+          - { name: '🪟 Windows MSVC', os: windows-2019, platform: windows }
 
     name: 🛠 Build / ${{ matrix.config.name }} (${{ matrix.build_type }})
     runs-on: ${{ matrix.config.os }}
@@ -48,12 +50,12 @@ jobs:
           sudo apt-get install -y ccache ninja-build
 
       - name: Install Dependencies (Windows)
-        if: matrix.config.os == 'windows-2022'
+        if: matrix.config.os == 'windows-2019'
         run: |
           choco upgrade ccache ninja
 
       - name: Setup MSVC (Windows)
-        if: matrix.config.os == 'windows-2022'
+        if: matrix.config.os == 'windows-2019'
         uses: ilammy/msvc-dev-cmd@v1
 
       - name: ccache
