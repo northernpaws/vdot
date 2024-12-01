@@ -83,6 +83,13 @@ add_custom_command(
             ${BUILD_OUTPUT_DIR}
 )
 
+# Custom target to make CLion targets easier for debugging.
+add_custom_target(install_${PROJECT_NAME}
+        "${CMAKE_COMMAND}" --build "${CMAKE_BINARY_DIR}" --target install
+        DEPENDS ${PROJECT_NAME}
+        COMMENT "Installing ${PROJECT_NAME}")
+
+
 # Warnings
 include( CompilerWarnings )
 

@@ -23,6 +23,20 @@ to be downloaded.
 Download the SDK from the [Live2D Cubism SDK for Native](https://www.live2d.com/en/sdk/download/native/) page, and extract
 the contents into the `extern/cubism` directory.
 
+## Developing
+
+### Debugging
+
+> To enable debugging the library within Godot on **MacOS**, you'll need to modify the entitlements of the Godot editor to allow the `com.apple.security.get-task-allow` entitlement so that the debugger can attach to the process.
+> ```bash
+> $ codesign -s - --deep --force --options=runtime --entitlements ./editor.entitlements /Applications/Godot.app
+> ```
+> Note that this may cause a security signing warning the next time you start the Godot editor.
+
+#### CLion
+
+To debug the extension using CLion, start the Godot editor, open your project, and then in CLion debug the "Godot Editor" target.
+
 ## Credits
 
 People and projects that helped make this possible.
