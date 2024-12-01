@@ -2,6 +2,12 @@
 #ifndef VDOT_CUBISM_H
 #define VDOT_CUBISM_H
 
+#if defined(__clang__)
+// Fixes a bug on Linux with the compiler thinking variables are unused when they aren't.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
+#endif
+
 enum CubismShader {
     CUBISM_SHADER_NORM_ADD,
     CUBISM_SHADER_NORM_MIX,
@@ -35,5 +41,9 @@ const static char *SIGNAL_EFFECT_HIT_AREA_EXITED = "hit_area_exited";
 #ifdef CUBISM_MOTION_CUSTOMDATA
 const static char *SIGNAL_MOTION_FINISHED = "motion_finished";
 #endif // CUBISM_MOTION_CUSTOMDATA
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 
 #endif // VDOT_CUBISM_H
