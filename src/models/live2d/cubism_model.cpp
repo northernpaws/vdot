@@ -569,7 +569,6 @@ void CubismModel::setup_property() {
     this->dict_anim_motion.Clear();
 
     if(this->is_initialized() == false) return;
-    Csm::CubismModel *model = this->proxy_model->GetModel();
     Csm::ICubismModelSetting* setting = this->proxy_model->_model_setting;
 
     // Property - Expression
@@ -729,7 +728,6 @@ bool CubismModel::_property_get_revert(const godot::StringName &p_name, godot::V
 
 void CubismModel::_get_property_list(godot::List<godot::PropertyInfo> *p_list) {
     if(this->is_initialized() == false) return;
-    Csm::CubismModel *model = this->proxy_model->GetModel();
     Csm::ICubismModelSetting* setting = this->proxy_model->_model_setting;
     godot::PackedStringArray ary_enum;
 

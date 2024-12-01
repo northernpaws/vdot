@@ -300,7 +300,6 @@ void CubismRenderer2D::update(::CubismRenderer &res)
 {
     const Live2D::Cubism::Framework::CubismModel *model = this->GetModel();
     const Csm::csmInt32 *renderOrder = model->GetDrawableRenderOrders();
-    const Csm::csmInt32 *maskCount = model->GetDrawableMaskCounts();
 
     this->make_ArrayMesh_prepare(
         model,
@@ -373,8 +372,6 @@ void CubismRenderer2D::update(::CubismRenderer &res)
 void CubismRenderer2D::update(::CubismRenderer &res, const bool update_node, const bool update_mesh)
 {
     const Live2D::Cubism::Framework::CubismModel *model = this->GetModel();
-    const Csm::csmInt32 *renderOrder = model->GetDrawableRenderOrders();
-    const Csm::csmInt32 *maskCount = model->GetDrawableMaskCounts();
 
     for (Csm::csmInt32 index = 0; index < model->GetDrawableCount(); index++)
     {
