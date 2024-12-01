@@ -60,5 +60,9 @@ if (${cubism_POPULATED})
             INTERFACE_SYSTEM_INCLUDE_DIRECTORIES ${Framework_Public_Include}
     )
 
+    # Fixes "relocation R_X86_64_PC32 against symbol xxx can not be used when making a shared object; recompile with -fPIC"
+    # being thrown by the linker exclusively in Linux Debug builds with GCC,
+    set_property(TARGET Framework PROPERTY POSITION_INDEPENDENT_CODE ON)
+
     target_link_libraries(Framework Live2DCubismCore)
 endif()
