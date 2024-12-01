@@ -84,7 +84,7 @@ jobs:
 
       - name: Upload GDExtension artifact (Debug)
         if: matrix.build_type == 'Debug'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: gdextension-Debug-${{ matrix.config.platform }}
           path: |
@@ -92,7 +92,7 @@ jobs:
 
       - name: Upload GDExtension artifact (Release)
         if: matrix.build_type == 'Release'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: gdextension-Release-${{ matrix.config.platform }}
           path: |
