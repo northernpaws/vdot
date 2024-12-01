@@ -24,9 +24,9 @@ jobs:
       matrix:
         build_type: ['Debug', 'Release']
         config:
-          - { name: '🍏 macOS Clang', os: macos-latest }
-          - { name: '🐧 Linux GCC', os: ubuntu-latest }
-          - { name: '🪟 Windows MSVC', os: windows-2022 }
+          - { name: '🍏 macOS Clang', os: macos-latest, platform: mac }
+          - { name: '🐧 Linux GCC', os: ubuntu-latest, platform: linux }
+          - { name: '🪟 Windows MSVC', os: windows-2022, platform: windows }
 
     name: 🛠 Build / ${{ matrix.config.name }} (${{ matrix.build_type }})
     runs-on: ${{ matrix.config.os }}
@@ -73,24 +73,58 @@ jobs:
           --install-prefix ${{ github.workspace }}/install-${{ matrix.build_type }}
           .
 
+      # Build the GDExtension containing the C++ sources.
       - name: Build
         run: cmake --build GDExtension-build
 
+      # Install the GDExtension files into the `project/` directory.
       - name: Install
         run: cmake --install GDExtension-build
 
-      - name: Upload artifact (Debug)
+      - name: Upload GDExtension artifact (Debug)
         if: matrix.build_type == 'Debug'
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ github.event.repository.name }}-Debug
+          name: ${{ github.event.repository.name }}-Debug GDExtension
           path: |
             ${{ github.workspace }}/install-${{ matrix.build_type }}/*
 
-      - name: Upload artifact (Release)
+      - name: Upload GDExtension artifact (Release)
         if: matrix.build_type == 'Release'
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ github.event.repository.name }}-Release
+          name: ${{ github.event.repository.name }}-Release GDExtension
           path: |
             ${{ github.workspace }}/install-${{ matrix.build_type }}/*
+
+      - name: Godot Build (Debug)
+        if: matrix.build_type == 'Debug'
+        id: godot
+        uses: manleydev/build-godot-action@v1.4.1
+        with:
+          name: vdot
+          preset: ${{ matrix.config.template }}
+          debugMode: "true"
+
+      - name: Godot Build (Release)
+        if: matrix.build_type == 'Release'
+        id: godot
+        uses: manleydev/build-godot-action@v1.4.1
+        with:
+          name: vdot
+          preset: ${{ matrix.config.platform }}
+          debugMode: "false"
+
+      - name: Upload Client artifact (Debug)
+        if: matrix.build_type == 'Debug'
+        uses: actions/upload-artifact@v3
+        with:
+          name: Client - ${{ matrix.platform }}
+          path: ${{ github.workspace }}/${{ steps.godot.outputs.build }}
+
+      - name: Upload Client artifact (Release)
+        if: matrix.build_type == 'Release'
+        uses: actions/upload-artifact@v3
+        with:
+          name: Client - ${{ matrix.config.platform }}
+          path: ${{ github.workspace }}/${{ steps.godot.outputs.build }}
