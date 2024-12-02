@@ -8,6 +8,7 @@
 
 #include <godot_cpp/classes/file_access.hpp>
 #include <godot_cpp/classes/resource_loader.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 
 #include "cubism_renderer_2d.h"
 
@@ -154,6 +155,10 @@ void CubismModelProxy::model_load_resource() {
             this->_model_pathname.get_base_dir().path_join( gd_filename );
 
         godot::Ref<godot::Texture2D> tex = res_loader->load( texture_pathname );
+        if (!tex.is_valid()) {
+            godot::UtilityFunctions::push_error("Failed to load Live2D model texture: %s", texture_pathname);
+            continue;
+        }
 
         this->_renderer_resource.ary_texture.append( tex );
     }
