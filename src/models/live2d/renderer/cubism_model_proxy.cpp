@@ -9,6 +9,8 @@
 #include <godot_cpp/classes/file_access.hpp>
 #include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
+#include <godot_cpp/classes/image.hpp>
+#include <godot_cpp/classes/image_texture.hpp>
 
 #include "cubism_renderer_2d.h"
 
@@ -155,9 +157,20 @@ void CubismModelProxy::model_load_resource() {
             this->_model_pathname.get_base_dir().path_join( gd_filename );
 
         godot::Ref<godot::Texture2D> tex = res_loader->load( texture_pathname );
-        if (!tex.is_valid()) {
-            godot::UtilityFunctions::push_error("Failed to load Live2D model texture: %s", texture_pathname);
-            continue;
+        if (!tex.is_valid()) { // Texture will invalid if the texture loader cannot handle it.
+            // Try again with the image loader, which is less optimized,
+            //  but more lenient, and supports filesystem loading.
+            auto image = godot::Image::load_from_file(texture_pathname);
+            tex = godot::ImageTexture::create_from_image(image);
+
+            godot::UtilityFunctions::push_warning("Live2D model texture was loaded as an ImageTexture: %s", texture_pathname);
+
+            // If the texture is still invalid, then we really can't load it.
+            if (!tex.is_valid()) {
+                godot::UtilityFunctions::push_error( "Failed to load Live2D model texture: %s",
+                                                     texture_pathname );
+                continue;
+            }
         }
 
         this->_renderer_resource.ary_texture.append( tex );
