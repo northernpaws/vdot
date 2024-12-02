@@ -153,7 +153,8 @@ jobs:
           lfs: true
 
       # Retrieve the platform-specific GDExtension build from the `build` step.
-      - uses: actions/download-artifact@v4
+      - name: Download GDExtension (${{ matrix.build_type }})
+        uses: actions/download-artifact@v4
         with:
           #name: gdextension-${{ matrix.config.platform }}
           pattern: gdextension-${{ matrix.build_type }}-*
