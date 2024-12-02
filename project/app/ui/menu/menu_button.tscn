@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1og747hsnjrt"]
+
+[ext_resource type="Texture2D" uid="uid://cmi0xxy2mjavn" path="res://addons/vdot/icons/Example.svg" id="1_ms83w"]
+[ext_resource type="Script" path="res://app/ui/menu/menu_button.gd" id="2_xmo4n"]
+
+[node name="MenuButton" type="Button"]
+custom_minimum_size = Vector2(42, 42)
+icon = ExtResource("1_ms83w")
+flat = true
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_xmo4n")
+
+[node name="TooltipTimer" type="Timer" parent="."]

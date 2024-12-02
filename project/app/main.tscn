@@ -1,0 +1,85 @@
+[gd_scene load_steps=5 format=3 uid="uid://dg8w0woeegm0n"]
+
+[ext_resource type="PackedScene" uid="uid://b1og747hsnjrt" path="res://app/ui/menu/menu_button.tscn" id="1_tc77p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jmqv"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjdin"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qeowa"]
+font_size = 11
+
+[node name="Scene" type="Node"]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MenuBar" type="Panel" parent="UI"]
+clip_contents = true
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.1
+anchor_bottom = 0.9
+offset_bottom = 5.83197
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1jmqv")
+
+[node name="Container" type="VBoxContainer" parent="UI/MenuBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuButton" parent="UI/MenuBar/Container" instance=ExtResource("1_tc77p")]
+layout_mode = 2
+
+[node name="MenuTooltip" type="HBoxContainer" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 54.0
+offset_top = 64.0
+offset_right = 181.0
+offset_bottom = 89.0
+theme_override_constants/separation = 0
+
+[node name="Arrow" type="Panel" parent="UI/MenuTooltip"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cjdin")
+
+[node name="Panel" type="Panel" parent="UI/MenuTooltip"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_cjdin")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MenuTooltip/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI/MenuTooltip/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Tooltip text"
+label_settings = SubResource("LabelSettings_qeowa")
+horizontal_alignment = 1
+text_overrun_behavior = 3
+
+[node name="Environment" type="Node2D" parent="."]
