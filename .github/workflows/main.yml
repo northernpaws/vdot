@@ -175,7 +175,6 @@ jobs:
           godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
           godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz
           relative_project_path: project
-          archive_output: true
           verbose: true
           export_debug: true
 
@@ -187,7 +186,6 @@ jobs:
           godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
           godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz
           relative_project_path: project
-          archive_output: true
           verbose: true
 
       - name: Display structure of project
@@ -198,11 +196,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Client (Debug)
-          path: ${{ steps.godot-debug.outputs.archive_directory }}/*
+          path: ${{ steps.godot-debug.outputs.build_directory }}/*
 
       - name: Upload Client artifact (Release)
         if: matrix.build_type == 'Release'
         uses: actions/upload-artifact@v4
         with:
           name: Client (Release)
-          path: ${{ steps.godot-release.outputs.archive_directory }}/*
+          path: ${{ steps.godot-release.outputs.build_directory }}/*
