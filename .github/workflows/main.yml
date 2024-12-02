@@ -160,7 +160,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           #name: gdextension-${{ matrix.config.platform }}
-          pattern: gdextension-*
+          pattern: gdextension-${{ matrix.build_type }}-*
           path: project/addons
           merge-multiple: true
 
@@ -176,10 +176,10 @@ jobs:
         # ref: https://github.com/yeslayla/build-godot-action/issues/32
         uses: felix-schindler/build-godot-action@v2.0.0
         with:
-          name: vdot
           preset: ${{ matrix.config.platform }}
-          debugMode: "true"
-          projectDir: project
+          debugMode: "false"
+          projectDir: "project"
+          package: "true"
 
       - name: Godot Build (Release)
         if: matrix.build_type == 'Release'
