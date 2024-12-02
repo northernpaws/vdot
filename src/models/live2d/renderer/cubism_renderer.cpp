@@ -35,16 +35,16 @@ CubismRenderer::CubismRenderer( CubismModel *owner_viewport, godot::Node *parent
 
     this->ary_shader[CUBISM_SHADER_MASK_ADD] =
         res_loader->load( "res://addons/vdot/assets/live2d/shader/2d_cubism_mask_add.gdshader" );
-    this->ary_shader[CUBISM_SHADER_MASK_ADD_INV] =
-        res_loader->load( "res://addons/vdot/assets/live2d/shader/2d_cubism_mask_add_inv.gdshader" );
+    this->ary_shader[CUBISM_SHADER_MASK_ADD_INV] = res_loader->load(
+        "res://addons/vdot/assets/live2d/shader/2d_cubism_mask_add_inv.gdshader" );
     this->ary_shader[CUBISM_SHADER_MASK_MIX] =
         res_loader->load( "res://addons/vdot/assets/live2d/shader/2d_cubism_mask_mix.gdshader" );
-    this->ary_shader[CUBISM_SHADER_MASK_MIX_INV] =
-        res_loader->load( "res://addons/vdot/assets/live2d/shader/2d_cubism_mask_mix_inv.gdshader" );
+    this->ary_shader[CUBISM_SHADER_MASK_MIX_INV] = res_loader->load(
+        "res://addons/vdot/assets/live2d/shader/2d_cubism_mask_mix_inv.gdshader" );
     this->ary_shader[CUBISM_SHADER_MASK_MUL] =
         res_loader->load( "res://addons/vdot/assets/live2d/shader/2d_cubism_mask_mul.gdshader" );
-    this->ary_shader[CUBISM_SHADER_MASK_MUL_INV] =
-        res_loader->load( "res://addons/vdot/assets/live2d/shader/2d_cubism_mask_mul_inv.gdshader" );
+    this->ary_shader[CUBISM_SHADER_MASK_MUL_INV] = res_loader->load(
+        "res://addons/vdot/assets/live2d/shader/2d_cubism_mask_mul_inv.gdshader" );
 
     memdelete( res_loader );
 }
