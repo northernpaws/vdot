@@ -190,18 +190,19 @@ jobs:
           name: vdot
           preset: ${{ matrix.config.platform }}
           debugMode: "false"
-          projectDir: project
+          projectDir: 'project'
+          package: true
 
       - name: Upload Client artifact (Debug)
         if: matrix.build_type == 'Debug'
         uses: actions/upload-artifact@v4
         with:
           name: Client - ${{ matrix.config.platform }}
-          path: ${{ github.workspace }}/${{ steps.godot-debug.outputs.build }}
+          path: ${{ github.workspace }}/${{ steps.godot-debug.outputs.artifact }}
 
       - name: Upload Client artifact (Release)
         if: matrix.build_type == 'Release'
         uses: actions/upload-artifact@v4
         with:
           name: Client - ${{ matrix.config.platform }}
-          path: ${{ github.workspace }}/${{ steps.godot-release.outputs.build }}
+          path: ${{ github.workspace }}/${{ steps.godot-release.outputs.artifact }}
