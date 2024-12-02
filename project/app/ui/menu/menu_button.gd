@@ -2,13 +2,17 @@ extends Button
 
 @onready var tooltip: Control = %MenuTooltip
 @onready var timer: Timer = $TooltipTimer
+@onready var textureRect: TextureRect = $Container/Icon
 
 @export var label: String
+@export var buttonIcon: Texture2D
 
 var tooltip_visable: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	textureRect.texture = buttonIcon
+	
 	connect('mouse_entered', _mouse_entered)
 	connect('mouse_exited', _mouse_exited)
 	

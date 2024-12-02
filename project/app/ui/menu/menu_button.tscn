@@ -1,14 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1og747hsnjrt"]
+[gd_scene load_steps=4 format=3 uid="uid://b1og747hsnjrt"]
 
-[ext_resource type="Texture2D" uid="uid://cmi0xxy2mjavn" path="res://addons/vdot/icons/Example.svg" id="1_ms83w"]
+[ext_resource type="Theme" uid="uid://daatsmg01tdvn" path="res://app/ui/menubar_theme.tres" id="1_6x2vp"]
 [ext_resource type="Script" path="res://app/ui/menu/menu_button.gd" id="2_xmo4n"]
+[ext_resource type="Texture2D" uid="uid://brye5qxvxirr0" path="res://assets/icons/user-solid.svg" id="3_c6svu"]
 
 [node name="MenuButton" type="Button"]
 custom_minimum_size = Vector2(42, 42)
-icon = ExtResource("1_ms83w")
-flat = true
-icon_alignment = 1
-expand_icon = true
+theme = ExtResource("1_6x2vp")
 script = ExtResource("2_xmo4n")
+label = "Manage Models"
+buttonIcon = ExtResource("3_c6svu")
 
 [node name="TooltipTimer" type="Timer" parent="."]
+
+[node name="Container" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Icon" type="TextureRect" parent="Container"]
+layout_mode = 2
+texture = ExtResource("3_c6svu")
+expand_mode = 3

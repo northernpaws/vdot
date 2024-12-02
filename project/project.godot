@@ -15,6 +15,10 @@ run/main_scene="res://app/main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/subwindows/embed_subwindows=false
+
 [rendering]
 
 textures/vram_compression/import_etc2_astc=true
