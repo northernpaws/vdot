@@ -168,6 +168,7 @@ jobs:
         run: ls -R project
 
       - name: Godot Build (Debug)
+        id: godot-debug
         if: matrix.build_type == 'Debug'
         uses: firebelley/godot-export@v6.0.0
         with:
@@ -178,8 +179,8 @@ jobs:
           verbose: true
           export_debug: true
 
-      - id: godot
-        name: Godot Build (Release)
+      - name: Godot Build (Release)
+        id: godot-release
         if: matrix.build_type == 'Release'
         uses: firebelley/godot-export@v6.0.0
         with:
@@ -197,11 +198,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Client (Debug)
-          path: ${{ steps.godot.outputs.archive_directory }}/*
+          path: ${{ steps.godot-debug.outputs.archive_directory }}/*
 
       - name: Upload Client artifact (Release)
         if: matrix.build_type == 'Release'
         uses: actions/upload-artifact@v4
         with:
           name: Client (Release)
-          path: ${{ steps.godot.outputs.archive_directory }}/*
+          path: ${{ steps.godot-release.outputs.archive_directory }}/*
