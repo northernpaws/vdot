@@ -143,11 +143,7 @@ jobs:
       fail-fast: false
       matrix:
         build_type: ['Debug', 'Release']
-        config:
-          - { name: '🍏 macOS Clang', platform: mac }
-          - { name: '🐧 Linux GCC', platform: linux }
-          - { name: '🪟 Windows MSVC', platform: windows }
-    name: 🖥️ Client / ${{ matrix.config.name }} (${{ matrix.build_type }})
+    name: 🖥️ Client (${{ matrix.build_type }})
 
     steps:
       - name: Checkout
@@ -172,25 +168,25 @@ jobs:
 
       - name: Godot Build (Debug)
         if: matrix.build_type == 'Debug'
-        id: godot-debug
-        # ref: https://github.com/yeslayla/build-godot-action/issues/32
-        uses: felix-schindler/build-godot-action@v2.0.0
+        uses: firebelley/godot-export@v6.0.0
         with:
-          preset: ${{ matrix.config.platform }}
-          debugMode: "false"
-          projectDir: "project"
-          package: "true"
+          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.0/Godot_v4.0-stable_linux.x86_64.zip
+          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.0/Godot_v4.0-stable_export_templates.tpz
+          relative_project_path: project
+          archive_output: true
+          verbose: true
+          export_debug: true
 
-      - name: Godot Build (Release)
+      - id: godot
+        name: Godot Build (Release)
         if: matrix.build_type == 'Release'
-        id: godot-release
-        # ref: https://github.com/yeslayla/build-godot-action/issues/32
-        uses: felix-schindler/build-godot-action@v2.0.0
+        uses: firebelley/godot-export@v6.0.0
         with:
-          preset: ${{ matrix.config.platform }}
-          debugMode: "false"
-          projectDir: "project"
-          package: "true"
+          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.0/Godot_v4.0-stable_linux.x86_64.zip
+          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.0/Godot_v4.0-stable_export_templates.tpz
+          relative_project_path: project
+          archive_output: true
+          verbose: true
 
       - name: Display structure of project
         run: ls -R project
@@ -200,11 +196,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Client - ${{ matrix.config.platform }}
-          path: ${{ github.workspace }}/${{ steps.godot-debug.outputs.artifact }}
+          path: ${{ steps.godot.outputs.archive_directory }}/*
 
       - name: Upload Client artifact (Release)
         if: matrix.build_type == 'Release'
         uses: actions/upload-artifact@v4
         with:
           name: Client - ${{ matrix.config.platform }}
-          path: ${{ github.workspace }}/${{ steps.godot-release.outputs.artifact }}
+          path: ${{ steps.godot.outputs.archive_directory }}/*
