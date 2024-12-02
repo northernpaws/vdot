@@ -192,6 +192,9 @@ jobs:
           projectDir: "project"
           package: "true"
 
+      - name: Display structure of project
+        run: ls -R project
+
       - name: Upload Client artifact (Debug)
         if: matrix.build_type == 'Debug'
         uses: actions/upload-artifact@v4
