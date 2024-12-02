@@ -187,11 +187,10 @@ jobs:
         # ref: https://github.com/yeslayla/build-godot-action/issues/32
         uses: felix-schindler/build-godot-action@v2.0.0
         with:
-          name: vdot
           preset: ${{ matrix.config.platform }}
           debugMode: "false"
-          projectDir: 'project'
-          package: 'true'
+          projectDir: "project"
+          package: "true"
 
       - name: Upload Client artifact (Debug)
         if: matrix.build_type == 'Debug'
