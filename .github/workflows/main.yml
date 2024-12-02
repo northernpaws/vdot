@@ -191,7 +191,7 @@ jobs:
           preset: ${{ matrix.config.platform }}
           debugMode: "false"
           projectDir: 'project'
-          package: true
+          package: 'true'
 
       - name: Upload Client artifact (Debug)
         if: matrix.build_type == 'Debug'
