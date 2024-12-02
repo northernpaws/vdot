@@ -49,4 +49,17 @@ People and projects that helped make this possible.
   * Used as a development reference for mapping the output of ARKit feeds (i.e., LiveLinkFace server) to models.
   * This is a simplified view of the blend shapes from the [ARKit developer docs](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation). 
 
+## License
 
+The code in this repository is governed under the [MIT license](LICENSE.md).
+
+Components of this repository rely on software or SDKs with separate licenses, outlined in their sections below.
+
+### Live2D Cubism
+
+This repository has code that references the Live2D Cubism SDK which is governed under the following licenses.
+
+ - **[Live2D Open Software License](https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html)**: Covers the Cubism Native Framework 
+ - **[Live2D Proprietary Software License](https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html)**: Live2D Cubism Core, linked at build time
+
+For more details, see the licensing section and file in the [Cubism Native Framework repository](https://github.com/Live2D/CubismNativeFramework/tree/develop). 
