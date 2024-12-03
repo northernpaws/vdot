@@ -1,2 +1,6 @@
 # Don't commit built plugin sources.
 vdot/
+
+# Don't commit other people's plugins used in
+# development that don't have clear licenses.
+zylann.editor_debugger/

@@ -8,28 +8,30 @@
 #include "live_link_panel.h"
 
 class LiveLinkEditorPlugin : public godot::EditorPlugin {
-  GDCLASS(LiveLinkEditorPlugin, godot::EditorPlugin)
+    GDCLASS( LiveLinkEditorPlugin, godot::EditorPlugin )
 
-  LiveLinkPanel* _panel;
-protected:
-  static void _bind_methods();
-public:
-  ~LiveLinkEditorPlugin();
+    LiveLinkPanel *_panel;
 
-  [[nodiscard]] godot::String _get_plugin_name() const override {
-      return "LiveLink";
-  }
+  protected:
+    static void _bind_methods();
 
-  [[nodiscard]] bool _has_main_screen() const override {
-      return true;
-  }
+  public:
+    ~LiveLinkEditorPlugin();
 
-  // tODO: icon
+    [[nodiscard]] godot::String _get_plugin_name() const override {
+        return "LiveLink";
+    }
 
-  void _make_visible(bool visible) override;
+    [[nodiscard]] bool _has_main_screen() const override {
+        return true;
+    }
 
-  void _enter_tree() override;
-  void _exit_tree() override;
+    // tODO: icon
+
+    void _make_visible( bool visible ) override;
+
+    void _enter_tree() override;
+    void _exit_tree() override;
 };
 
 #endif // VDOT_EDITOR_PLUGIN_H

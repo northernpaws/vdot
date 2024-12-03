@@ -1,5 +1,6 @@
 #include "godot_cpp/classes/class_db_singleton.hpp"
 #include "godot_cpp/classes/stream_peer_buffer.hpp"
+#include <godot_cpp/variant/utility_functions.hpp>
 
 #include "live_link_server.h"
 
@@ -804,6 +805,7 @@ void LiveLinkServer::_bind_methods() {
 }
 
 LiveLinkServer::LiveLinkServer() {
+    _server = memnew( godot::UDPServer );
     _thread = memnew( godot::Thread() );
 }
 
@@ -812,10 +814,10 @@ LiveLinkServer::~LiveLinkServer() {
 
 void LiveLinkServer::_ready() {
     _server = memnew( godot::UDPServer() );
-
-    if ( _server->listen( _port ) != godot::OK ) {
-        ERR_FAIL_MSG( "Failed to start Live Link server listener." );
-    }
+//
+//    if ( _server->listen( _port ) != godot::OK ) {
+//        ERR_FAIL_MSG( "Failed to start Live Link server listener." );
+//    }
 }
 
 void LiveLinkServer::_process( double delta ) {
@@ -838,6 +840,8 @@ godot::Error LiveLinkServer::listen() {
         _thread->start( godot::Callable( this, "_thread_poll" ) );
     }
 
+    godot::UtilityFunctions::print("Started LiveLink server on: ", _port);
+
     return godot::OK;
 }
 
@@ -846,11 +850,14 @@ godot::Error LiveLinkServer::stop() {
     _server->stop();
 
     for ( const auto &item : _clients ) {
+        godot::UtilityFunctions::print("Existing LiveLinkFace peer disconnected for shutdown: %s (%s)", item.second->_name, item.second->_id);
         emit_signal( "client_disconnected", item.second );
     }
 
     _clients.clear();
     _unidentified_clients.clear();
+
+    godot::UtilityFunctions::print("Stopped LiveLink server on: ", _port);
 
     return godot::OK;
 }
@@ -910,6 +917,8 @@ godot::Error LiveLinkServer::poll() {
             }
 
             _clients[packet.device_id] = client;
+
+            godot::UtilityFunctions::print("New LiveLinkFace peer connected: %s (%s)", client->_name, client->_id);
 
             emit_signal( "client_connected", client );
         }

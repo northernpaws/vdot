@@ -45,9 +45,11 @@ People and projects that helped make this possible.
 * tbxMb for [GodotLiveLinkFace](https://github.com/tbxMb/GodotLiveLinkFace/tree/main) (MIT License)
   * Project referenced to help model a C++ implementation of a [LiveLinkFace protocol](https://github.com/tbxMb/GodotLiveLinkFace/blob/main/doc/proto.md) server for receiving face tracking data from iPhone FaceID depth cameras.
   * Same [ARKit blendshape head model](http://filmicworlds.com/blog/solving-face-scans-for-arkit/) by John Hable (CC0) used for tracking preview panel in the editor. 
+    * Downloaded the source models, extracted the mesh from `colin_dst_rig_shape_fit.fbx` (import into Godot, open the mesh -> "Actions..." -> "Set Mesh Save Paths" -> "Reimport"). Re-save as `.tres`, manually edit blend shape names in text editor, and resave.
 * https://arkit-face-blendshapes.com 
   * Used as a development reference for mapping the output of ARKit feeds (i.e., LiveLinkFace server) to models.
-  * This is a simplified view of the blend shapes from the [ARKit developer docs](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation). 
+  * This is a simplified view of the blend shapes from the [ARKit developer docs](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation).
+* MediaPipe face tracking.
 
 ## License
 

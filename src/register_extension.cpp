@@ -47,8 +47,8 @@ namespace {
     /// @see GDExtensionInit
     void initializeExtension( godot::ModuleInitializationLevel p_level ) {
         if ( p_level == godot::MODULE_INITIALIZATION_LEVEL_EDITOR ) {
-            godot::GDREGISTER_CLASS(LiveLinkPanel);
-            godot::GDREGISTER_CLASS(LiveLinkEditorPlugin);
+            godot::GDREGISTER_CLASS( LiveLinkPanel );
+            godot::GDREGISTER_CLASS( LiveLinkEditorPlugin );
 
             godot::EditorPlugins::add_by_type<LiveLinkEditorPlugin>();
         }
@@ -68,8 +68,6 @@ namespace {
             godot::ClassDB::register_class<LiveLinkClientData>();
             godot::ClassDB::register_class<LiveLinkClient>();
             godot::ClassDB::register_class<LiveLinkServer>();
-
-
 
             // ====================
             // Live2D Models
