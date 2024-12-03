@@ -25,8 +25,11 @@ if ( APPLE )
 endif()
 
 # Install the build plugin files to the project directory.
-if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-    set (CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/project/addons")
+# TODO: CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT SHOULD be true
+# for "/usr/local", but for some reason it is not on my machine.
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT OR CMAKE_INSTALL_PREFIX STREQUAL "/usr/local")
+#    set (CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/project/addons")
+    set_property(CACHE CMAKE_INSTALL_PREFIX PROPERTY VALUE "${CMAKE_SOURCE_DIR}/project/addons")
 endif()
 
 # Main project information
