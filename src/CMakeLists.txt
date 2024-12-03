@@ -6,6 +6,7 @@ target_sources(${PROJECT_NAME}
         tracking/arkit/blend_shapes.cpp
         tracking/live_link/live_link_server.cpp
         tracking/live_link/live_link_panel.cpp
+        tracking/live_link/editor_plugin.cpp
 
         models/live2d/renderer/cubism_renderer.cpp
         models/live2d/renderer/cubism_renderer_2d.cpp

@@ -25,6 +25,7 @@
 #include "models/live2d/cubism_value_parameter.h"
 #include "models/live2d/cubism_value_part_opacity.h"
 #include "models/live2d/renderer/cubism_allocator.h"
+#include "tracking/live_link/editor_plugin.h"
 
 static CubismAllocator cubism_allocator;
 static Csm::CubismFramework::Option csm_options;
@@ -45,6 +46,13 @@ namespace {
     ///
     /// @see GDExtensionInit
     void initializeExtension( godot::ModuleInitializationLevel p_level ) {
+        if ( p_level == godot::MODULE_INITIALIZATION_LEVEL_EDITOR ) {
+            godot::GDREGISTER_CLASS(LiveLinkPanel);
+            godot::GDREGISTER_CLASS(LiveLinkEditorPlugin);
+
+            godot::EditorPlugins::add_by_type<LiveLinkEditorPlugin>();
+        }
+
         if ( p_level == godot::MODULE_INITIALIZATION_LEVEL_SCENE ) {
             //            godot::ClassDB::register_class<ExampleRef>();
             //            godot::ClassDB::register_class<ExampleMin>();
@@ -61,7 +69,7 @@ namespace {
             godot::ClassDB::register_class<LiveLinkClient>();
             godot::ClassDB::register_class<LiveLinkServer>();
 
-            godot::ClassDB::register_class<LiveLinkPanel>();
+
 
             // ====================
             // Live2D Models

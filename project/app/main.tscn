@@ -144,5 +144,9 @@ grow_vertical = 2
 layout_mode = 2
 text = "Load Model"
 
+[node name="Item" type="Node2D" parent="Environment"]
+
+[node name="Sprite" type="Sprite2D" parent="Environment/Item"]
+
 [connection signal="file_selected" from="Environment/Live2DModel/FileDialog" to="Environment/Live2DModel" method="_on_file_dialog_file_selected"]
 [connection signal="pressed" from="Environment/Live2DModel/OptionsWindow/Panel/Container/LoadModelButton" to="Environment/Live2DModel" method="open_model_file_dialog"]
