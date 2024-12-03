@@ -7,14 +7,24 @@
 </p>
 
 -----
-## Dependencies
 
-- Git 
+- [x] Live2D Model support (expressions, motions, etc.)
+- [x] LiveLinkFace face tracking (iPhone FaceID)
+- [ ] 3D VRM Model Support
+- [ ] Audio-based lip-syncing
+- [ ] Other face tracking software (FaceCap, VSeeFace, MeowFace, MediaPipe, etc.)
+
+-----
+
+## Developing
+
+### Dependencies
+
+- Git
 - CMake <=3.22
 - C/C++ Compiler (GCC, Clang, or MSVC)
 - [Live2D Cubism SDK for Native](https://www.live2d.com/en/sdk/download/native/) (downloaded automatically by cmake)
-
-## Developing
+- Godot 4.3
 
 ### Debugging
 
@@ -38,7 +48,7 @@ People and projects that helped make this possible.
 
 * [MizunagiKB](https://github.com/MizunagiKB) for [gd_cubism](https://github.com/MizunagiKB/gd_cubism) (MIT License)
   * Used as the foundation for the Live2D Cubism rendering components, including code, and shaders.
-  * Modified to expose more settings, and to directly integrate face-tracking and lip-syncing support.
+  * Modified to expose more settings, support loading models from outside the project resources, and to directly integrate face-tracking and lip-syncing support.
 
 ### Tracking
 
@@ -49,11 +59,12 @@ People and projects that helped make this possible.
 * https://arkit-face-blendshapes.com 
   * Used as a development reference for mapping the output of ARKit feeds (i.e., LiveLinkFace server) to models.
   * This is a simplified view of the blend shapes from the [ARKit developer docs](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation).
-* MediaPipe face tracking.
 
 ## License
 
 The code in this repository is governed under the [MIT license](LICENSE.md).
+
+-----
 
 Components of this repository rely on software or SDKs with separate licenses, outlined in their sections below.
 
