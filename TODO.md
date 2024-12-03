@@ -11,3 +11,4 @@
 - Add [MeowFace](https://www.google.com/search?client=safari&rls=en&q=MeowFace&ie=UTF-8&oe=UTF-8) tracking support
 - Add VSeeFace tracking support
 - Mediapipe Face tracking
+- Use [Unified Expressions](https://docs.vrcft.io/docs/tutorial-avatars/tutorial-avatars-extras/unified-blendshapes) as the standard for all face tracking

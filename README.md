@@ -13,6 +13,8 @@
 - [ ] 3D VRM Model Support
 - [ ] Audio-based lip-syncing
 - [ ] Other face tracking software (FaceCap, VSeeFace, MeowFace, MediaPipe, etc.)
+- [ ] Integrate tracking with Godot XR objects (i.e. XRFaceTracker) when stable
+- [ ] [Unified Expression BlendShapes](https://docs.vrcft.io/docs/tutorial-avatars/tutorial-avatars-extras/unified-blendshapes) as the default for tracking
 
 -----
 
