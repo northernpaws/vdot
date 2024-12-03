@@ -23,7 +23,8 @@
 - Git
 - CMake <=3.22
 - C/C++ Compiler (GCC, Clang, or MSVC)
-- [Live2D Cubism SDK for Native](https://www.live2d.com/en/sdk/download/native/) (downloaded automatically by cmake)
+- [Live2D Cubism SDK for Native](https://www.live2d.com/en/sdk/download/native/)
+  - Download the Cubism Framework for Native SDK, and place the contents of the ZIP in the `extern/cubism` directory.
 - Godot 4.3
 
 ### Debugging
