@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img style="max-width:60vw;" src="/support_files/assets/logo-transparent.png" />
+  <img width="320" src="/support_files/assets/logo-transparent.png" />
 </h1>
 
 <p align="center" style="text-align: center;">
