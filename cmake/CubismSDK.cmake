@@ -3,15 +3,21 @@ if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
     cmake_policy(SET CMP0135 NEW)
 endif()
 
+# Check if the Cubism SDK was provided.
 if(IS_DIRECTORY "${PROJECT_SOURCE_DIR}extern/cubism/Framework")
     message(STATUS "Using Cubism Native Framework SDK included in source")
     set(CUBISM_SDK_ROOT_PATH "${PROJECT_SOURCE_DIR}extern/cubism")
 else()
+    message(STATUS "Downloading the Cubism Native Framework SDK.")
+    message(STATUS "Please see the Cubism the Live2D Proprietary Software License for distribution terms:")
+    message(STATUS "  https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html)")
+
     include(FetchContent)
 
     FetchContent_Declare(
             cubism
             URL  https://cubism.live2d.com/sdk-native/bin/CubismSdkForNative-5-r.1.zip
+            # TODO: checksum
     )
 
     set(FETCHCONTENT_QUIET OFF CACHE BOOL "" FORCE)
@@ -21,11 +27,13 @@ else()
     set(CUBISM_SDK_ROOT_PATH ${cubism_SOURCE_DIR})
 endif()
 
+# Create some variables for the common SDK paths we'll need.
 set(CUBISM_CORE_PATH ${CUBISM_SDK_ROOT_PATH}/Core)
 set(CUBISM_FRAMEWORK_PATH ${CUBISM_SDK_ROOT_PATH}/Framework)
 set(CUBISM_THIRD_PARTY_PATH ${CUBISM_SDK_ROOT_PATH}/Samples/OpenGL/thirdParty)
 set(CUBISM_STB_PATH ${CUBISM_THIRD_PARTY_PATH}/stb)
 
+# Include a platform-specific lists file to help keep this master file cleaner.
 if (WIN32)
     include(${CMAKE_CURRENT_LIST_DIR}/cubism/windows.cmake)
 elseif(ANDROID)
@@ -69,4 +77,5 @@ set_target_properties(Framework PROPERTIES
 # being thrown by the linker exclusively in Linux Debug builds with GCC,
 set_property(TARGET Framework PROPERTY POSITION_INDEPENDENT_CODE ON)
 
+# Link the Cubism Native Framework library against the imported Cubism Core library.
 target_link_libraries(Framework Live2DCubismCore)

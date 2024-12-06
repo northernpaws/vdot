@@ -161,26 +161,3 @@ target_link_libraries(${PROJECT_NAME}
 include(cmake/CubismSDK.cmake)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Framework)
-
-
-
-
-#if ( NOT EXISTS "${CMAKE_CURRENT_LIST_DIR}/extern/cubism/CMakeLists.txt" )
-#    message(
-#            FATAL_ERROR
-#            "[${PROJECT_NAME}] The cubism SDK submodule was not downloaded. Please update submodules: git submodule update --init --recursive."
-#    )
-#endif()
-#
-#add_subdirectory( extern/cubism )
-#
-#set_target_properties( Framework
-#        PROPERTIES
-#        CXX_VISIBILITY_PRESET hidden    # visibility needs to be the same as the main library
-#)
-#
-#target_link_libraries( ${PROJECT_NAME}
-#        PRIVATE
-#        Framework
-#)
-#
