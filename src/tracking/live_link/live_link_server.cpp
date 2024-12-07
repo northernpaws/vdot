@@ -810,20 +810,6 @@ LiveLinkServer::LiveLinkServer() {
 }
 
 LiveLinkServer::~LiveLinkServer() {
-}
-
-void LiveLinkServer::_ready() {
-    _server = memnew( godot::UDPServer() );
-//
-//    if ( _server->listen( _port ) != godot::OK ) {
-//        ERR_FAIL_MSG( "Failed to start Live Link server listener." );
-//    }
-}
-
-void LiveLinkServer::_process( double delta ) {
-}
-
-void LiveLinkServer::_exit_tree() {
     if ( !_disable_polling ) {
         // Thread must be disposed (or "joined"), for portability.
         _thread->wait_to_finish();
@@ -840,7 +826,7 @@ godot::Error LiveLinkServer::listen() {
         _thread->start( godot::Callable( this, "_thread_poll" ) );
     }
 
-    godot::UtilityFunctions::print("Started LiveLink server on: ", _port);
+    godot::UtilityFunctions::print( "Started LiveLink server on: ", _port );
 
     return godot::OK;
 }
@@ -850,14 +836,16 @@ godot::Error LiveLinkServer::stop() {
     _server->stop();
 
     for ( const auto &item : _clients ) {
-        godot::UtilityFunctions::print("Existing LiveLinkFace peer disconnected for shutdown: %s (%s)", item.second->_name, item.second->_id);
+        godot::UtilityFunctions::print(
+            "Existing LiveLinkFace peer disconnected for shutdown: %s (%s)", item.second->_name,
+            item.second->_id );
         emit_signal( "client_disconnected", item.second );
     }
 
     _clients.clear();
     _unidentified_clients.clear();
 
-    godot::UtilityFunctions::print("Stopped LiveLink server on: ", _port);
+    godot::UtilityFunctions::print( "Stopped LiveLink server on: ", _port );
 
     return godot::OK;
 }
@@ -896,14 +884,14 @@ godot::Error LiveLinkServer::poll() {
             // If there is already a connection registered for this device,
             // remove the connection and replace it with the new one.
 
-            auto client = memnew( LiveLinkClient() );
+            godot::Ref<LiveLinkClient> client = memnew( LiveLinkClient() );
             client->_connection->close();
             client->_connection = peer;
             _clients[packet.device_id] = client;
         } else {
             // Otherwise, create the new client for the connection.
 
-            auto client = memnew( LiveLinkClient() );
+            godot::Ref<LiveLinkClient> client = memnew( LiveLinkClient() );
             client->_connection = peer;
             client->_last_seen = packet.time_stamp;
             client->_id = packet.device_id;
@@ -918,7 +906,8 @@ godot::Error LiveLinkServer::poll() {
 
             _clients[packet.device_id] = client;
 
-            godot::UtilityFunctions::print("New LiveLinkFace peer connected: %s (%s)", client->_name, client->_id);
+            godot::UtilityFunctions::print( "New LiveLinkFace peer connected: %s (%s)",
+                                            client->_name, client->_id );
 
             emit_signal( "client_connected", client );
         }

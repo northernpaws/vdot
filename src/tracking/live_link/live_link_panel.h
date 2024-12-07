@@ -3,9 +3,9 @@
 #ifndef VDOT_LIVE_LINK_PANEL_H
 #define VDOT_LIVE_LINK_PANEL_H
 
+#include "godot_cpp/classes/button.hpp"
 #include "godot_cpp/classes/control.hpp"
 #include "godot_cpp/classes/mesh_instance3d.hpp"
-#include "godot_cpp/classes/button.hpp"
 #include "godot_cpp/variant/variant.hpp"
 
 #include "live_link_server.h"
@@ -14,9 +14,9 @@ class LiveLinkPanel : public godot::Control {
     GDCLASS( LiveLinkPanel, godot::Control )
 
     godot::MeshInstance3D *_mesh_instance;
-    godot::Button* _start_button;
+    godot::Button *_start_button;
 
-    LiveLinkServer *_server;
+    godot::Ref<LiveLinkServer> _server;
 
     bool _server_active = false;
 
@@ -38,9 +38,9 @@ class LiveLinkPanel : public godot::Control {
 
     void _on_start_button_pressed();
 
-    void _on_server_client_connected( LiveLinkClient *client );
-    void _on_server_client_disconnected( LiveLinkClient *client );
-    void _on_server_client_updated( LiveLinkClient *client );
+    void _on_server_client_connected( const godot::Ref<LiveLinkClient>& client );
+    void _on_server_client_disconnected( const godot::Ref<LiveLinkClient>& client );
+    void _on_server_client_updated( const godot::Ref<LiveLinkClient>& client );
 };
 
 #endif // VDOT_LIVE_LINK_PANEL_H

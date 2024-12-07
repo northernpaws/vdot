@@ -10,7 +10,6 @@
 #include <godot_cpp/classes/sub_viewport_container.hpp>
 #include <godot_cpp/classes/world3d.hpp>
 #include <godot_cpp/classes/world_environment.hpp>
-#include <godot_cpp/classes/world3d.hpp>
 
 #include "godot_cpp/variant/callable.hpp"
 #include <godot_cpp/classes/v_box_container.hpp>
@@ -31,7 +30,7 @@ void LiveLinkPanel::_bind_methods() {
 
 LiveLinkPanel::LiveLinkPanel() {
     // make panel fill vertical space.
-    set_v_size_flags(SIZE_EXPAND_FILL);
+    set_v_size_flags( SIZE_EXPAND_FILL );
 
     godot::ResourceLoader *res_loader = memnew( godot::ResourceLoader );
 
@@ -41,19 +40,18 @@ LiveLinkPanel::LiveLinkPanel() {
         container->set_anchors_preset( godot::Control::PRESET_FULL_RECT );
 
         {
-            auto sidebar = memnew(godot::VBoxContainer);
-            sidebar->set_v_size_flags(SIZE_EXPAND_FILL);
+            auto sidebar = memnew( godot::VBoxContainer );
+            sidebar->set_v_size_flags( SIZE_EXPAND_FILL );
 
             {
                 _start_button = memnew( godot::Button() );
                 _start_button->set_text( "Start Server" );
-                _start_button->connect("pressed", godot::Callable(this, "_on_start_button_pressed"));
+                _start_button->connect( "pressed",
+                                        godot::Callable( this, "_on_start_button_pressed" ) );
                 sidebar->add_child( _start_button );
             }
 
-            {
-
-            }
+            {}
 
             container->add_child( sidebar );
         }
@@ -62,7 +60,7 @@ LiveLinkPanel::LiveLinkPanel() {
             auto viewport_container = memnew( godot::SubViewportContainer );
             viewport_container->set_h_size_flags( SIZE_EXPAND_FILL );
             viewport_container->set_v_size_flags( SIZE_EXPAND_FILL );
-            viewport_container->set_stretch(true); // expand viewport to fill
+            viewport_container->set_stretch( true ); // expand viewport to fill
 
             {
                 auto env = memnew( godot::Environment );
@@ -72,16 +70,16 @@ LiveLinkPanel::LiveLinkPanel() {
                 auto viewport = memnew( godot::SubViewport() );
                 viewport->set_update_mode( godot::SubViewport::UpdateMode::UPDATE_ALWAYS );
                 viewport->set_handle_input_locally( false );
-                viewport->set_msaa_3d(godot::Viewport::MSAA_2X);
-                viewport->set_screen_space_aa(godot::Viewport::SCREEN_SPACE_AA_FXAA);
-                viewport->set_use_debanding(true);
+                viewport->set_msaa_3d( godot::Viewport::MSAA_2X );
+                viewport->set_screen_space_aa( godot::Viewport::SCREEN_SPACE_AA_FXAA );
+                viewport->set_use_debanding( true );
 
-                auto world = memnew(godot::World3D);
-                world->set_environment(env);
+                auto world = memnew( godot::World3D );
+                world->set_environment( env );
 
                 // Make the viewport use its own world, so
                 // that it doesn't render the other contexts.
-                viewport->set_world_3d(world);
+                viewport->set_world_3d( world );
 
                 {
                     // Add an environment to draw a black background.
@@ -90,7 +88,8 @@ LiveLinkPanel::LiveLinkPanel() {
 
                     // Add the camera.
                     auto camera = memnew( godot::Camera3D() );
-                    camera->set_position(godot::Vector3(0, 0, 0.4)); // back the camera away from the model
+                    camera->set_position(
+                        godot::Vector3( 0, 0, 0.4 ) ); // back the camera away from the model
                     world_env->add_child( camera );
 
                     viewport->add_child( world_env );
@@ -136,7 +135,7 @@ LiveLinkPanel::LiveLinkPanel() {
         add_child( container );
     }
 
-    _server = memnew( LiveLinkServer );
+    _server = godot::Ref<LiveLinkServer>( memnew( LiveLinkServer ) );
 
     // we manually poll in relationship to if the panel is active or not.
     _server->_disable_polling = true;
@@ -145,12 +144,9 @@ LiveLinkPanel::LiveLinkPanel() {
     _server->connect( "client_disconnected",
                       godot::Callable( this, "_on_server_client_disconnected" ) );
     _server->connect( "client_updated", godot::Callable( this, "_on_server_client_updated" ) );
-
-    add_child(_server);
 }
 
 LiveLinkPanel::~LiveLinkPanel() {
-
 }
 
 void LiveLinkPanel::_process( double delta ) {
@@ -162,34 +158,22 @@ void LiveLinkPanel::_process( double delta ) {
 godot::StringName LiveLinkPanel::blend_shape_name( int i ) {
     // TODO: optimize
     return godot::Array::make(
-        "eyeBlinkLeft", "eyeLookDownLeft", "eyeLookInLeft",
-        "eyeLookOutLeft", "eyeLookUpLeft", "eyeSquintLeft",
-        "eyeWideLeft", "eyeBlinkRight", "eyeLookDownRight",
-        "eyeLookInRight", "eyeLookOutRight",
-        "eyeLookUpRight", "eyeSquintRight", "eyeWideRight",
-        "jawForward", "jawRight", "jawLeft",
-        "jawOpen", "mouthClose", "mouthFunnel",
-        "mouthPucker", "mouthRight", "mouthLeft",
-        "mouthSmileLeft", "mouthSmileRight",
-        "mouthFrownLeft", "mouthFrownRight",
-        "mouthDimpleLeft", "mouthDimpleRight",
-        "mouthStretchLeft", "mouthStretchRight",
-        "mouthRollLower", "mouthRollUpper",
-        "mouthShrugLower", "mouthShrugUpper",
-        "mouthPressLeft", "mouthPressRight",
-        "mouthLowerDownLeft", "mouthLowerDownRight",
-        "mouthUpperUpLeft", "mouthUpperUpRight",
-        "browDownLeft", "browDownRight", "browInnerUp",
-        "browOuterUpLeft", "browOuterUpRight", "cheekPuff",
-        "cheekSquintLeft", "cheekSquintRight",
-        "noseSneerLeft", "noseSneerRight", "tongueOut",
-        "headYaw", "headPitch", "headRoll",
-        "leftEyeYaw", "leftEyePitch", "leftEyeRoll",
-        "rightEyeYaw", "rightEyePitch", "rightEyeRoll" )[i];
+        "eyeBlinkLeft", "eyeLookDownLeft", "eyeLookInLeft", "eyeLookOutLeft", "eyeLookUpLeft",
+        "eyeSquintLeft", "eyeWideLeft", "eyeBlinkRight", "eyeLookDownRight", "eyeLookInRight",
+        "eyeLookOutRight", "eyeLookUpRight", "eyeSquintRight", "eyeWideRight", "jawForward",
+        "jawRight", "jawLeft", "jawOpen", "mouthClose", "mouthFunnel", "mouthPucker", "mouthRight",
+        "mouthLeft", "mouthSmileLeft", "mouthSmileRight", "mouthFrownLeft", "mouthFrownRight",
+        "mouthDimpleLeft", "mouthDimpleRight", "mouthStretchLeft", "mouthStretchRight",
+        "mouthRollLower", "mouthRollUpper", "mouthShrugLower", "mouthShrugUpper", "mouthPressLeft",
+        "mouthPressRight", "mouthLowerDownLeft", "mouthLowerDownRight", "mouthUpperUpLeft",
+        "mouthUpperUpRight", "browDownLeft", "browDownRight", "browInnerUp", "browOuterUpLeft",
+        "browOuterUpRight", "cheekPuff", "cheekSquintLeft", "cheekSquintRight", "noseSneerLeft",
+        "noseSneerRight", "tongueOut", "headYaw", "headPitch", "headRoll", "leftEyeYaw",
+        "leftEyePitch", "leftEyeRoll", "rightEyeYaw", "rightEyePitch", "rightEyeRoll" )[i];
 }
 
 void LiveLinkPanel::start_server() {
-    godot::UtilityFunctions::print("Starting LiveLinkFace server on: ", _server->get_port());
+    godot::UtilityFunctions::print( "Starting LiveLinkFace server on: ", _server->get_port() );
 
     _server->listen();
     _server_active = true;
@@ -197,7 +181,7 @@ void LiveLinkPanel::start_server() {
 }
 
 void LiveLinkPanel::stop_server() {
-    godot::UtilityFunctions::print("Stopping LiveLinkFace server on: ", _server->get_port());
+    godot::UtilityFunctions::print( "Stopping LiveLinkFace server on: ", _server->get_port() );
 
     _server_active = false;
     _server->stop();
@@ -215,29 +199,29 @@ void LiveLinkPanel::update_mesh( const LiveLinkClientData *data ) {
         auto value = data->_data[i];
         // tODO: cache blendshape indexes
         auto shape = _mesh_instance->find_blend_shape_by_name( blend_shape_name( i ) );
-        if (shape > -1) {
+        if ( shape > -1 ) {
             _mesh_instance->set_blend_shape_value( shape, value );
         } else {
-            godot::UtilityFunctions::push_warning("Failed to find blendshape for index ", i, " looking for \"", blend_shape_name( i ), "\"");
+            godot::UtilityFunctions::push_warning( "Failed to find blendshape for index ", i,
+                                                   " looking for \"", blend_shape_name( i ), "\"" );
         }
     }
 }
 
 void LiveLinkPanel::_on_start_button_pressed() {
-    if (_server_active) {
+    if ( _server_active ) {
         stop_server();
     } else {
         start_server();
     }
 }
 
-void LiveLinkPanel::_on_server_client_connected( LiveLinkClient *client ) {
+void LiveLinkPanel::_on_server_client_connected( const godot::Ref<LiveLinkClient>& client ) {
 }
 
-void LiveLinkPanel::_on_server_client_disconnected( LiveLinkClient *client ) {
+void LiveLinkPanel::_on_server_client_disconnected( const godot::Ref<LiveLinkClient>& client ) {
 }
 
-void LiveLinkPanel::_on_server_client_updated( LiveLinkClient *client ) {
+void LiveLinkPanel::_on_server_client_updated( const godot::Ref<LiveLinkClient>& client ) {
     update_mesh( client->_values );
 }
-

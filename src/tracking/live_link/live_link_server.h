@@ -208,8 +208,8 @@ VARIANT_ENUM_CAST( LiveLinkClientData::DataIndex );
  *
  * Contains information about the connected client, and the client's current blend-shape values.
  */
-class LiveLinkClient : public godot::Object {
-    GDCLASS( LiveLinkClient, godot::Object )
+class LiveLinkClient : public godot::RefCounted {
+    GDCLASS( LiveLinkClient, godot::RefCounted )
   protected:
     static void _bind_methods();
 
@@ -229,8 +229,8 @@ class LiveLinkClient : public godot::Object {
 /**
  * Serves a Live Link server on the specified port that the Live Link Face app can connect to.
  */
-class LiveLinkServer : public godot::Node {
-    GDCLASS( LiveLinkServer, godot::Node )
+class LiveLinkServer : public godot::RefCounted {
+    GDCLASS( LiveLinkServer, godot::RefCounted )
 
     using PeerList = godot::List<godot::Ref<godot::PacketPeerUDP>>;
 
@@ -241,7 +241,8 @@ class LiveLinkServer : public godot::Node {
     bool _running = true;
 
     PeerList _unidentified_clients;
-    std::map<godot::String, LiveLinkClient *> _clients;
+    // TODO: replace std map with godot VMap or vector?
+    std::map<godot::String, godot::Ref<LiveLinkClient>> _clients;
 
     godot::Thread *_thread; // tODO: ref?
   protected:
@@ -252,12 +253,6 @@ class LiveLinkServer : public godot::Node {
 
     LiveLinkServer();
     ~LiveLinkServer() override;
-
-    void _ready() override;
-
-    void _process( double delta ) override;
-
-    void _exit_tree() override;
 
     godot::Error listen();
     godot::Error stop();
