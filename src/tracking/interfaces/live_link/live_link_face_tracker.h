@@ -3,7 +3,7 @@
 #ifndef VDOT_LIVE_LINK_FACE_TRACKER_H
 #define VDOT_LIVE_LINK_FACE_TRACKER_H
 
-#include "../tracker_face.h"
+#include "../../tracker_face.h"
 #include "live_link_server.h"
 
 /**

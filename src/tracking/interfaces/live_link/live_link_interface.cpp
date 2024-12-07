@@ -1,6 +1,6 @@
 #include <godot_cpp/variant/utility_functions.hpp>
 
-#include "../tracking_server.h"
+#include "../../tracking_server.h"
 
 #include "live_link_face_tracker.h"
 #include "live_link_interface.h"

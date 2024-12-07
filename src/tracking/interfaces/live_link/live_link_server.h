@@ -15,7 +15,7 @@
 #include <godot_cpp/variant/array.hpp>
 #include <godot_cpp/variant/packed_byte_array.hpp>
 
-#include "../standards/arkit_blend_shapes.h"
+#include "../../standards/arkit_blend_shapes.h"
 
 static constexpr int BLEND_SHAPE_COUNT = 61;
 

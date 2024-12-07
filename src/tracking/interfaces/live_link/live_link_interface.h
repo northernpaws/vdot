@@ -3,9 +3,9 @@
 #ifndef VDOT_LIVE_LINK_INTERFACE_H
 #define VDOT_LIVE_LINK_INTERFACE_H
 
-#include "../tracking_interface.h"
+#include "../../tracking_interface.h"
 
-#include "../standards/unified_expressions.h"
+#include "../../standards/unified_expressions.h"
 
 #include "live_link_server.h"
 
