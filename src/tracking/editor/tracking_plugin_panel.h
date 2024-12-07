@@ -17,6 +17,9 @@ class TrackingPluginPanel : public godot::Control {
     godot::ItemList *_interface_list = nullptr;
     godot::ItemList *_tracker_list = nullptr;
 
+    godot::Control *_main_container = nullptr;
+    godot::Control *_main_container_item = nullptr;
+
     TrackingInterface *_selected_interface = nullptr;
 
   protected:
@@ -41,7 +44,8 @@ class TrackingPluginPanel : public godot::Control {
     void _on_tracker_removed( const godot::StringName &p_tracker_name,
                               TrackingServer::TrackerType p_tracker_type );
 
-    void _on_tracker_selected(int p_index);
+    void _on_interface_selected( int p_index );
+    void _on_tracker_selected( int p_index );
 };
 
 #endif // VDOT_TRACKING_EDITOR_PANEL_H

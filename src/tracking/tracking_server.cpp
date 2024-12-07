@@ -24,7 +24,6 @@ void TrackingServer::_bind_methods() {
     godot::ClassDB::bind_method( godot::D_METHOD( "get_tracker", "tracker_name" ),
                                  &TrackingServer::get_tracker );
 
-
     BIND_ENUM_CONSTANT( TRACKER_FACE );
     BIND_ENUM_CONSTANT( TRACKER_UNKNOWN );
 
@@ -68,7 +67,7 @@ void TrackingServer::add_interface( const godot::Ref<TrackingInterface> &p_inter
     }
 
     _interfaces.append( p_interface );
-    emit_signal("interface_added", p_interface->get_name());
+    emit_signal( "interface_added", p_interface->get_name() );
 }
 
 void TrackingServer::remove_interface( const godot::Ref<TrackingInterface> &p_interface ) {
@@ -85,7 +84,7 @@ void TrackingServer::remove_interface( const godot::Ref<TrackingInterface> &p_in
     ERR_FAIL_COND_MSG( idx == -1, "Interface not found." );
     godot::UtilityFunctions::print( "Tracking: Removed interface \"" + p_interface->get_name() +
                                     "\"" );
-    emit_signal("interface_removed", p_interface->get_name());
+    emit_signal( "interface_removed", p_interface->get_name() );
     _interfaces.remove_at( idx );
 }
 
@@ -132,11 +131,11 @@ void TrackingServer::add_tracker( const godot::Ref<Tracker> &p_tracker ) {
         if ( _trackers[tracker_name] != p_tracker ) {
             // We already have a tracker with this name, we're going to replace it
             _trackers[tracker_name] = p_tracker;
-            emit_signal("tracker_updated", tracker_name, p_tracker->get_tracker_type());
+            emit_signal( "tracker_updated", tracker_name, p_tracker->get_tracker_type() );
         }
     } else {
         _trackers[tracker_name] = p_tracker;
-        emit_signal("tracker_added", tracker_name, p_tracker->get_tracker_type());
+        emit_signal( "tracker_added", tracker_name, p_tracker->get_tracker_type() );
     }
 }
 
@@ -146,7 +145,8 @@ void TrackingServer::remove_tracker( const godot::Ref<Tracker> &p_tracker ) {
     godot::StringName tracker_name = p_tracker->get_tracker_name();
     if ( _trackers.has( tracker_name ) ) {
         // we send the signal right before removing it
-        emit_signal("tracker_removed", p_tracker->get_tracker_name(), p_tracker->get_tracker_type());
+        emit_signal( "tracker_removed", p_tracker->get_tracker_name(),
+                     p_tracker->get_tracker_type() );
 
         // and remove it
         _trackers.erase( tracker_name );

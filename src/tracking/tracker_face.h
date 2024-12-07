@@ -17,7 +17,6 @@
 class FaceTracker : public Tracker {
     GDCLASS( FaceTracker, Tracker )
   public:
-
   protected:
     static void _bind_methods();
 

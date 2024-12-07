@@ -15,7 +15,8 @@ namespace UnifiedExpressions {
      *  adapted from Godot's experimental XR support driver.
      *
      * @see: https://docs.vrcft.io/docs/tutorial-avatars/tutorial-avatars-extras/unified-blendshapes
-     * @see: https://github.com/godotengine/godot/blob/eb5103093c1bfd4d527ec1255d28e9bc8d3625b5/servers/xr/xr_face_tracker.h#L49C2-L196C4
+     * @see:
+     * https://github.com/godotengine/godot/blob/eb5103093c1bfd4d527ec1255d28e9bc8d3625b5/servers/xr/xr_face_tracker.h#L49C2-L196C4
      */
     enum BlendShape {
         // Base Shapes
@@ -117,7 +118,7 @@ namespace UnifiedExpressions {
         FT_TONGUE_FLAT,              // Tongue flattens and thins out.
         FT_TONGUE_TWIST_RIGHT, // Tongue tip rotates clockwise, with the rest following gradually.
         FT_TONGUE_TWIST_LEFT,  // Tongue tip rotates counter-clockwise, with the rest following
-                                     // gradually.
+                               // gradually.
         FT_SOFT_PALATE_CLOSE,  // Inner mouth throat closes.
         FT_THROAT_SWALLOW,     // The Adam's apple visibly swallows.
         FT_NECK_FLEX_RIGHT,    // Right side neck visibly flexes.
@@ -169,145 +170,309 @@ namespace UnifiedExpressions {
 
     // Yes, these traits are a mess, but allow for compile-time static optimization
     //  of the conversions, while still maintaining a decent amount of readability.
-    template<ARKit::BlendShape V> struct ToUnifiedExpression;
+    template <ARKit::BlendShape V> struct ToUnifiedExpression;
 
     // Base Shapes
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookOutRight> { static constexpr BlendShape value[] = { FT_EYE_LOOK_OUT_RIGHT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookInRight> { static constexpr BlendShape value[] = { FT_EYE_LOOK_IN_RIGHT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookUpRight> { static constexpr BlendShape value[] = { FT_EYE_LOOK_UP_RIGHT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookDownRight> { static constexpr BlendShape value[] = { FT_EYE_LOOK_DOWN_RIGHT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookOutLeft> { static constexpr BlendShape value[] = { FT_EYE_LOOK_OUT_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookInLeft> { static constexpr BlendShape value[] = { FT_EYE_LOOK_IN_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookUpLeft> { static constexpr BlendShape value[] = { FT_EYE_LOOK_UP_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookDownLeft> { static constexpr BlendShape value[] = { FT_EYE_LOOK_DOWN_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::EyeBlinkRight> { static constexpr BlendShape value[] = { FT_EYE_CLOSED_RIGHT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::EyeBlinkLeft> { static constexpr BlendShape value[] = { FT_EYE_CLOSED_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::EyeSquintRight> { static constexpr BlendShape value[] = { FT_EYE_SQUINT_RIGHT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::EyeSquintLeft> { static constexpr BlendShape value[] = { FT_EYE_SQUINT_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::EyeWideRight> { static constexpr BlendShape value[] = { FT_EYE_WIDE_RIGHT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::EyeWideLeft> { static constexpr BlendShape value[] = { FT_EYE_WIDE_LEFT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_EYE_DILATION_RIGHT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_EYE_DILATION_LEFT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_EYE_CONSTRICT_RIGHT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_EYE_CONSTRICT_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::BrowDownRight> { static constexpr BlendShape value[] = { FT_BROW_PINCH_RIGHT, FT_BROW_LOWERER_RIGHT }; }; // NOTE = not in official mapping
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::BrowDownLeft> { static constexpr BlendShape value[] = { FT_BROW_PINCH_LEFT, FT_BROW_LOWERER_LEFT }; }; // NOTE = not in official mapping
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::BrowInnerUp> { static constexpr BlendShape value[] = { FT_BROW_INNER_UP_RIGHT, FT_BROW_INNER_UP_LEFT }; }; // NOTE = not in official mapping
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::BrowOuterUpRight> { static constexpr BlendShape value[] = { FT_BROW_OUTER_UP_RIGHT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::BrowOuterUpLeft> { static constexpr BlendShape value[] = { FT_BROW_OUTER_UP_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::NoseSneerRight> { static constexpr BlendShape value[] = { FT_NOSE_SNEER_RIGHT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::NoseSneerLeft> { static constexpr BlendShape value[] = { FT_NOSE_SNEER_LEFT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_NASAL_DILATION_RIGHT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_NASAL_DILATION_LEFT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_NASAL_CONSTRICT_RIGHT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_NASAL_CONSTRICT_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::CheekSquintRight> { static constexpr BlendShape value[] = { FT_CHEEK_SQUINT_RIGHT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::CheekSquintLeft> { static constexpr BlendShape value[] = { FT_CHEEK_SQUINT_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::CheekPuff> { static constexpr BlendShape value[] = { FT_CHEEK_PUFF_RIGHT, FT_CHEEK_PUFF_LEFT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_CHEEK_SUCK_RIGHT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_CHEEK_SUCK_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::JawOpen> { static constexpr BlendShape value[] = { FT_JAW_OPEN }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthClose> { static constexpr BlendShape value[] = { FT_MOUTH_CLOSED }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::JawRight> { static constexpr BlendShape value[] = { FT_JAW_RIGHT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::JawLeft> { static constexpr BlendShape value[] = { FT_JAW_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::JawForward> { static constexpr BlendShape value[] = { FT_JAW_FORWARD }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_JAW_BACKWARD }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_JAW_CLENCH }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_JAW_MANDIBLE_RAISE }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthRollUpper> { static constexpr BlendShape value[] = { FT_LIP_SUCK_UPPER_RIGHT, FT_LIP_SUCK_UPPER_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthRollLower> { static constexpr BlendShape value[] = { FT_LIP_SUCK_LOWER_RIGHT, FT_LIP_SUCK_LOWER_LEFT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_LIP_SUCK_CORNER_RIGHT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_LIP_SUCK_CORNER_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthFunnel> { static constexpr BlendShape value[] = { FT_LIP_FUNNEL_UPPER_RIGHT , FT_LIP_FUNNEL_UPPER_LEFT, FT_LIP_FUNNEL_LOWER_RIGHT, FT_LIP_FUNNEL_LOWER_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthPucker> { static constexpr BlendShape value[] = { FT_LIP_PUCKER_UPPER_RIGHT, FT_LIP_PUCKER_UPPER_LEFT, FT_LIP_PUCKER_LOWER_RIGHT, FT_LIP_PUCKER_LOWER_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthUpperUpRight> { static constexpr BlendShape value[] = { FT_MOUTH_UPPER_UP_RIGHT, FT_MOUTH_UPPER_DEEPEN_RIGHT }; }; // 2 NOTE = not in official mapping
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthUpperUpLeft> { static constexpr BlendShape value[] = { FT_MOUTH_UPPER_UP_LEFT, FT_MOUTH_UPPER_DEEPEN_LEFT }; }; // 2 NOTE = not in official mapping
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthLowerDownRight> { static constexpr BlendShape value[] = { FT_MOUTH_LOWER_DOWN_RIGHT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthLowerDownLeft> { static constexpr BlendShape value[] = { FT_MOUTH_LOWER_DOWN_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthRight> { static constexpr BlendShape value[] = { FT_MOUTH_UPPER_RIGHT, FT_MOUTH_LOWER_RIGHT }; }; // NOTE = not in official mapping
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthLeft> { static constexpr BlendShape value[] = { FT_MOUTH_UPPER_LEFT, FT_MOUTH_LOWER_LEFT }; }; // NOTE = not in official mapping
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthSmileRight> { static constexpr BlendShape value[] = { FT_MOUTH_CORNER_PULL_RIGHT, FT_MOUTH_CORNER_SLANT_RIGHT }; }; // NOTE = not in official mapping
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthSmileLeft> { static constexpr BlendShape value[] = { FT_MOUTH_CORNER_PULL_LEFT, FT_MOUTH_CORNER_SLANT_LEFT }; }; // NOTE = not in official mapping
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthFrownRight> { static constexpr BlendShape value[] = { FT_MOUTH_FROWN_RIGHT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthFrownLeft> { static constexpr BlendShape value[] = { FT_MOUTH_FROWN_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthStretchRight> { static constexpr BlendShape value[] = { FT_MOUTH_STRETCH_RIGHT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthStretchLeft> { static constexpr BlendShape value[] = { FT_MOUTH_STRETCH_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthDimpleRight> { static constexpr BlendShape value[] = { FT_MOUTH_DIMPLE_RIGHT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthDimpleLeft> { static constexpr BlendShape value[] = { FT_MOUTH_DIMPLE_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthShrugUpper> { static constexpr BlendShape value[] = { FT_MOUTH_RAISER_UPPER }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthShrugLower> { static constexpr BlendShape value[] = { FT_MOUTH_RAISER_LOWER }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthPressRight> { static constexpr BlendShape value[] = { FT_MOUTH_PRESS_RIGHT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthPressLeft> { static constexpr BlendShape value[] = { FT_MOUTH_PRESS_LEFT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_MOUTH_TIGHTENER_RIGHT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_MOUTH_TIGHTENER_LEFT }; };
-    template<> struct ToUnifiedExpression<ARKit::BlendShape::TongueOut> { static constexpr BlendShape value[] = { FT_TONGUE_OUT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_TONGUE_UP }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_TONGUE_DOWN }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_TONGUE_RIGHT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_TONGUE_LEFT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_TONGUE_ROLL }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_TONGUE_BLEND_DOWN }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_TONGUE_CURL_UP }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_TONGUE_SQUISH }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_TONGUE_FLAT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_TONGUE_TWIST_RIGHT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_TONGUE_TWIST_LEFT }; };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookOutRight> {
+        static constexpr BlendShape value[] = { FT_EYE_LOOK_OUT_RIGHT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookInRight> {
+        static constexpr BlendShape value[] = { FT_EYE_LOOK_IN_RIGHT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookUpRight> {
+        static constexpr BlendShape value[] = { FT_EYE_LOOK_UP_RIGHT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookDownRight> {
+        static constexpr BlendShape value[] = { FT_EYE_LOOK_DOWN_RIGHT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookOutLeft> {
+        static constexpr BlendShape value[] = { FT_EYE_LOOK_OUT_LEFT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookInLeft> {
+        static constexpr BlendShape value[] = { FT_EYE_LOOK_IN_LEFT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookUpLeft> {
+        static constexpr BlendShape value[] = { FT_EYE_LOOK_UP_LEFT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookDownLeft> {
+        static constexpr BlendShape value[] = { FT_EYE_LOOK_DOWN_LEFT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::EyeBlinkRight> {
+        static constexpr BlendShape value[] = { FT_EYE_CLOSED_RIGHT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::EyeBlinkLeft> {
+        static constexpr BlendShape value[] = { FT_EYE_CLOSED_LEFT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::EyeSquintRight> {
+        static constexpr BlendShape value[] = { FT_EYE_SQUINT_RIGHT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::EyeSquintLeft> {
+        static constexpr BlendShape value[] = { FT_EYE_SQUINT_LEFT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::EyeWideRight> {
+        static constexpr BlendShape value[] = { FT_EYE_WIDE_RIGHT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::EyeWideLeft> {
+        static constexpr BlendShape value[] = { FT_EYE_WIDE_LEFT };
+    };
+    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr
+    //        BlendShape value[] = { FT_EYE_DILATION_RIGHT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_EYE_DILATION_LEFT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_EYE_CONSTRICT_RIGHT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_EYE_CONSTRICT_LEFT }; };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::BrowDownRight> {
+        static constexpr BlendShape value[] = { FT_BROW_PINCH_RIGHT, FT_BROW_LOWERER_RIGHT };
+    }; // NOTE = not in official mapping
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::BrowDownLeft> {
+        static constexpr BlendShape value[] = { FT_BROW_PINCH_LEFT, FT_BROW_LOWERER_LEFT };
+    }; // NOTE = not in official mapping
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::BrowInnerUp> {
+        static constexpr BlendShape value[] = { FT_BROW_INNER_UP_RIGHT, FT_BROW_INNER_UP_LEFT };
+    }; // NOTE = not in official mapping
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::BrowOuterUpRight> {
+        static constexpr BlendShape value[] = { FT_BROW_OUTER_UP_RIGHT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::BrowOuterUpLeft> {
+        static constexpr BlendShape value[] = { FT_BROW_OUTER_UP_LEFT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::NoseSneerRight> {
+        static constexpr BlendShape value[] = { FT_NOSE_SNEER_RIGHT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::NoseSneerLeft> {
+        static constexpr BlendShape value[] = { FT_NOSE_SNEER_LEFT };
+    };
+    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr
+    //        BlendShape value[] = { FT_NASAL_DILATION_RIGHT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_NASAL_DILATION_LEFT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_NASAL_CONSTRICT_RIGHT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_NASAL_CONSTRICT_LEFT }; };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::CheekSquintRight> {
+        static constexpr BlendShape value[] = { FT_CHEEK_SQUINT_RIGHT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::CheekSquintLeft> {
+        static constexpr BlendShape value[] = { FT_CHEEK_SQUINT_LEFT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::CheekPuff> {
+        static constexpr BlendShape value[] = { FT_CHEEK_PUFF_RIGHT, FT_CHEEK_PUFF_LEFT };
+    };
+    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr
+    //        BlendShape value[] = { FT_CHEEK_SUCK_RIGHT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_CHEEK_SUCK_LEFT }; };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::JawOpen> {
+        static constexpr BlendShape value[] = { FT_JAW_OPEN };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthClose> {
+        static constexpr BlendShape value[] = { FT_MOUTH_CLOSED };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::JawRight> {
+        static constexpr BlendShape value[] = { FT_JAW_RIGHT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::JawLeft> {
+        static constexpr BlendShape value[] = { FT_JAW_LEFT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::JawForward> {
+        static constexpr BlendShape value[] = { FT_JAW_FORWARD };
+    };
+    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr
+    //        BlendShape value[] = { FT_JAW_BACKWARD }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_JAW_CLENCH }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> {
+    //        static constexpr BlendShape value[] = { FT_JAW_MANDIBLE_RAISE }; };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthRollUpper> {
+        static constexpr BlendShape value[] = { FT_LIP_SUCK_UPPER_RIGHT, FT_LIP_SUCK_UPPER_LEFT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthRollLower> {
+        static constexpr BlendShape value[] = { FT_LIP_SUCK_LOWER_RIGHT, FT_LIP_SUCK_LOWER_LEFT };
+    };
+    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr
+    //        BlendShape value[] = { FT_LIP_SUCK_CORNER_RIGHT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_LIP_SUCK_CORNER_LEFT }; };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthFunnel> {
+        static constexpr BlendShape value[] = { FT_LIP_FUNNEL_UPPER_RIGHT, FT_LIP_FUNNEL_UPPER_LEFT,
+                                                FT_LIP_FUNNEL_LOWER_RIGHT,
+                                                FT_LIP_FUNNEL_LOWER_LEFT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthPucker> {
+        static constexpr BlendShape value[] = { FT_LIP_PUCKER_UPPER_RIGHT, FT_LIP_PUCKER_UPPER_LEFT,
+                                                FT_LIP_PUCKER_LOWER_RIGHT,
+                                                FT_LIP_PUCKER_LOWER_LEFT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthUpperUpRight> {
+        static constexpr BlendShape value[] = { FT_MOUTH_UPPER_UP_RIGHT,
+                                                FT_MOUTH_UPPER_DEEPEN_RIGHT };
+    }; // 2 NOTE = not in official mapping
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthUpperUpLeft> {
+        static constexpr BlendShape value[] = { FT_MOUTH_UPPER_UP_LEFT,
+                                                FT_MOUTH_UPPER_DEEPEN_LEFT };
+    }; // 2 NOTE = not in official mapping
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthLowerDownRight> {
+        static constexpr BlendShape value[] = { FT_MOUTH_LOWER_DOWN_RIGHT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthLowerDownLeft> {
+        static constexpr BlendShape value[] = { FT_MOUTH_LOWER_DOWN_LEFT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthRight> {
+        static constexpr BlendShape value[] = { FT_MOUTH_UPPER_RIGHT, FT_MOUTH_LOWER_RIGHT };
+    }; // NOTE = not in official mapping
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthLeft> {
+        static constexpr BlendShape value[] = { FT_MOUTH_UPPER_LEFT, FT_MOUTH_LOWER_LEFT };
+    }; // NOTE = not in official mapping
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthSmileRight> {
+        static constexpr BlendShape value[] = { FT_MOUTH_CORNER_PULL_RIGHT,
+                                                FT_MOUTH_CORNER_SLANT_RIGHT };
+    }; // NOTE = not in official mapping
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthSmileLeft> {
+        static constexpr BlendShape value[] = { FT_MOUTH_CORNER_PULL_LEFT,
+                                                FT_MOUTH_CORNER_SLANT_LEFT };
+    }; // NOTE = not in official mapping
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthFrownRight> {
+        static constexpr BlendShape value[] = { FT_MOUTH_FROWN_RIGHT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthFrownLeft> {
+        static constexpr BlendShape value[] = { FT_MOUTH_FROWN_LEFT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthStretchRight> {
+        static constexpr BlendShape value[] = { FT_MOUTH_STRETCH_RIGHT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthStretchLeft> {
+        static constexpr BlendShape value[] = { FT_MOUTH_STRETCH_LEFT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthDimpleRight> {
+        static constexpr BlendShape value[] = { FT_MOUTH_DIMPLE_RIGHT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthDimpleLeft> {
+        static constexpr BlendShape value[] = { FT_MOUTH_DIMPLE_LEFT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthShrugUpper> {
+        static constexpr BlendShape value[] = { FT_MOUTH_RAISER_UPPER };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthShrugLower> {
+        static constexpr BlendShape value[] = { FT_MOUTH_RAISER_LOWER };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthPressRight> {
+        static constexpr BlendShape value[] = { FT_MOUTH_PRESS_RIGHT };
+    };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::MouthPressLeft> {
+        static constexpr BlendShape value[] = { FT_MOUTH_PRESS_LEFT };
+    };
+    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr
+    //        BlendShape value[] = { FT_MOUTH_TIGHTENER_RIGHT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_MOUTH_TIGHTENER_LEFT }; };
+    template <> struct ToUnifiedExpression<ARKit::BlendShape::TongueOut> {
+        static constexpr BlendShape value[] = { FT_TONGUE_OUT };
+    };
+    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr
+    //        BlendShape value[] = { FT_TONGUE_UP }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_TONGUE_DOWN }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> {
+    //        static constexpr BlendShape value[] = { FT_TONGUE_RIGHT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_TONGUE_LEFT }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> {
+    //        static constexpr BlendShape value[] = { FT_TONGUE_ROLL }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_TONGUE_BLEND_DOWN }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_TONGUE_CURL_UP }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO>
+    //        { static constexpr BlendShape value[] = { FT_TONGUE_SQUISH }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_TONGUE_FLAT }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> {
+    //        static constexpr BlendShape value[] = { FT_TONGUE_TWIST_RIGHT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_TONGUE_TWIST_LEFT }; };
     // gradually.
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_SOFT_PALATE_CLOSE }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_THROAT_SWALLOW }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_NECK_FLEX_RIGHT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_NECK_FLEX_LEFT }; };
+    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr
+    //        BlendShape value[] = { FT_SOFT_PALATE_CLOSE }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_THROAT_SWALLOW }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO>
+    //        { static constexpr BlendShape value[] = { FT_NECK_FLEX_RIGHT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_NECK_FLEX_LEFT }; };
     // Blended Shapes
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_EYE_CLOSED }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_EYE_WIDE }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_EYE_SQUINT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_EYE_DILATION }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_EYE_CONSTRICT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::BrowDownRight> { static constexpr BlendShape value[] = { FT_BROW_DOWN_RIGHT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::BrowDownLeft> { static constexpr BlendShape value[] = { FT_BROW_DOWN_LEFT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_BROW_DOWN }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_BROW_UP_RIGHT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_BROW_UP_LEFT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_BROW_UP }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_NOSE_SNEER }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_NASAL_DILATION }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_NASAL_CONSTRICT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_CHEEK_PUFF }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_CHEEK_SUCK }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_CHEEK_SQUINT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_LIP_SUCK_UPPER }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_LIP_SUCK_LOWER }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_LIP_SUCK }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_LIP_FUNNEL_UPPER }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_LIP_FUNNEL_LOWER }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_LIP_FUNNEL }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_LIP_PUCKER_UPPER }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_LIP_PUCKER_LOWER }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_LIP_PUCKER }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_MOUTH_UPPER_UP }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_MOUTH_LOWER_DOWN }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_MOUTH_OPEN }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_MOUTH_RIGHT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_MOUTH_LEFT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthSmileRight> { static constexpr BlendShape value[] = { FT_MOUTH_SMILE_RIGHT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::MouthSmileLeft> { static constexpr BlendShape value[] = { FT_MOUTH_SMILE_LEFT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_MOUTH_SMILE }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_MOUTH_SAD_RIGHT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_MOUTH_SAD_LEFT }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_MOUTH_SAD }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_MOUTH_STRETCH }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_MOUTH_DIMPLE }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_MOUTH_TIGHTENER }; };
-    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = { FT_MOUTH_PRESS }; };
-
+    //        template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr
+    //        BlendShape value[] = { FT_EYE_CLOSED }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_EYE_WIDE }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> {
+    //        static constexpr BlendShape value[] = { FT_EYE_SQUINT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_EYE_DILATION }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> {
+    //        static constexpr BlendShape value[] = { FT_EYE_CONSTRICT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::BrowDownRight> { static constexpr BlendShape
+    //        value[] = { FT_BROW_DOWN_RIGHT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::BrowDownLeft> { static constexpr BlendShape
+    //        value[] = { FT_BROW_DOWN_LEFT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_BROW_DOWN }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> {
+    //        static constexpr BlendShape value[] = { FT_BROW_UP_RIGHT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_BROW_UP_LEFT }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> {
+    //        static constexpr BlendShape value[] = { FT_BROW_UP }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_NOSE_SNEER }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> {
+    //        static constexpr BlendShape value[] = { FT_NASAL_DILATION }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_NASAL_CONSTRICT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_CHEEK_PUFF }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> {
+    //        static constexpr BlendShape value[] = { FT_CHEEK_SUCK }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_CHEEK_SQUINT }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> {
+    //        static constexpr BlendShape value[] = { FT_LIP_SUCK_UPPER }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_LIP_SUCK_LOWER }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO>
+    //        { static constexpr BlendShape value[] = { FT_LIP_SUCK }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_LIP_FUNNEL_UPPER }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_LIP_FUNNEL_LOWER }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_LIP_FUNNEL }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> {
+    //        static constexpr BlendShape value[] = { FT_LIP_PUCKER_UPPER }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_LIP_PUCKER_LOWER }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_LIP_PUCKER }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> {
+    //        static constexpr BlendShape value[] = { FT_MOUTH_UPPER_UP }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_MOUTH_LOWER_DOWN }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_MOUTH_OPEN }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> {
+    //        static constexpr BlendShape value[] = { FT_MOUTH_RIGHT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_MOUTH_LEFT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::MouthSmileRight> { static constexpr BlendShape
+    //        value[] = { FT_MOUTH_SMILE_RIGHT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::MouthSmileLeft> { static constexpr BlendShape
+    //        value[] = { FT_MOUTH_SMILE_LEFT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_MOUTH_SMILE }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO> {
+    //        static constexpr BlendShape value[] = { FT_MOUTH_SAD_RIGHT }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_MOUTH_SAD_LEFT }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO>
+    //        { static constexpr BlendShape value[] = { FT_MOUTH_SAD }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_MOUTH_STRETCH }; }; template<> struct ToUnifiedExpression<ARKit::BlendShape::TODO>
+    //        { static constexpr BlendShape value[] = { FT_MOUTH_DIMPLE }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_MOUTH_TIGHTENER }; }; template<> struct
+    //        ToUnifiedExpression<ARKit::BlendShape::TODO> { static constexpr BlendShape value[] = {
+    //        FT_MOUTH_PRESS }; };
 
     /**
      * Converts the provided ARKit blend shape to the equivalent unified expression blend shape.
      * @param blend_shape The ARKit blend shape to convert.
      * @return The equivilant Unified Expressions blend shape.
      */
-     template<ARKit::BlendShape V>
-    UnifiedExpressions::BlendShape arkit_to_unified(ARKit::BlendShape blend_shape) {
+    template <ARKit::BlendShape V>
+    UnifiedExpressions::BlendShape arkit_to_unified( ARKit::BlendShape blend_shape ) {
         return ToUnifiedExpression<V>::value;
     }
 }
