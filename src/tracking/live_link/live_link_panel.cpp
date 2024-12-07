@@ -135,7 +135,8 @@ LiveLinkPanel::LiveLinkPanel() {
         add_child( container );
     }
 
-    _server = godot::Ref<LiveLinkServer>( memnew( LiveLinkServer ) );
+    godot::Ref<LiveLinkServer> server = memnew( LiveLinkServer );
+    _server = server;
 
     // we manually poll in relationship to if the panel is active or not.
     _server->_disable_polling = true;

@@ -3,10 +3,20 @@
 target_sources(${PROJECT_NAME}
         PRIVATE
 
-        tracking/arkit/blend_shapes.cpp
+        tracking/tracker.cpp
+        tracking/tracker_face.cpp
+        tracking/tracking_server.cpp
+        tracking/tracking_interface.cpp
+
+        tracking/editor/editor_plugin.cpp
+        tracking/editor/tracking_plugin_panel.cpp
+        tracking/editor/trackers/face_tracker_panel.cpp
+
         tracking/live_link/live_link_server.cpp
         tracking/live_link/live_link_panel.cpp
         tracking/live_link/editor_plugin.cpp
+        tracking/live_link/live_link_interface.cpp
+        tracking/live_link/live_link_face_tracker.cpp
 
         models/live2d/renderer/cubism_renderer.cpp
         models/live2d/renderer/cubism_renderer_2d.cpp

@@ -62,6 +62,10 @@ People and projects that helped make this possible.
 * https://arkit-face-blendshapes.com 
   * Used as a development reference for mapping the output of ARKit feeds (i.e., LiveLinkFace server) to models.
   * This is a simplified view of the blend shapes from the [ARKit developer docs](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation).
+* [VRCFaceTracking-LiveLink](https://github.com/kusomaigo/VRCFaceTracking-LiveLink)
+  * Another reference LiveLink server implementation for VRChat.
+  * Shows conversion from LiveLink weights to Unified Expression weights.
+
 
 ## License
 

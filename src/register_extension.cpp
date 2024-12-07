@@ -1,15 +1,12 @@
 // Copied from godot-cpp/test/src and modified.
 
-#include "gdextension_interface.h"
+#include <gdextension_interface.h>
 
-#include "godot_cpp/core/class_db.hpp"
-#include "godot_cpp/core/defs.hpp"
-#include "godot_cpp/godot.hpp"
+#include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/core/defs.hpp>
+#include <godot_cpp/godot.hpp>
 
 #include "vdot.h"
-
-#include "tracking/live_link/live_link_panel.h"
-#include "tracking/live_link/live_link_server.h"
 
 #include <CubismFramework.hpp>
 
@@ -25,7 +22,20 @@
 #include "models/live2d/cubism_value_parameter.h"
 #include "models/live2d/cubism_value_part_opacity.h"
 #include "models/live2d/renderer/cubism_allocator.h"
+
+#include "tracking/tracker.h"
+#include "tracking/tracker_face.h"
+#include "tracking/tracking_interface.h"
+#include "tracking/tracking_server.h"
+
+#include "tracking/editor/editor_plugin.h"
 #include "tracking/live_link/editor_plugin.h"
+#include "tracking/live_link/live_link_face_tracker.h"
+#include "tracking/live_link/live_link_interface.h"
+#include "tracking/live_link/live_link_panel.h"
+#include "tracking/live_link/live_link_server.h"
+
+using namespace godot;
 
 static CubismAllocator cubism_allocator;
 static Csm::CubismFramework::Option csm_options;
@@ -39,35 +49,51 @@ void cubism_output( const char *message ) {
 #endif // DEBUG_ENABLED
 }
 
+static TrackingServer *tracking_server = nullptr;
+static LiveLinkInterface *live_link_interface = nullptr;
+
 namespace {
     /// @brief Called by Godot to let us register our classes with Godot.
     ///
     /// @param p_level the level being initialized by Godot
     ///
     /// @see GDExtensionInit
-    void initializeExtension( godot::ModuleInitializationLevel p_level ) {
-        if ( p_level == godot::MODULE_INITIALIZATION_LEVEL_EDITOR ) {
-            godot::GDREGISTER_CLASS( LiveLinkPanel );
-            godot::GDREGISTER_CLASS( LiveLinkEditorPlugin );
+    void initializeExtension( ModuleInitializationLevel p_level ) {
+        if ( p_level == MODULE_INITIALIZATION_LEVEL_SERVERS ) {
+            GDREGISTER_ABSTRACT_CLASS( Tracker )
+            GDREGISTER_CLASS( FaceTracker )
 
-            godot::EditorPlugins::add_by_type<LiveLinkEditorPlugin>();
+            GDREGISTER_ABSTRACT_CLASS( TrackingInterface )
+            GDREGISTER_CLASS( TrackingServer )
         }
 
-        if ( p_level == godot::MODULE_INITIALIZATION_LEVEL_SCENE ) {
-            //            godot::ClassDB::register_class<ExampleRef>();
-            //            godot::ClassDB::register_class<ExampleMin>();
-            //            godot::ClassDB::register_class<Example>();
-            //            godot::ClassDB::register_class<ExampleVirtual>( true );
-            //            godot::ClassDB::register_abstract_class<ExampleAbstract>();
+        if ( p_level == MODULE_INITIALIZATION_LEVEL_SCENE ) {
+            // Register the tracking server as a singleton.
+            tracking_server = memnew( TrackingServer );
+            Engine::get_singleton()->register_singleton( "TrackingServer",
+                                                         TrackingServer::get_singleton() );
 
-            godot::ClassDB::register_class<VDot>();
+            //            ClassDB::register_class<ExampleRef>();
+            //            ClassDB::register_class<ExampleMin>();
+            //            ClassDB::register_class<Example>();
+            //            ClassDB::register_class<ExampleVirtual>( true );
+            //            ClassDB::register_abstract_class<ExampleAbstract>();
+
+            ClassDB::register_class<VDot>();
 
             // ====================
             // LiveLinkFace Tracking
 
-            godot::ClassDB::register_class<LiveLinkClientData>();
-            godot::ClassDB::register_class<LiveLinkClient>();
-            godot::ClassDB::register_class<LiveLinkServer>();
+            ClassDB::register_class<LiveLinkClientData>();
+            ClassDB::register_class<LiveLinkClient>();
+            ClassDB::register_class<LiveLinkServer>();
+
+            // tracking interface
+            ClassDB::register_class<LiveLinkInterface>();
+            ClassDB::register_class<LiveLinkFaceTracker>();
+
+            live_link_interface = memnew( LiveLinkInterface );
+            tracking_server->add_interface( live_link_interface );
 
             // ====================
             // Live2D Models
@@ -83,29 +109,43 @@ namespace {
             Csm::CubismFramework::StartUp( &cubism_allocator, &csm_options );
             Csm::CubismFramework::Initialize();
 
-            godot::GDREGISTER_VIRTUAL_CLASS( CubismEffect );
-            godot::GDREGISTER_CLASS( CubismEffectBreath );
-            godot::GDREGISTER_CLASS( CubismEffectCustom );
-            godot::GDREGISTER_CLASS( CubismEffectEyeBlink );
-            godot::GDREGISTER_CLASS( CubismEffectHitArea );
-            godot::GDREGISTER_CLASS( CubismEffectTargetPoint );
+            GDREGISTER_VIRTUAL_CLASS( CubismEffect )
+            GDREGISTER_CLASS( CubismEffectBreath )
+            GDREGISTER_CLASS( CubismEffectCustom )
+            GDREGISTER_CLASS( CubismEffectEyeBlink )
+            GDREGISTER_CLASS( CubismEffectHitArea )
+            GDREGISTER_CLASS( CubismEffectTargetPoint )
 
-            godot::GDREGISTER_VIRTUAL_CLASS( CubismValueAbs );
-            godot::GDREGISTER_CLASS( CubismParameter );
-            godot::GDREGISTER_CLASS( CubismPartOpacity );
+            GDREGISTER_VIRTUAL_CLASS( CubismValueAbs )
+            GDREGISTER_CLASS( CubismParameter )
+            GDREGISTER_CLASS( CubismPartOpacity )
 
-            godot::GDREGISTER_CLASS( CubismMotionQueueEntryHandle );
-            godot::GDREGISTER_CLASS( CubismMotionEntry );
-            godot::GDREGISTER_CLASS( CubismModel );
+            GDREGISTER_CLASS( CubismMotionQueueEntryHandle )
+            GDREGISTER_CLASS( CubismMotionEntry )
+            GDREGISTER_CLASS( CubismModel )
+        }
+
+        if ( p_level == MODULE_INITIALIZATION_LEVEL_EDITOR ) {
+            GDREGISTER_CLASS( TrackingEditorPlugin )
+            GDREGISTER_CLASS( TrackingPluginPanel )
+            EditorPlugins::add_by_type<TrackingEditorPlugin>();
+
+            GDREGISTER_CLASS( LiveLinkPanel )
+            GDREGISTER_CLASS( LiveLinkEditorPlugin )
+
+            EditorPlugins::add_by_type<LiveLinkEditorPlugin>();
         }
     }
 
     /// @brief Called by Godot to let us do any cleanup.
     ///
     /// @see GDExtensionInit
-    void uninitializeExtension( godot::ModuleInitializationLevel p_level ) {
-        if ( p_level == godot::MODULE_INITIALIZATION_LEVEL_SCENE ) {
+    void uninitializeExtension( ModuleInitializationLevel p_level ) {
+        if ( p_level == MODULE_INITIALIZATION_LEVEL_SCENE ) {
             Csm::CubismFramework::Dispose();
+
+            Engine::get_singleton()->unregister_singleton( "TrackingServer" );
+            memdelete( tracking_server );
         }
     }
 }
@@ -125,13 +165,11 @@ GDExtensionBool GDE_EXPORT GDExtensionInit( GDExtensionInterfaceGetProcAddress p
                                             GDExtensionClassLibraryPtr p_library,
                                             GDExtensionInitialization *r_initialization ) {
     {
-        godot::GDExtensionBinding::InitObject init_obj( p_get_proc_address, p_library,
-                                                        r_initialization );
+        GDExtensionBinding::InitObject init_obj( p_get_proc_address, p_library, r_initialization );
 
         init_obj.register_initializer( initializeExtension );
         init_obj.register_terminator( uninitializeExtension );
-        init_obj.set_minimum_library_initialization_level(
-            godot::MODULE_INITIALIZATION_LEVEL_SCENE );
+        init_obj.set_minimum_library_initialization_level( MODULE_INITIALIZATION_LEVEL_SERVERS );
 
         return init_obj.init();
     }

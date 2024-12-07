@@ -806,6 +806,7 @@ void LiveLinkServer::_bind_methods() {
 
 LiveLinkServer::LiveLinkServer() {
     _server = memnew( godot::UDPServer );
+    _server_mutex = memnew( godot::Mutex );
     _thread = memnew( godot::Thread() );
 }
 
@@ -814,6 +815,13 @@ LiveLinkServer::~LiveLinkServer() {
         // Thread must be disposed (or "joined"), for portability.
         _thread->wait_to_finish();
     }
+
+    if ( _server ) {
+        memdelete( _server );
+    }
+
+    memdelete( _server_mutex );
+    memdelete( _thread );
 }
 
 godot::Error LiveLinkServer::listen() {
@@ -970,9 +978,9 @@ void LiveLinkServer::set_port( uint16_t port ) {
 
 void LiveLinkServer::_thread_poll() {
     while ( _running ) {
-        if ( _server_mutex.try_lock() ) {
+        if ( _server_mutex->try_lock() ) {
             poll();
-            _server_mutex.unlock();
+            _server_mutex->unlock();
         }
     }
 }

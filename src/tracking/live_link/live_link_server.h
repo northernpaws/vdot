@@ -6,16 +6,16 @@
 #include <cstdint>
 #include <map>
 
-#include "godot_cpp/classes/node.hpp"
+#include <godot_cpp/classes/node.hpp>
 
-#include "godot_cpp/classes/mutex.hpp"
-#include "godot_cpp/classes/packet_peer_udp.hpp"
-#include "godot_cpp/classes/thread.hpp"
-#include "godot_cpp/classes/udp_server.hpp"
-#include "godot_cpp/variant/array.hpp"
-#include "godot_cpp/variant/packed_byte_array.hpp"
+#include <godot_cpp/classes/mutex.hpp>
+#include <godot_cpp/classes/packet_peer_udp.hpp>
+#include <godot_cpp/classes/thread.hpp>
+#include <godot_cpp/classes/udp_server.hpp>
+#include <godot_cpp/variant/array.hpp>
+#include <godot_cpp/variant/packed_byte_array.hpp>
 
-#include "../arkit/blend_shapes.h"
+#include "../standards/arkit_blend_shapes.h"
 
 static constexpr int BLEND_SHAPE_COUNT = 61;
 
@@ -236,8 +236,8 @@ class LiveLinkServer : public godot::RefCounted {
 
     uint16_t _port = 11111;
 
-    godot::UDPServer *_server;
-    godot::Mutex _server_mutex;
+    godot::UDPServer *_server = nullptr;
+    godot::Mutex *_server_mutex = nullptr;
     bool _running = true;
 
     PeerList _unidentified_clients;

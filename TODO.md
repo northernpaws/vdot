@@ -12,3 +12,4 @@
 - Add VSeeFace tracking support
 - Mediapipe Face tracking
 - Use [Unified Expressions](https://docs.vrcft.io/docs/tutorial-avatars/tutorial-avatars-extras/unified-blendshapes) as the standard for all face tracking
+- Use XRFaceTracker as an interface for face tracker support. It's currently experimental and not provided through godot_cpp.
