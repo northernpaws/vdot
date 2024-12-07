@@ -216,12 +216,12 @@ void LiveLinkPanel::_on_start_button_pressed() {
     }
 }
 
-void LiveLinkPanel::_on_server_client_connected( const godot::Ref<LiveLinkClient>& client ) {
+void LiveLinkPanel::_on_server_client_connected( const godot::Ref<LiveLinkClient> &client ) {
 }
 
-void LiveLinkPanel::_on_server_client_disconnected( const godot::Ref<LiveLinkClient>& client ) {
+void LiveLinkPanel::_on_server_client_disconnected( const godot::Ref<LiveLinkClient> &client ) {
 }
 
-void LiveLinkPanel::_on_server_client_updated( const godot::Ref<LiveLinkClient>& client ) {
+void LiveLinkPanel::_on_server_client_updated( const godot::Ref<LiveLinkClient> &client ) {
     update_mesh( client->_values );
 }

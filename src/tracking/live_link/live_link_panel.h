@@ -38,9 +38,9 @@ class LiveLinkPanel : public godot::Control {
 
     void _on_start_button_pressed();
 
-    void _on_server_client_connected( const godot::Ref<LiveLinkClient>& client );
-    void _on_server_client_disconnected( const godot::Ref<LiveLinkClient>& client );
-    void _on_server_client_updated( const godot::Ref<LiveLinkClient>& client );
+    void _on_server_client_connected( const godot::Ref<LiveLinkClient> &client );
+    void _on_server_client_disconnected( const godot::Ref<LiveLinkClient> &client );
+    void _on_server_client_updated( const godot::Ref<LiveLinkClient> &client );
 };
 
 #endif // VDOT_LIVE_LINK_PANEL_H

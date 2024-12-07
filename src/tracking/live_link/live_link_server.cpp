@@ -946,10 +946,9 @@ godot::Error LiveLinkServer::poll() {
         client->_last_seen = packet.time_stamp;
 
         if ( packet.blend_shapes.size() == BLEND_SHAPE_COUNT ) {
-            auto values = memnew( LiveLinkClientData() );
-            values->_data = packet.blend_shapes;
-            values->_timecode = packet.time_stamp;
-            client->_values = values;
+            // TODO: should we be using recounted and creating a new instance instead?
+            client->_values->_data = packet.blend_shapes;
+            client->_values->_timecode = packet.time_stamp;
 
             emit_signal( "client_updated", client );
         }
