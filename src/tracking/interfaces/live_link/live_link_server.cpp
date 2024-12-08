@@ -522,7 +522,9 @@ LiveLinkClientData::~LiveLinkClientData() {
 }
 
 float LiveLinkClientData::get_blend_shape( ARKit::BlendShape blendShape ) {
-    return _data[blendShape];
+    // +1 because the LiveLink data uses 0 as a blend shape count index.
+    // TODO: double check the +1 reasoning
+    return _data[blendShape+1];
 }
 
 float LiveLinkClientData::_get_eye_blink_left() const {

@@ -10,6 +10,7 @@
 
 - [x] Live2D Model support (expressions, motions, etc.)
 - [x] LiveLinkFace face tracking (iPhone FaceID)
+- [ ] [inochi2d](https://inochi2d.com) avatar support (via [inochi2d-c](https://github.com/Inochi2D/inochi2d-c))
 - [ ] 3D VRM Model Support
 - [ ] Audio-based lip-syncing
 - [ ] Other face tracking software (FaceCap, VSeeFace, MeowFace, MediaPipe, etc.)
@@ -65,6 +66,10 @@ People and projects that helped make this possible.
 * [VRCFaceTracking-LiveLink](https://github.com/kusomaigo/VRCFaceTracking-LiveLink)
   * Another reference LiveLink server implementation for VRChat.
   * Shows conversion from LiveLink weights to Unified Expression weights.
+* [virtual-puppet-project/meowface-tracker](https://github.com/virtual-puppet-project/meowface-tracker)
+  * Reference implementation for MeowFace tracking.
+* [regzo2/VRCFaceTracking-MeowFace](https://github.com/regzo2/VRCFaceTracking-MeowFace)
+  * Reference implementation for MeowFace tracking.
 
 
 ## License

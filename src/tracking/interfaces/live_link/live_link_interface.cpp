@@ -45,6 +45,8 @@ bool LiveLinkInterface::initialize() {
     TrackingServer *server = TrackingServer::get_singleton();
     ERR_FAIL_COND_V_MSG( server == nullptr, false, "Tracking server not initialized." );
 
+    godot::UtilityFunctions::print("Initialized LiveLink facial tracking interface on port ", _server->get_port());
+
     _initialized = true;
 
     return _initialized;
@@ -74,6 +76,8 @@ void LiveLinkInterface::uninitialize() {
     _trackers.clear();
 
     _initialized = false;
+
+    godot::UtilityFunctions::print("Shut down LiveLink facial tracking interface on port ", _server->get_port());
 }
 
 void LiveLinkInterface::process() {

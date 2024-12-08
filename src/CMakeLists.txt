@@ -18,6 +18,8 @@ target_sources(${PROJECT_NAME}
         tracking/interfaces/live_link/live_link_interface.cpp
         tracking/interfaces/live_link/live_link_face_tracker.cpp
 
+        tracking/interfaces/vts/vts_client.cpp
+
         models/live2d/renderer/cubism_renderer.cpp
         models/live2d/renderer/cubism_renderer_2d.cpp
         models/live2d/renderer/cubism_model_proxy.cpp

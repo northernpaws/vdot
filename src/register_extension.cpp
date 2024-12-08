@@ -29,11 +29,12 @@
 #include "tracking/tracking_server.h"
 
 #include "tracking/editor/editor_plugin.h"
-#include "tracking/live_link/editor_plugin.h"
-#include "tracking/live_link/live_link_face_tracker.h"
-#include "tracking/live_link/live_link_interface.h"
-#include "tracking/live_link/live_link_panel.h"
-#include "tracking/live_link/live_link_server.h"
+#include "tracking/editor/trackers/face_tracker_panel.h"
+#include "tracking/interfaces/live_link/editor_plugin.h"
+#include "tracking/interfaces/live_link/live_link_face_tracker.h"
+#include "tracking/interfaces/live_link/live_link_interface.h"
+#include "tracking/interfaces/live_link/live_link_panel.h"
+#include "tracking/interfaces/live_link/live_link_server.h"
 
 using namespace godot;
 
@@ -60,6 +61,8 @@ namespace {
     /// @see GDExtensionInit
     void initializeExtension( ModuleInitializationLevel p_level ) {
         if ( p_level == MODULE_INITIALIZATION_LEVEL_SERVERS ) {
+            ARKit::_init_arkit_shape_names();
+
             GDREGISTER_ABSTRACT_CLASS( Tracker )
             GDREGISTER_CLASS( FaceTracker )
 
@@ -128,6 +131,7 @@ namespace {
         if ( p_level == MODULE_INITIALIZATION_LEVEL_EDITOR ) {
             GDREGISTER_CLASS( TrackingEditorPlugin )
             GDREGISTER_CLASS( TrackingPluginPanel )
+            GDREGISTER_CLASS( FaceTrackerPanel )
             EditorPlugins::add_by_type<TrackingEditorPlugin>();
 
             GDREGISTER_CLASS( LiveLinkPanel )
