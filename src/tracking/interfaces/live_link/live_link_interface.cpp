@@ -5,7 +5,44 @@
 #include "live_link_face_tracker.h"
 #include "live_link_interface.h"
 
+LiveLinkInterface* LiveLinkInterface::singleton = nullptr;
+
+LiveLinkInterface* LiveLinkInterface::get_singleton(){
+    return singleton;
+}
+
 void LiveLinkInterface::_bind_methods() {
+    ADD_SIGNAL( godot::MethodInfo(
+        "tracker_connected", godot::PropertyInfo( godot::Variant::OBJECT, "tracker",
+                                                 godot::PropertyHint::PROPERTY_HINT_TYPE_STRING,
+                                                 LiveLinkFaceTracker::get_class_static() ) ) );
+    ADD_SIGNAL(
+        godot::MethodInfo( "tracker_disconnected",
+                           godot::PropertyInfo( godot::Variant::OBJECT, "tracker",
+                                                godot::PropertyHint::PROPERTY_HINT_TYPE_STRING,
+                                                LiveLinkFaceTracker::get_class_static() ) ) );
+
+    godot::ClassDB::bind_method( godot::D_METHOD( "initialize" ),
+                                 &LiveLinkInterface::initialize );
+    godot::ClassDB::bind_method( godot::D_METHOD( "uninitialize" ),
+                                 &LiveLinkInterface::uninitialize );
+    godot::ClassDB::bind_method( godot::D_METHOD( "is_initialized" ),
+                                 &LiveLinkInterface::is_initialized );
+
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_server" ),
+                                 &LiveLinkInterface::get_server );
+
+    ADD_PROPERTY( godot::PropertyInfo( godot::Variant::OBJECT, "server",
+                                       godot::PROPERTY_HINT_TYPE_STRING, LiveLinkServer::get_class_static(),
+                                       godot::PROPERTY_USAGE_READ_ONLY), "", "get_server" );
+
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_trackers" ),
+                                 &LiveLinkInterface::get_trackers );
+
+    ADD_PROPERTY( godot::PropertyInfo( godot::Variant::OBJECT, "trackers",
+                                       godot::PROPERTY_HINT_ARRAY_TYPE, LiveLinkFaceTracker::get_class_static(),
+                                       godot::PROPERTY_USAGE_READ_ONLY), "", "get_trackers" );
+
     godot::ClassDB::bind_method( godot::D_METHOD( "_on_server_client_connected" ),
                                  &LiveLinkInterface::_on_server_client_connected );
     godot::ClassDB::bind_method( godot::D_METHOD( "_on_server_client_disconnected" ),
@@ -15,6 +52,8 @@ void LiveLinkInterface::_bind_methods() {
 }
 
 LiveLinkInterface::LiveLinkInterface() {
+    singleton = this;
+
     _server = godot::Ref<LiveLinkServer>( memnew( LiveLinkServer ) );
     ERR_FAIL_NULL_MSG( _server, "Failed to create LiveLink server" );
 
@@ -45,7 +84,8 @@ bool LiveLinkInterface::initialize() {
     TrackingServer *server = TrackingServer::get_singleton();
     ERR_FAIL_COND_V_MSG( server == nullptr, false, "Tracking server not initialized." );
 
-    godot::UtilityFunctions::print("Initialized LiveLink facial tracking interface on port ", _server->get_port());
+    godot::UtilityFunctions::print( "Initialized LiveLink facial tracking interface on port ",
+                                    _server->get_port() );
 
     _initialized = true;
 
@@ -67,6 +107,8 @@ void LiveLinkInterface::uninitialize() {
             auto key = _trackers.keys()[i];
             godot::Ref<LiveLinkFaceTracker> tracker = _trackers[key];
 
+            emit_signal("tracker_disconnected", tracker);
+
             if ( tracker.is_valid() ) {
                 server->remove_tracker( tracker );
             }
@@ -77,13 +119,22 @@ void LiveLinkInterface::uninitialize() {
 
     _initialized = false;
 
-    godot::UtilityFunctions::print("Shut down LiveLink facial tracking interface on port ", _server->get_port());
+    godot::UtilityFunctions::print( "Shut down LiveLink facial tracking interface on port ",
+                                    _server->get_port() );
 }
 
 void LiveLinkInterface::process() {
     if ( _server.is_valid() ) {
         _server->poll();
     }
+}
+
+godot::Ref<LiveLinkServer> LiveLinkInterface::get_server() const {
+    return _server;
+}
+
+godot::Dictionary LiveLinkInterface::get_trackers() const {
+    return _trackers;
 }
 
 void LiveLinkInterface::_on_server_client_connected( const godot::Ref<LiveLinkClient> &client ) {
@@ -99,6 +150,8 @@ void LiveLinkInterface::_on_server_client_connected( const godot::Ref<LiveLinkCl
 
     server->add_tracker( tracker );
 
+    emit_signal("tracker_connected", tracker);
+
     godot::UtilityFunctions::print( "Added new LiveLink tracker: ", tracker->get_tracker_name() );
 }
 
@@ -107,6 +160,8 @@ void LiveLinkInterface::_on_server_client_disconnected( const godot::Ref<LiveLin
     if ( tracker.is_valid() ) {
         godot::UtilityFunctions::print( "Removing disconnected LiveLink tracker: ",
                                         tracker->get_tracker_name() );
+
+        emit_signal("tracker_disconnected", tracker);
 
         _trackers.erase( LiveLinkFaceTracker::tracker_name( client ) );
 

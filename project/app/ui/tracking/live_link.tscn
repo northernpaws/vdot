@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=3 uid="uid://con8gt818tbhy"]
+
+[ext_resource type="Theme" uid="uid://db6s5ob3rvi4k" path="res://app/ui/app_theme.tres" id="1_try5a"]
+[ext_resource type="Script" path="res://app/ui/tracking/live_link.gd" id="2_xqt7a"]
+
+[node name="LiveLink" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_try5a")
+script = ExtResource("2_xqt7a")
+metadata/_tab_index = 0
+
+[node name="LiveLinkSettings" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StatusBarContainer" type="MarginContainer" parent="LiveLinkSettings"]
+layout_mode = 2
+theme = ExtResource("1_try5a")
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
+
+[node name="StatusBar" type="HBoxContainer" parent="LiveLinkSettings/StatusBarContainer"]
+layout_mode = 2
+theme = ExtResource("1_try5a")
+
+[node name="ServerStatus" type="Label" parent="LiveLinkSettings/StatusBarContainer/StatusBar"]
+layout_mode = 2
+theme = ExtResource("1_try5a")
+text = "Server: listening IP: 127.0.0.1:1234"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="LiveLinkSettings"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_try5a")
+split_offset = 240
+
+[node name="TrackerListContainer" type="VBoxContainer" parent="LiveLinkSettings/HSplitContainer"]
+layout_mode = 2
+theme = ExtResource("1_try5a")
+
+[node name="TrackerList" type="ItemList" parent="LiveLinkSettings/HSplitContainer/TrackerListContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_try5a")
+item_count = 2
+item_0/text = "Tracker 1"
+item_1/text = "Tracker 2"
+
+[node name="TrackerSettings" type="VBoxContainer" parent="LiveLinkSettings/HSplitContainer"]
+layout_mode = 2
+theme = ExtResource("1_try5a")
+
+[node name="LiveLinkUninitialized" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LiveLinkUninitialized"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="LiveLinkUninitialized/VBoxContainer"]
+layout_mode = 2
+text = "LiveLink tracking interface is uninitialized."
+horizontal_alignment = 1
+
+[node name="InitializeButton" type="Button" parent="LiveLinkUninitialized/VBoxContainer"]
+layout_mode = 2
+text = "Initialize LiveLink Interface
+"
+
+[connection signal="pressed" from="LiveLinkUninitialized/VBoxContainer/InitializeButton" to="." method="_on_initialize_button_pressed"]

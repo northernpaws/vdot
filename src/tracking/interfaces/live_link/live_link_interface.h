@@ -23,9 +23,12 @@ class LiveLinkInterface : public TrackingInterface {
     godot::Dictionary _trackers;
 
   protected:
-    static void _bind_methods();
+    static LiveLinkInterface* singleton;
 
+    static void _bind_methods();
   public:
+    static LiveLinkInterface* get_singleton();
+
     LiveLinkInterface();
     ~LiveLinkInterface() override;
 
@@ -38,6 +41,9 @@ class LiveLinkInterface : public TrackingInterface {
     void uninitialize() override;
 
     void process() override;
+
+    [[nodiscard]] godot::Ref<LiveLinkServer> get_server() const;
+    godot::Dictionary get_trackers() const;
 
     void _on_server_client_connected( const godot::Ref<LiveLinkClient> &client );
     void _on_server_client_disconnected( const godot::Ref<LiveLinkClient> &client );

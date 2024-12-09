@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dg8w0woeegm0n"]
+[gd_scene load_steps=10 format=3 uid="uid://dg8w0woeegm0n"]
 
 [ext_resource type="PackedScene" uid="uid://b1og747hsnjrt" path="res://app/ui/menu/menu_button.tscn" id="1_tc77p"]
 [ext_resource type="Script" path="res://models/live2d/live_2d_model.gd" id="2_mbv38"]
+[ext_resource type="Theme" uid="uid://db6s5ob3rvi4k" path="res://app/ui/app_theme.tres" id="3_72s4j"]
+[ext_resource type="PackedScene" uid="uid://con8gt818tbhy" path="res://app/ui/tracking/live_link.tscn" id="4_pd7c2"]
+[ext_resource type="PackedScene" uid="uid://cm87t18y8ifj8" path="res://app/ui/tracking/v_tube_studio.tscn" id="5_m1yyw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jmqv"]
 bg_color = Color(0, 0, 0, 1)
@@ -147,6 +150,36 @@ text = "Load Model"
 [node name="Item" type="Node2D" parent="Environment"]
 
 [node name="Sprite" type="Sprite2D" parent="Environment/Item"]
+
+[node name="TrackingOptions" type="Window" parent="."]
+title = "Tracking Options"
+initial_position = 2
+size = Vector2i(800, 600)
+always_on_top = true
+theme = ExtResource("3_72s4j")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TrackingOptions"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("3_72s4j")
+
+[node name="TrackingInterfaceOptions" type="TabContainer" parent="TrackingOptions/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("3_72s4j")
+current_tab = 0
+
+[node name="LiveLink" parent="TrackingOptions/VBoxContainer/TrackingInterfaceOptions" instance=ExtResource("4_pd7c2")]
+layout_mode = 2
+
+[node name="VTubeStudio" parent="TrackingOptions/VBoxContainer/TrackingInterfaceOptions" instance=ExtResource("5_m1yyw")]
+visible = false
+layout_mode = 2
 
 [connection signal="file_selected" from="Environment/Live2DModel/FileDialog" to="Environment/Live2DModel" method="_on_file_dialog_file_selected"]
 [connection signal="pressed" from="Environment/Live2DModel/OptionsWindow/Panel/Container/LoadModelButton" to="Environment/Live2DModel" method="open_model_file_dialog"]

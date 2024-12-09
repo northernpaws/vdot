@@ -8,6 +8,8 @@ target_sources(${PROJECT_NAME}
         tracking/tracking_server.cpp
         tracking/tracking_interface.cpp
 
+        tracking/standards/arkit_blend_shapes.cpp
+
         tracking/editor/editor_plugin.cpp
         tracking/editor/tracking_plugin_panel.cpp
         tracking/editor/trackers/face_tracker_panel.cpp
@@ -19,6 +21,8 @@ target_sources(${PROJECT_NAME}
         tracking/interfaces/live_link/live_link_face_tracker.cpp
 
         tracking/interfaces/vts/vts_client.cpp
+        tracking/interfaces/vts/vts_face_tracker.cpp
+        tracking/interfaces/vts/vts_interface.cpp
 
         models/live2d/renderer/cubism_renderer.cpp
         models/live2d/renderer/cubism_renderer_2d.cpp

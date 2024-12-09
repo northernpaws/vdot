@@ -24,6 +24,9 @@ void TrackingServer::_bind_methods() {
     godot::ClassDB::bind_method( godot::D_METHOD( "get_tracker", "tracker_name" ),
                                  &TrackingServer::get_tracker );
 
+    godot::ClassDB::bind_method( godot::D_METHOD( "_process" ),
+                                 &TrackingServer::_process );
+
     BIND_ENUM_CONSTANT( TRACKER_FACE );
     BIND_ENUM_CONSTANT( TRACKER_UNKNOWN );
 
@@ -54,6 +57,22 @@ TrackingServer::TrackingServer() {
 
 TrackingServer::~TrackingServer() {
     singleton = nullptr;
+}
+
+void TrackingServer::_notification(int p_what) {
+    if (p_what == NOTIFICATION_POSTINITIALIZE) {
+
+    }
+}
+
+void TrackingServer::_process() {
+    for (int i = 0; i < _interfaces.size(); i++) {
+        if (!_interfaces[i].is_valid()) {
+            // ignore, not a valid reference
+        } else if (_interfaces[i]->is_initialized()) {
+            _interfaces.write[i]->process();
+        }
+    }
 }
 
 void TrackingServer::add_interface( const godot::Ref<TrackingInterface> &p_interface ) {
@@ -175,3 +194,5 @@ godot::Ref<Tracker> TrackingServer::get_tracker( const godot::StringName &p_name
         return {};
     }
 }
+
+

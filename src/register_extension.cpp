@@ -5,10 +5,12 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
+#include <godot_cpp/classes/scene_tree.hpp>
 
 #include "vdot.h"
 
 #include <CubismFramework.hpp>
+#include <godot_cpp/classes/os.hpp>
 
 #include "models/live2d/cubism_effect.h"
 #include "models/live2d/cubism_effect_breath.h"
@@ -30,11 +32,14 @@
 
 #include "tracking/editor/editor_plugin.h"
 #include "tracking/editor/trackers/face_tracker_panel.h"
+
 #include "tracking/interfaces/live_link/editor_plugin.h"
 #include "tracking/interfaces/live_link/live_link_face_tracker.h"
 #include "tracking/interfaces/live_link/live_link_interface.h"
 #include "tracking/interfaces/live_link/live_link_panel.h"
 #include "tracking/interfaces/live_link/live_link_server.h"
+
+#include "tracking/interfaces/vts/vts_interface.h"
 
 using namespace godot;
 
@@ -45,13 +50,13 @@ static Csm::CubismFramework::Option csm_options;
 /// Register our classes with Godot.
 
 void cubism_output( const char *message ) {
-#ifdef DEBUG_ENABLED
     WARN_PRINT( message );
-#endif // DEBUG_ENABLED
 }
 
 static TrackingServer *tracking_server = nullptr;
+
 static LiveLinkInterface *live_link_interface = nullptr;
+static VTSInterface *vts_interface = nullptr;
 
 namespace {
     /// @brief Called by Godot to let us register our classes with Godot.
@@ -95,8 +100,27 @@ namespace {
             ClassDB::register_class<LiveLinkInterface>();
             ClassDB::register_class<LiveLinkFaceTracker>();
 
+            // Add the LiveLink interface to the tracking interfaces list.
             live_link_interface = memnew( LiveLinkInterface );
             tracking_server->add_interface( live_link_interface );
+            Engine::get_singleton()->register_singleton( "LiveLinkInterface",
+                                                         LiveLinkInterface::get_singleton() );
+
+            ClassDB::register_class<VTSInterface>();
+            ClassDB::register_class<VTSFaceTracker>();
+
+            // Add the VTS interface, and register it as a scripting singleton so that
+            //  scripts can call it to initialize and connect to new VTS trackers.
+            vts_interface = memnew( VTSInterface );
+            tracking_server->add_interface( vts_interface );
+            Engine::get_singleton()->register_singleton( "VTSInterface",
+                                                         VTSInterface::get_singleton() );
+
+            // A little hacky, but the best way we were able to find
+            //  to inject a process loop call for the tracking server.
+//            auto* main_loop = godot::Engine::get_singleton()->get_main_loop();
+//            auto* scene_tree = godot::Object::cast_to<godot::SceneTree>(main_loop);
+//            scene_tree->connect("process_frame", godot::Callable(tracking_server, "_process"));
 
             // ====================
             // Live2D Models
@@ -105,7 +129,7 @@ namespace {
 #ifdef DEBUG_ENABLED
             csm_options.LoggingLevel = Csm::CubismFramework::Option::LogLevel::LogLevel_Verbose;
 #else
-            csm_options.LoggingLevel = Csm::CubismFramework::Option::LogLevel::LogLevel_Off;
+            csm_options.LoggingLevel = Csm::CubismFramework::Option::LogLevel::LogLevel_Warning;
 #endif // DEBUG_ENABLED
 
             // Initialize the Cubism framework before registering it's resources.

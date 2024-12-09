@@ -71,7 +71,7 @@ TrackingPluginPanel::TrackingPluginPanel() {
 
                 _interface_list = memnew( godot::ItemList );
                 _interface_list->set_v_size_flags( SIZE_EXPAND_FILL );
-                _interface_list->connect( "", godot::Callable( this, "_on_interface_selected" ) );
+                _interface_list->connect( "item_selected", godot::Callable( this, "_on_interface_selected" ) );
 
                 interface_container->add_child( _interface_list );
                 sidebar->add_child( interface_container );
@@ -87,7 +87,7 @@ TrackingPluginPanel::TrackingPluginPanel() {
 
                 _tracker_list = memnew( godot::ItemList );
                 _tracker_list->set_v_size_flags( SIZE_EXPAND_FILL );
-                _tracker_list->connect( "", godot::Callable( this, "_on_tracker_selected" ) );
+                _tracker_list->connect( "item_selected", godot::Callable( this, "_on_tracker_selected" ) );
 
                 tracker_container->add_child( _tracker_list );
                 sidebar->add_child( tracker_container );

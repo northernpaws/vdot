@@ -2,14 +2,14 @@
 #include "godot_cpp/classes/stream_peer_buffer.hpp"
 #include <godot_cpp/variant/utility_functions.hpp>
 
-#include "live_link_server.h"
+#include "meow_face_server.h"
 
-LiveLinkPacket LiveLinkPacket::from_bytes( const godot::PackedByteArray &bytes ) {
+MeowFacePacket MeowFacePacket::from_bytes( const godot::PackedByteArray &bytes ) {
     auto stream = memnew( godot::StreamPeerBuffer() );
     stream->set_data_array( bytes );
     stream->set_big_endian( true );
 
-    auto packet = LiveLinkPacket();
+    auto packet = MeowFacePacket();
 
     packet.magic_1 = stream->get_u8();
     packet.device_id = stream->get_string();
@@ -31,369 +31,369 @@ LiveLinkPacket LiveLinkPacket::from_bytes( const godot::PackedByteArray &bytes )
     return packet;
 }
 
-void LiveLinkClientData::_bind_methods() {
+void MeowFaceClientData::_bind_methods() {
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_blink_left" ),
-                                 &LiveLinkClientData::_get_eye_blink_left );
+                                 &MeowFaceClientData::_get_eye_blink_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "eye_blink_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_eye_blink_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_look_down_left" ),
-                                 &LiveLinkClientData::_get_eye_look_down_left );
+                                 &MeowFaceClientData::_get_eye_look_down_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "eye_look_down_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_eye_look_down_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_look_in_left" ),
-                                 &LiveLinkClientData::_get_eye_look_in_left );
+                                 &MeowFaceClientData::_get_eye_look_in_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "eye_look_in_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_eye_look_in_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_look_out_left" ),
-                                 &LiveLinkClientData::_get_eye_look_out_left );
+                                 &MeowFaceClientData::_get_eye_look_out_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "eye_look_out_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_eye_look_out_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_look_up_left" ),
-                                 &LiveLinkClientData::_get_eye_look_up_left );
+                                 &MeowFaceClientData::_get_eye_look_up_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "eye_look_up_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_eye_look_up_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_squint_left" ),
-                                 &LiveLinkClientData::_get_eye_squint_left );
+                                 &MeowFaceClientData::_get_eye_squint_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "eye_squint_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_eye_squint_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_wide_left" ),
-                                 &LiveLinkClientData::_get_eye_wide_left );
+                                 &MeowFaceClientData::_get_eye_wide_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "eye_wide_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_eye_wide_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_blink_right" ),
-                                 &LiveLinkClientData::_get_eye_blink_right );
+                                 &MeowFaceClientData::_get_eye_blink_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "eye_blink_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_eye_blink_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_look_down_right" ),
-                                 &LiveLinkClientData::_get_eye_look_down_right );
+                                 &MeowFaceClientData::_get_eye_look_down_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "eye_look_down_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_eye_look_down_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_look_in_right" ),
-                                 &LiveLinkClientData::_get_eye_look_in_right );
+                                 &MeowFaceClientData::_get_eye_look_in_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "eye_look_in_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_eye_look_in_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_look_out_right" ),
-                                 &LiveLinkClientData::_get_eye_look_out_right );
+                                 &MeowFaceClientData::_get_eye_look_out_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "eye_look_out_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_eye_look_out_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_look_up_right" ),
-                                 &LiveLinkClientData::_get_eye_look_up_right );
+                                 &MeowFaceClientData::_get_eye_look_up_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "eye_look_up_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_eye_look_up_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_squint_right" ),
-                                 &LiveLinkClientData::_get_eye_squint_right );
+                                 &MeowFaceClientData::_get_eye_squint_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "eye_squint_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_eye_squint_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_eye_wide_right" ),
-                                 &LiveLinkClientData::_get_eye_wide_right );
+                                 &MeowFaceClientData::_get_eye_wide_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "eye_wide_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_eye_wide_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_jaw_forward" ),
-                                 &LiveLinkClientData::_get_jaw_forward );
+                                 &MeowFaceClientData::_get_jaw_forward );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "jaw_forward",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_jaw_forward" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_jaw_right" ),
-                                 &LiveLinkClientData::_get_jaw_right );
+                                 &MeowFaceClientData::_get_jaw_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "jaw_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_jaw_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_jaw_left" ),
-                                 &LiveLinkClientData::_get_jaw_left );
+                                 &MeowFaceClientData::_get_jaw_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "jaw_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_jaw_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_jaw_open" ),
-                                 &LiveLinkClientData::_get_jaw_open );
+                                 &MeowFaceClientData::_get_jaw_open );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "jaw_open",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_jaw_open" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_close" ),
-                                 &LiveLinkClientData::_get_mouth_close );
+                                 &MeowFaceClientData::_get_mouth_close );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_close",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_close" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_funnel" ),
-                                 &LiveLinkClientData::_get_mouth_funnel );
+                                 &MeowFaceClientData::_get_mouth_funnel );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_funnel",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_funnel" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_pucker" ),
-                                 &LiveLinkClientData::_get_mouth_pucker );
+                                 &MeowFaceClientData::_get_mouth_pucker );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_pucker",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_pucker" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_right" ),
-                                 &LiveLinkClientData::_get_mouth_right );
+                                 &MeowFaceClientData::_get_mouth_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_left" ),
-                                 &LiveLinkClientData::_get_mouth_left );
+                                 &MeowFaceClientData::_get_mouth_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_smile_left" ),
-                                 &LiveLinkClientData::_get_mouth_smile_left );
+                                 &MeowFaceClientData::_get_mouth_smile_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_smile_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_smile_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_smile_right" ),
-                                 &LiveLinkClientData::_get_mouth_smile_right );
+                                 &MeowFaceClientData::_get_mouth_smile_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_smile_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_smile_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_frown_left" ),
-                                 &LiveLinkClientData::_get_mouth_frown_left );
+                                 &MeowFaceClientData::_get_mouth_frown_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_frown_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_frown_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_frown_right" ),
-                                 &LiveLinkClientData::_get_mouth_frown_right );
+                                 &MeowFaceClientData::_get_mouth_frown_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_frown_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_frown_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_dimple_left" ),
-                                 &LiveLinkClientData::_get_mouth_dimple_left );
+                                 &MeowFaceClientData::_get_mouth_dimple_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_dimple_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_dimple_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_dimple_right" ),
-                                 &LiveLinkClientData::_get_mouth_dimple_right );
+                                 &MeowFaceClientData::_get_mouth_dimple_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_dimple_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_dimple_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_stretch_left" ),
-                                 &LiveLinkClientData::_get_mouth_stretch_left );
+                                 &MeowFaceClientData::_get_mouth_stretch_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_stretch_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_stretch_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_stretch_right" ),
-                                 &LiveLinkClientData::_get_mouth_stretch_right );
+                                 &MeowFaceClientData::_get_mouth_stretch_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_stretch_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_stretch_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_roll_lower" ),
-                                 &LiveLinkClientData::_get_mouth_roll_lower );
+                                 &MeowFaceClientData::_get_mouth_roll_lower );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_roll_lower",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_roll_lower" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_roll_upper" ),
-                                 &LiveLinkClientData::_get_mouth_roll_upper );
+                                 &MeowFaceClientData::_get_mouth_roll_upper );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_roll_upper",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_roll_upper" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_shrug_lower" ),
-                                 &LiveLinkClientData::_get_mouth_shrug_lower );
+                                 &MeowFaceClientData::_get_mouth_shrug_lower );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_shrug_lower",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_shrug_lower" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_shrug_upper" ),
-                                 &LiveLinkClientData::_get_mouth_shrug_upper );
+                                 &MeowFaceClientData::_get_mouth_shrug_upper );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_shrug_upper",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_shrug_upper" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_press_left" ),
-                                 &LiveLinkClientData::_get_mouth_press_left );
+                                 &MeowFaceClientData::_get_mouth_press_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_press_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_press_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_press_right" ),
-                                 &LiveLinkClientData::_get_mouth_press_right );
+                                 &MeowFaceClientData::_get_mouth_press_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_press_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_press_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_lower_down_left" ),
-                                 &LiveLinkClientData::_get_mouth_lower_down_left );
+                                 &MeowFaceClientData::_get_mouth_lower_down_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_lower_down_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_lower_down_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_lower_down_right" ),
-                                 &LiveLinkClientData::_get_mouth_lower_down_right );
+                                 &MeowFaceClientData::_get_mouth_lower_down_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_lower_down_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_lower_down_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_upper_up_left" ),
-                                 &LiveLinkClientData::_get_mouth_upper_up_left );
+                                 &MeowFaceClientData::_get_mouth_upper_up_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_upper_up_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_upper_up_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_mouth_upper_up_right" ),
-                                 &LiveLinkClientData::_get_mouth_upper_up_right );
+                                 &MeowFaceClientData::_get_mouth_upper_up_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "mouth_upper_up_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_mouth_upper_up_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_brow_down_left" ),
-                                 &LiveLinkClientData::_get_brow_down_left );
+                                 &MeowFaceClientData::_get_brow_down_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "brow_down_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_brow_down_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_brow_down_right" ),
-                                 &LiveLinkClientData::_get_brow_down_right );
+                                 &MeowFaceClientData::_get_brow_down_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "brow_down_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_brow_down_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_brow_inner_up" ),
-                                 &LiveLinkClientData::_get_brow_inner_up );
+                                 &MeowFaceClientData::_get_brow_inner_up );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "brow_inner_up",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_brow_inner_up" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_brow_outer_up_left" ),
-                                 &LiveLinkClientData::_get_brow_outer_up_left );
+                                 &MeowFaceClientData::_get_brow_outer_up_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "brow_outer_up_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_brow_outer_up_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_brow_outer_up_right" ),
-                                 &LiveLinkClientData::_get_brow_outer_up_right );
+                                 &MeowFaceClientData::_get_brow_outer_up_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "brow_outer_up_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_brow_outer_up_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_cheek_puff" ),
-                                 &LiveLinkClientData::_get_cheek_puff );
+                                 &MeowFaceClientData::_get_cheek_puff );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "cheek_puff",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_cheek_puff" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_cheek_squint_left" ),
-                                 &LiveLinkClientData::_get_cheek_squint_left );
+                                 &MeowFaceClientData::_get_cheek_squint_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "cheek_squint_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_cheek_squint_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_cheek_squint_right" ),
-                                 &LiveLinkClientData::_get_cheek_squint_right );
+                                 &MeowFaceClientData::_get_cheek_squint_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "cheek_squint_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_cheek_squint_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_nose_sneer_left" ),
-                                 &LiveLinkClientData::_get_nose_sneer_left );
+                                 &MeowFaceClientData::_get_nose_sneer_left );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "nose_sneer_left",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_nose_sneer_left" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_nose_sneer_right" ),
-                                 &LiveLinkClientData::_get_nose_sneer_right );
+                                 &MeowFaceClientData::_get_nose_sneer_right );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "nose_sneer_right",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_nose_sneer_right" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_tongue_out" ),
-                                 &LiveLinkClientData::_get_tongue_out );
+                                 &MeowFaceClientData::_get_tongue_out );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "tongue_out",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_tongue_out" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_head_yaw" ),
-                                 &LiveLinkClientData::_get_head_yaw );
+                                 &MeowFaceClientData::_get_head_yaw );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "head_yaw",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_head_yaw" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_head_pitch" ),
-                                 &LiveLinkClientData::_get_head_pitch );
+                                 &MeowFaceClientData::_get_head_pitch );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "head_pitch",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_head_pitch" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_head_roll" ),
-                                 &LiveLinkClientData::_get_head_roll );
+                                 &MeowFaceClientData::_get_head_roll );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "head_roll",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_head_roll" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_left_eye_yaw" ),
-                                 &LiveLinkClientData::_get_left_eye_yaw );
+                                 &MeowFaceClientData::_get_left_eye_yaw );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "left_eye_yaw",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_left_eye_yaw" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_left_eye_pitch" ),
-                                 &LiveLinkClientData::_get_left_eye_pitch );
+                                 &MeowFaceClientData::_get_left_eye_pitch );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "left_eye_pitch",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_left_eye_pitch" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_left_eye_roll" ),
-                                 &LiveLinkClientData::_get_left_eye_roll );
+                                 &MeowFaceClientData::_get_left_eye_roll );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "left_eye_roll",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_left_eye_roll" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_right_eye_yaw" ),
-                                 &LiveLinkClientData::_get_right_eye_yaw );
+                                 &MeowFaceClientData::_get_right_eye_yaw );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "right_eye_yaw",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_right_eye_yaw" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_right_eye_pitch" ),
-                                 &LiveLinkClientData::_get_right_eye_pitch );
+                                 &MeowFaceClientData::_get_right_eye_pitch );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "right_eye_pitch",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
                   "", "_get_right_eye_pitch" );
     godot::ClassDB::bind_method( godot::D_METHOD( "_get_right_eye_roll" ),
-                                 &LiveLinkClientData::_get_right_eye_roll );
+                                 &MeowFaceClientData::_get_right_eye_roll );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::FLOAT, "right_eye_roll",
                                        godot::PropertyHint::PROPERTY_HINT_NONE, "",
                                        godot::PropertyUsageFlags::PROPERTY_USAGE_READ_ONLY ),
@@ -515,305 +515,303 @@ void LiveLinkClientData::_bind_methods() {
     BIND_ENUM_CONSTANT( ARKit::TongueOut )
 }
 
-LiveLinkClientData::LiveLinkClientData() {
+MeowFaceClientData::MeowFaceClientData() {
 }
 
-LiveLinkClientData::~LiveLinkClientData() {
+MeowFaceClientData::~MeowFaceClientData() {
 }
 
-float LiveLinkClientData::get_blend_shape( ARKit::BlendShape blendShape ) {
-    // +1 because the LiveLink data uses 0 as a blend shape count index.
-    // TODO: double check the +1 reasoning
-    return _data[blendShape + 1];
+float MeowFaceClientData::get_blend_shape( ARKit::BlendShape blendShape ) {
+    return _data[blendShape];
 }
 
-float LiveLinkClientData::_get_eye_blink_left() const {
+float MeowFaceClientData::_get_eye_blink_left() const {
     return _data[DataIndex::EyeBlinkLeft];
 }
 
-float LiveLinkClientData::_get_eye_look_down_left() const {
+float MeowFaceClientData::_get_eye_look_down_left() const {
     return _data[DataIndex::EyeLookDownLeft];
 }
 
-float LiveLinkClientData::_get_eye_look_in_left() const {
+float MeowFaceClientData::_get_eye_look_in_left() const {
     return _data[DataIndex::EyeLookInLeft];
 }
 
-float LiveLinkClientData::_get_eye_look_out_left() const {
+float MeowFaceClientData::_get_eye_look_out_left() const {
     return _data[DataIndex::EyeLookOutLeft];
 }
 
-float LiveLinkClientData::_get_eye_look_up_left() const {
+float MeowFaceClientData::_get_eye_look_up_left() const {
     return _data[DataIndex::EyeLookUpLeft];
 }
 
-float LiveLinkClientData::_get_eye_squint_left() const {
+float MeowFaceClientData::_get_eye_squint_left() const {
     return _data[DataIndex::EyeSquintLeft];
 }
 
-float LiveLinkClientData::_get_eye_wide_left() const {
+float MeowFaceClientData::_get_eye_wide_left() const {
     return _data[DataIndex::EyeWideLeft];
 }
 
-float LiveLinkClientData::_get_eye_blink_right() const {
+float MeowFaceClientData::_get_eye_blink_right() const {
     return _data[DataIndex::EyeBlinkRight];
 }
 
-float LiveLinkClientData::_get_eye_look_down_right() const {
+float MeowFaceClientData::_get_eye_look_down_right() const {
     return _data[DataIndex::EyeLookDownRight];
 }
 
-float LiveLinkClientData::_get_eye_look_in_right() const {
+float MeowFaceClientData::_get_eye_look_in_right() const {
     return _data[DataIndex::EyeLookInRight];
 }
 
-float LiveLinkClientData::_get_eye_look_out_right() const {
+float MeowFaceClientData::_get_eye_look_out_right() const {
     return _data[DataIndex::EyeLookOutRight];
 }
 
-float LiveLinkClientData::_get_eye_look_up_right() const {
+float MeowFaceClientData::_get_eye_look_up_right() const {
     return _data[DataIndex::EyeLookUpRight];
 }
 
-float LiveLinkClientData::_get_eye_squint_right() const {
+float MeowFaceClientData::_get_eye_squint_right() const {
     return _data[DataIndex::EyeSquintRight];
 }
 
-float LiveLinkClientData::_get_eye_wide_right() const {
+float MeowFaceClientData::_get_eye_wide_right() const {
     return _data[DataIndex::EyeWideRight];
 }
 
-float LiveLinkClientData::_get_jaw_forward() const {
+float MeowFaceClientData::_get_jaw_forward() const {
     return _data[DataIndex::JawForward];
 }
 
-float LiveLinkClientData::_get_jaw_right() const {
+float MeowFaceClientData::_get_jaw_right() const {
     return _data[DataIndex::JawRight];
 }
 
-float LiveLinkClientData::_get_jaw_left() const {
+float MeowFaceClientData::_get_jaw_left() const {
     return _data[DataIndex::JawLeft];
 }
 
-float LiveLinkClientData::_get_jaw_open() const {
+float MeowFaceClientData::_get_jaw_open() const {
     return _data[DataIndex::JawOpen];
 }
 
-float LiveLinkClientData::_get_mouth_close() const {
+float MeowFaceClientData::_get_mouth_close() const {
     return _data[DataIndex::MouthClose];
 }
 
-float LiveLinkClientData::_get_mouth_funnel() const {
+float MeowFaceClientData::_get_mouth_funnel() const {
     return _data[DataIndex::MouthFunnel];
 }
 
-float LiveLinkClientData::_get_mouth_pucker() const {
+float MeowFaceClientData::_get_mouth_pucker() const {
     return _data[DataIndex::MouthPucker];
 }
 
-float LiveLinkClientData::_get_mouth_right() const {
+float MeowFaceClientData::_get_mouth_right() const {
     return _data[DataIndex::MouthRight];
 }
 
-float LiveLinkClientData::_get_mouth_left() const {
+float MeowFaceClientData::_get_mouth_left() const {
     return _data[DataIndex::MouthLeft];
 }
 
-float LiveLinkClientData::_get_mouth_smile_left() const {
+float MeowFaceClientData::_get_mouth_smile_left() const {
     return _data[DataIndex::MouthSmileLeft];
 }
 
-float LiveLinkClientData::_get_mouth_smile_right() const {
+float MeowFaceClientData::_get_mouth_smile_right() const {
     return _data[DataIndex::MouthSmileRight];
 }
 
-float LiveLinkClientData::_get_mouth_frown_left() const {
+float MeowFaceClientData::_get_mouth_frown_left() const {
     return _data[DataIndex::MouthFrownLeft];
 }
 
-float LiveLinkClientData::_get_mouth_frown_right() const {
+float MeowFaceClientData::_get_mouth_frown_right() const {
     return _data[DataIndex::MouthFrownRight];
 }
 
-float LiveLinkClientData::_get_mouth_dimple_left() const {
+float MeowFaceClientData::_get_mouth_dimple_left() const {
     return _data[DataIndex::MouthDimpleLeft];
 }
 
-float LiveLinkClientData::_get_mouth_dimple_right() const {
+float MeowFaceClientData::_get_mouth_dimple_right() const {
     return _data[DataIndex::MouthDimpleRight];
 }
 
-float LiveLinkClientData::_get_mouth_stretch_left() const {
+float MeowFaceClientData::_get_mouth_stretch_left() const {
     return _data[DataIndex::MouthStretchLeft];
 }
 
-float LiveLinkClientData::_get_mouth_stretch_right() const {
+float MeowFaceClientData::_get_mouth_stretch_right() const {
     return _data[DataIndex::MouthStretchRight];
 }
 
-float LiveLinkClientData::_get_mouth_roll_lower() const {
+float MeowFaceClientData::_get_mouth_roll_lower() const {
     return _data[DataIndex::MouthRollLower];
 }
 
-float LiveLinkClientData::_get_mouth_roll_upper() const {
+float MeowFaceClientData::_get_mouth_roll_upper() const {
     return _data[DataIndex::MouthRollUpper];
 }
 
-float LiveLinkClientData::_get_mouth_shrug_lower() const {
+float MeowFaceClientData::_get_mouth_shrug_lower() const {
     return _data[DataIndex::MouthShrugLower];
 }
 
-float LiveLinkClientData::_get_mouth_shrug_upper() const {
+float MeowFaceClientData::_get_mouth_shrug_upper() const {
     return _data[DataIndex::MouthShrugUpper];
 }
 
-float LiveLinkClientData::_get_mouth_press_left() const {
+float MeowFaceClientData::_get_mouth_press_left() const {
     return _data[DataIndex::MouthPressLeft];
 }
 
-float LiveLinkClientData::_get_mouth_press_right() const {
+float MeowFaceClientData::_get_mouth_press_right() const {
     return _data[DataIndex::MouthPressRight];
 }
 
-float LiveLinkClientData::_get_mouth_lower_down_left() const {
+float MeowFaceClientData::_get_mouth_lower_down_left() const {
     return _data[DataIndex::MouthLowerDownLeft];
 }
 
-float LiveLinkClientData::_get_mouth_lower_down_right() const {
+float MeowFaceClientData::_get_mouth_lower_down_right() const {
     return _data[DataIndex::MouthLowerDownRight];
 }
 
-float LiveLinkClientData::_get_mouth_upper_up_left() const {
+float MeowFaceClientData::_get_mouth_upper_up_left() const {
     return _data[DataIndex::MouthUpperUpLeft];
 }
 
-float LiveLinkClientData::_get_mouth_upper_up_right() const {
+float MeowFaceClientData::_get_mouth_upper_up_right() const {
     return _data[DataIndex::MouthUpperUpRight];
 }
 
-float LiveLinkClientData::_get_brow_down_left() const {
+float MeowFaceClientData::_get_brow_down_left() const {
     return _data[DataIndex::BrowDownLeft];
 }
 
-float LiveLinkClientData::_get_brow_down_right() const {
+float MeowFaceClientData::_get_brow_down_right() const {
     return _data[DataIndex::BrowDownRight];
 }
 
-float LiveLinkClientData::_get_brow_inner_up() const {
+float MeowFaceClientData::_get_brow_inner_up() const {
     return _data[DataIndex::BrowInnerUp];
 }
 
-float LiveLinkClientData::_get_brow_outer_up_left() const {
+float MeowFaceClientData::_get_brow_outer_up_left() const {
     return _data[DataIndex::BrowOuterUpLeft];
 }
 
-float LiveLinkClientData::_get_brow_outer_up_right() const {
+float MeowFaceClientData::_get_brow_outer_up_right() const {
     return _data[DataIndex::BrowOuterUpRight];
 }
 
-float LiveLinkClientData::_get_cheek_puff() const {
+float MeowFaceClientData::_get_cheek_puff() const {
     return _data[DataIndex::CheekPuff];
 }
 
-float LiveLinkClientData::_get_cheek_squint_left() const {
+float MeowFaceClientData::_get_cheek_squint_left() const {
     return _data[DataIndex::CheekSquintLeft];
 }
 
-float LiveLinkClientData::_get_cheek_squint_right() const {
+float MeowFaceClientData::_get_cheek_squint_right() const {
     return _data[DataIndex::CheekSquintRight];
 }
 
-float LiveLinkClientData::_get_nose_sneer_left() const {
+float MeowFaceClientData::_get_nose_sneer_left() const {
     return _data[DataIndex::NoseSneerLeft];
 }
 
-float LiveLinkClientData::_get_nose_sneer_right() const {
+float MeowFaceClientData::_get_nose_sneer_right() const {
     return _data[DataIndex::NoseSneerRight];
 }
 
-float LiveLinkClientData::_get_tongue_out() const {
+float MeowFaceClientData::_get_tongue_out() const {
     return _data[DataIndex::TongueOut];
 }
 
-float LiveLinkClientData::_get_head_yaw() const {
+float MeowFaceClientData::_get_head_yaw() const {
     return _data[DataIndex::HeadYaw];
 }
 
-float LiveLinkClientData::_get_head_pitch() const {
+float MeowFaceClientData::_get_head_pitch() const {
     return _data[DataIndex::HeadPitch];
 }
 
-float LiveLinkClientData::_get_head_roll() const {
+float MeowFaceClientData::_get_head_roll() const {
     return _data[DataIndex::HeadRoll];
 }
 
-float LiveLinkClientData::_get_left_eye_yaw() const {
+float MeowFaceClientData::_get_left_eye_yaw() const {
     return _data[DataIndex::LeftEyeYaw];
 }
 
-float LiveLinkClientData::_get_left_eye_pitch() const {
+float MeowFaceClientData::_get_left_eye_pitch() const {
     return _data[DataIndex::LeftEyePitch];
 }
 
-float LiveLinkClientData::_get_left_eye_roll() const {
+float MeowFaceClientData::_get_left_eye_roll() const {
     return _data[DataIndex::LeftEyeRoll];
 }
 
-float LiveLinkClientData::_get_right_eye_yaw() const {
+float MeowFaceClientData::_get_right_eye_yaw() const {
     return _data[DataIndex::RightEyeYaw];
 }
 
-float LiveLinkClientData::_get_right_eye_pitch() const {
+float MeowFaceClientData::_get_right_eye_pitch() const {
     return _data[DataIndex::RightEyePitch];
 }
 
-float LiveLinkClientData::_get_right_eye_roll() const {
+float MeowFaceClientData::_get_right_eye_roll() const {
     return _data[DataIndex::RightEyeRoll];
 }
 
-void LiveLinkClient::_bind_methods() {
+void MeowFaceClient::_bind_methods() {
 }
 
-LiveLinkClient::LiveLinkClient() {
+MeowFaceClient::MeowFaceClient() {
 }
 
-LiveLinkClient::~LiveLinkClient() {
+MeowFaceClient::~MeowFaceClient() {
 }
 
-void LiveLinkServer::_bind_methods() {
+void MeowFaceServer::_bind_methods() {
     ADD_SIGNAL( godot::MethodInfo(
         "client_connected", godot::PropertyInfo( godot::Variant::OBJECT, "client",
                                                  godot::PropertyHint::PROPERTY_HINT_RESOURCE_TYPE,
-                                                 LiveLinkClient::get_class_static() ) ) );
+                                                 MeowFaceClient::get_class_static() ) ) );
     ADD_SIGNAL(
         godot::MethodInfo( "client_disconnected",
                            godot::PropertyInfo( godot::Variant::OBJECT, "client",
                                                 godot::PropertyHint::PROPERTY_HINT_RESOURCE_TYPE,
-                                                LiveLinkClient::get_class_static() ) ) );
+                                                MeowFaceClient::get_class_static() ) ) );
     ADD_SIGNAL( godot::MethodInfo(
         "client_updated", godot::PropertyInfo( godot::Variant::OBJECT, "client",
                                                godot::PropertyHint::PROPERTY_HINT_RESOURCE_TYPE,
-                                               LiveLinkClient::get_class_static() ) ) );
+                                               MeowFaceClient::get_class_static() ) ) );
 
-    godot::ClassDB::bind_method( godot::D_METHOD( "get_port" ), &LiveLinkServer::get_port );
-    godot::ClassDB::bind_method( godot::D_METHOD( "set_port", "port" ), &LiveLinkServer::set_port );
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_port" ), &MeowFaceServer::get_port );
+    godot::ClassDB::bind_method( godot::D_METHOD( "set_port", "port" ), &MeowFaceServer::set_port );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::INT, "port" ), "set_port", "get_port" );
 
-    godot::ClassDB::bind_method( godot::D_METHOD( "listen" ), &LiveLinkServer::listen );
-    godot::ClassDB::bind_method( godot::D_METHOD( "stop" ), &LiveLinkServer::stop );
-    godot::ClassDB::bind_method( godot::D_METHOD( "poll" ), &LiveLinkServer::poll );
+    godot::ClassDB::bind_method( godot::D_METHOD( "listen" ), &MeowFaceServer::listen );
+    godot::ClassDB::bind_method( godot::D_METHOD( "stop" ), &MeowFaceServer::stop );
+    godot::ClassDB::bind_method( godot::D_METHOD( "poll" ), &MeowFaceServer::poll );
 
-    godot::ClassDB::bind_method( godot::D_METHOD( "_thread_poll" ), &LiveLinkServer::_thread_poll );
+    godot::ClassDB::bind_method( godot::D_METHOD( "_thread_poll" ), &MeowFaceServer::_thread_poll );
 }
 
-LiveLinkServer::LiveLinkServer() {
+MeowFaceServer::MeowFaceServer() {
     _server = memnew( godot::UDPServer );
     _server_mutex = memnew( godot::Mutex );
     _thread = memnew( godot::Thread() );
 }
 
-LiveLinkServer::~LiveLinkServer() {
-    if ( !_disable_polling && _thread->is_started() ) {
+MeowFaceServer::~MeowFaceServer() {
+    if ( !_disable_polling ) {
         // Thread must be disposed (or "joined"), for portability.
         _thread->wait_to_finish();
     }
@@ -823,12 +821,10 @@ LiveLinkServer::~LiveLinkServer() {
     }
 
     memdelete( _server_mutex );
-    if (_thread) {
-        memdelete( _thread );
-    }
+    memdelete( _thread );
 }
 
-godot::Error LiveLinkServer::listen() {
+godot::Error MeowFaceServer::listen() {
     if ( auto err = _server->listen( _port ); err != godot::OK ) {
         return err;
     }
@@ -838,18 +834,18 @@ godot::Error LiveLinkServer::listen() {
         _thread->start( godot::Callable( this, "_thread_poll" ) );
     }
 
-    godot::UtilityFunctions::print( "Started LiveLink server on: ", _port );
+    godot::UtilityFunctions::print( "Started MeowFace server on: ", _port );
 
     return godot::OK;
 }
 
-godot::Error LiveLinkServer::stop() {
+godot::Error MeowFaceServer::stop() {
     _running = false;
     _server->stop();
 
     for ( const auto &item : _clients ) {
         godot::UtilityFunctions::print(
-            "Existing LiveLinkFace peer disconnected for shutdown: %s (%s)", item.second->_name,
+            "Existing MeowFaceFace peer disconnected for shutdown: %s (%s)", item.second->_name,
             item.second->_id );
         emit_signal( "client_disconnected", item.second );
     }
@@ -857,12 +853,12 @@ godot::Error LiveLinkServer::stop() {
     _clients.clear();
     _unidentified_clients.clear();
 
-    godot::UtilityFunctions::print( "Stopped LiveLink server on: ", _port );
+    godot::UtilityFunctions::print( "Stopped MeowFace server on: ", _port );
 
     return godot::OK;
 }
 
-godot::Error LiveLinkServer::poll() {
+godot::Error MeowFaceServer::poll() {
     if ( auto err = _server->poll(); err != godot::OK ) {
         return err;
     }
@@ -890,27 +886,27 @@ godot::Error LiveLinkServer::poll() {
             auto p = peer->get_packet();
         }
 
-        LiveLinkPacket packet = LiveLinkPacket::from_bytes( peer->get_packet() );
+        MeowFacePacket packet = MeowFacePacket::from_bytes( peer->get_packet() );
 
         if ( _clients.count( packet.device_id ) ) {
             // If there is already a connection registered for this device,
             // remove the connection and replace it with the new one.
 
-            godot::Ref<LiveLinkClient> client = memnew( LiveLinkClient() );
+            godot::Ref<MeowFaceClient> client = memnew( MeowFaceClient() );
             client->_connection->close();
             client->_connection = peer;
             _clients[packet.device_id] = client;
         } else {
             // Otherwise, create the new client for the connection.
 
-            godot::Ref<LiveLinkClient> client = memnew( LiveLinkClient() );
+            godot::Ref<MeowFaceClient> client = memnew( MeowFaceClient() );
             client->_connection = peer;
             client->_last_seen = packet.time_stamp;
             client->_id = packet.device_id;
             client->_name = packet.device_name;
 
             if ( packet.blend_shapes.size() == BLEND_SHAPE_COUNT ) {
-                auto values = memnew( LiveLinkClientData() );
+                auto values = memnew( MeowFaceClientData() );
                 values->_data = packet.blend_shapes;
                 values->_timecode = packet.time_stamp;
                 client->_values = values;
@@ -918,7 +914,7 @@ godot::Error LiveLinkServer::poll() {
 
             _clients[packet.device_id] = client;
 
-            godot::UtilityFunctions::print( "New LiveLinkFace peer connected: %s (%s)",
+            godot::UtilityFunctions::print( "New MeowFaceFace peer connected: %s (%s)",
                                             client->_name, client->_id );
 
             emit_signal( "client_connected", client );
@@ -953,7 +949,7 @@ godot::Error LiveLinkServer::poll() {
             client->_connection->get_packet(); // discard
         }
 
-        auto packet = LiveLinkPacket::from_bytes( client->_connection->get_packet() );
+        auto packet = MeowFacePacket::from_bytes( client->_connection->get_packet() );
 
         client->_last_seen = packet.time_stamp;
 
@@ -969,18 +965,18 @@ godot::Error LiveLinkServer::poll() {
     return godot::OK;
 }
 
-uint16_t LiveLinkServer::get_port() const {
+uint16_t MeowFaceServer::get_port() const {
     return _port;
 }
 
-void LiveLinkServer::set_port( uint16_t port ) {
+void MeowFaceServer::set_port( uint16_t port ) {
     _port = port;
 
     stop();
     listen();
 }
 
-void LiveLinkServer::_thread_poll() {
+void MeowFaceServer::_thread_poll() {
     while ( _running ) {
         if ( _server_mutex->try_lock() ) {
             poll();

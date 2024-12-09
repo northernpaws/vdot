@@ -13,3 +13,4 @@
 - Mediapipe Face tracking
 - Use [Unified Expressions](https://docs.vrcft.io/docs/tutorial-avatars/tutorial-avatars-extras/unified-blendshapes) as the standard for all face tracking
 - Use XRFaceTracker as an interface for face tracker support. It's currently experimental and not provided through godot_cpp.
+- Look at supporting ALVR tracking (https://github.com/alvr-org/ALVR/pull/2461), talk to Grillo in nullptr about it later. 
