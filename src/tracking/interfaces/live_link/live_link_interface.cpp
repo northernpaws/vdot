@@ -350,5 +350,7 @@ void LiveLinkInterface::_on_server_client_updated( const godot::Ref<LiveLinkClie
     tracker->set_blend_shape( UnifiedExpressions::BlendShape::FT_TONGUE_OUT,
                               data->get_blend_shape( ARKit::BlendShape::TongueOut ) );
 
+    tracker->emit_signal("blend_shapes_updated");
+
     // TODO: process tracker data
 }

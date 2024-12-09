@@ -153,6 +153,8 @@ void FaceTracker::_bind_methods() {
         "blend_shape_updated", godot::PropertyInfo( godot::Variant::INT, "blend_shape"),
         godot::PropertyInfo( godot::Variant::FLOAT, "weight")) );
 
+    ADD_SIGNAL( godot::MethodInfo( "blend_shapes_updated" ) );
+
     godot::ClassDB::bind_method( godot::D_METHOD( "get_blend_shape", "blend_shape" ),
                                  &FaceTracker::get_blend_shape );
     godot::ClassDB::bind_method( godot::D_METHOD( "set_blend_shape", "blend_shape", "weight" ),
