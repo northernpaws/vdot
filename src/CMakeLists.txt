@@ -10,6 +10,7 @@ target_sources(${PROJECT_NAME}
         tracking/tracking_manager_node.cpp
 
         tracking/standards/arkit_blend_shapes.cpp
+        tracking/standards/unified_expressions.cpp
 
         tracking/editor/editor_plugin.cpp
         tracking/editor/tracking_plugin_panel.cpp

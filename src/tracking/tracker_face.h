@@ -31,6 +31,8 @@ class FaceTracker : public Tracker {
 
     [[nodiscard]] godot::PackedFloat32Array get_blend_shapes() const;
     void set_blend_shapes(const godot::PackedFloat32Array &p_blend_shapes);
+
+    godot::StringName get_blend_shape_name(UnifiedExpressions::BlendShape blend_shape);
 };
 
 VARIANT_ENUM_CAST( UnifiedExpressions::BlendShape );
