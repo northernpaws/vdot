@@ -893,12 +893,13 @@ godot::Error LiveLinkServer::poll() {
         LiveLinkPacket packet = LiveLinkPacket::from_bytes( peer->get_packet() );
 
         if ( _clients.count( packet.device_id ) ) {
+            godot::Ref<LiveLinkClient> client = _clients[packet.device_id];
+
             // If there is already a connection registered for this device,
             // remove the connection and replace it with the new one.
-
-            godot::Ref<LiveLinkClient> client = memnew( LiveLinkClient() );
             client->_connection->close();
             client->_connection = peer;
+
             _clients[packet.device_id] = client;
         } else {
             // Otherwise, create the new client for the connection.
