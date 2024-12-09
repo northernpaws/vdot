@@ -149,6 +149,10 @@ void FaceTracker::_bind_methods() {
     BIND_ENUM_CONSTANT( UnifiedExpressions::BlendShape::FT_MOUTH_PRESS );
     BIND_ENUM_CONSTANT( UnifiedExpressions::BlendShape::FT_MAX );
 
+    ADD_SIGNAL( godot::MethodInfo(
+        "blend_shape_updated", godot::PropertyInfo( godot::Variant::INT, "blend_shape"),
+        godot::PropertyInfo( godot::Variant::FLOAT, "weight")) );
+
     godot::ClassDB::bind_method( godot::D_METHOD( "get_blend_shape", "blend_shape" ),
                                  &FaceTracker::get_blend_shape );
     godot::ClassDB::bind_method( godot::D_METHOD( "set_blend_shape", "blend_shape", "weight" ),
@@ -172,4 +176,6 @@ void FaceTracker::set_blend_shape( UnifiedExpressions::BlendShape blend_shape, f
     ERR_FAIL_INDEX( blend_shape, UnifiedExpressions::BlendShape::FT_MAX );
 
     blend_shape_values[blend_shape] = weight;
+
+    emit_signal("blend_shape_updated", blend_shape, weight);
 }
