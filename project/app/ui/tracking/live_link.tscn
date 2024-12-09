@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://con8gt818tbhy"]
+[gd_scene load_steps=5 format=3 uid="uid://con8gt818tbhy"]
 
 [ext_resource type="Theme" uid="uid://db6s5ob3rvi4k" path="res://app/ui/app_theme.tres" id="1_try5a"]
 [ext_resource type="Script" path="res://app/ui/tracking/live_link.gd" id="2_xqt7a"]
+[ext_resource type="PackedScene" uid="uid://dt8agueqggxt2" path="res://app/ui/tracking/tracker_settings.tscn" id="3_qbsrb"]
+[ext_resource type="Script" path="res://app/ui/tracking/tracker_settings.gd" id="4_wk2ai"]
 
 [node name="LiveLink" type="MarginContainer"]
 anchors_preset = 15
@@ -14,7 +16,6 @@ script = ExtResource("2_xqt7a")
 metadata/_tab_index = 0
 
 [node name="LiveLinkSettings" type="VBoxContainer" parent="."]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -53,11 +54,12 @@ item_count = 2
 item_0/text = "Tracker 1"
 item_1/text = "Tracker 2"
 
-[node name="TrackerSettings" type="VBoxContainer" parent="LiveLinkSettings/HSplitContainer"]
+[node name="TrackerSettings" parent="LiveLinkSettings/HSplitContainer" instance=ExtResource("3_qbsrb")]
 layout_mode = 2
-theme = ExtResource("1_try5a")
+script = ExtResource("4_wk2ai")
 
 [node name="LiveLinkUninitialized" type="CenterContainer" parent="."]
+visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LiveLinkUninitialized"]
@@ -73,4 +75,5 @@ layout_mode = 2
 text = "Initialize LiveLink Interface
 "
 
+[connection signal="item_selected" from="LiveLinkSettings/HSplitContainer/TrackerListContainer/TrackerList" to="." method="_on_tracker_list_item_selected"]
 [connection signal="pressed" from="LiveLinkUninitialized/VBoxContainer/InitializeButton" to="." method="_on_initialize_button_pressed"]

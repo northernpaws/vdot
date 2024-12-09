@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt8agueqggxt2"]
+
+[ext_resource type="Theme" uid="uid://db6s5ob3rvi4k" path="res://app/ui/app_theme.tres" id="1_qwjd6"]
+
+[node name="TrackerSettings" type="VBoxContainer"]
+theme = ExtResource("1_qwjd6")
+
+[node name="TrackerName" type="Label" parent="."]
+layout_mode = 2
+text = "Tracker Name"
+
+[node name="TrackerDescription" type="Label" parent="."]
+layout_mode = 2
+text = "Tracker Description"
+
+[node name="GenericSettings" type="VBoxContainer" parent="."]
+layout_mode = 2
