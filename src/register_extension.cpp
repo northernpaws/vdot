@@ -55,8 +55,8 @@ void cubism_output( const char *message ) {
 
 static TrackingServer *tracking_server = nullptr;
 
-static LiveLinkInterface *live_link_interface = nullptr;
-static VTSInterface *vts_interface = nullptr;
+static godot::Ref<LiveLinkInterface> live_link_interface = nullptr;
+static godot::Ref<VTSInterface> vts_interface = nullptr;
 
 namespace {
     /// @brief Called by Godot to let us register our classes with Godot.
@@ -104,7 +104,7 @@ namespace {
             ClassDB::register_class<LiveLinkFaceTracker>();
 
             // Add the LiveLink interface to the tracking interfaces list.
-            live_link_interface = memnew( LiveLinkInterface );
+            live_link_interface.instantiate();
             tracking_server->add_interface( live_link_interface );
             Engine::get_singleton()->register_singleton( "LiveLinkInterface",
                                                          LiveLinkInterface::get_singleton() );
@@ -114,7 +114,7 @@ namespace {
 
             // Add the VTS interface, and register it as a scripting singleton so that
             //  scripts can call it to initialize and connect to new VTS trackers.
-            vts_interface = memnew( VTSInterface );
+            vts_interface.instantiate();
             tracking_server->add_interface( vts_interface );
             Engine::get_singleton()->register_singleton( "VTSInterface",
                                                          VTSInterface::get_singleton() );
@@ -174,14 +174,6 @@ namespace {
     void uninitializeExtension( ModuleInitializationLevel p_level ) {
         if ( p_level == MODULE_INITIALIZATION_LEVEL_SCENE ) {
             Csm::CubismFramework::Dispose();
-
-            tracking_server->remove_interface(live_link_interface);
-            Engine::get_singleton()->unregister_singleton( "LiveLinkInterface" );
-            memdelete( live_link_interface );
-
-            tracking_server->remove_interface(vts_interface);
-            Engine::get_singleton()->unregister_singleton( "VTSInterface" );
-            memdelete( vts_interface );
 
             Engine::get_singleton()->unregister_singleton( "TrackingServer" );
             memdelete( tracking_server );
