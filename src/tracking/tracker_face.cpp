@@ -163,6 +163,9 @@ void FaceTracker::_bind_methods() {
     godot::ClassDB::bind_method( godot::D_METHOD( "get_blend_shape_name", "blend_shape" ),
                                  &FaceTracker::get_blend_shape_name );
 
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_arkit_blend_shape", "arkit_blend_shape" ),
+                                 &FaceTracker::get_arkit_blend_shape );
+
     godot::ClassDB::bind_method(godot::D_METHOD("get_blend_shapes"), &FaceTracker::get_blend_shapes);
     godot::ClassDB::bind_method(godot::D_METHOD("set_blend_shapes", "weights"), &FaceTracker::set_blend_shapes);
     ADD_PROPERTY(godot::PropertyInfo(godot::Variant::PACKED_FLOAT32_ARRAY, "blend_shapes"), "set_blend_shapes", "get_blend_shapes");
@@ -211,4 +214,13 @@ void FaceTracker::set_blend_shapes(const godot::PackedFloat32Array &p_blend_shap
 
 godot::StringName FaceTracker::get_blend_shape_name(UnifiedExpressions::BlendShape blend_shape) {
     return UnifiedExpressions::blend_shape_names[blend_shape];
+}
+
+float FaceTracker::get_arkit_blend_shape( ARKit::BlendShape blend_shape ) const {
+    auto unified_shape = UnifiedExpressions::arkit_to_unified[blend_shape];
+
+    // Fail if the blend shape index is out of range.
+    ERR_FAIL_INDEX_V( unified_shape, UnifiedExpressions::BlendShape::FT_MAX, 0.0f );
+
+    return blend_shape_values[unified_shape];
 }

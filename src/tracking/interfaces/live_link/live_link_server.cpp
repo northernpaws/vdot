@@ -775,6 +775,7 @@ void LiveLinkClient::_bind_methods() {
 }
 
 LiveLinkClient::LiveLinkClient() {
+    _values = godot::Ref<LiveLinkClientData>(memnew(LiveLinkClientData));
 }
 
 LiveLinkClient::~LiveLinkClient() {
@@ -911,10 +912,8 @@ godot::Error LiveLinkServer::poll() {
             client->_name = packet.device_name;
 
             if ( packet.blend_shapes.size() == BLEND_SHAPE_COUNT ) {
-                auto values = memnew( LiveLinkClientData() );
-                values->_data = packet.blend_shapes;
-                values->_timecode = packet.time_stamp;
-                client->_values = values;
+                client->_values->_timecode = packet.time_stamp;
+                client->_values->_data = packet.blend_shapes;
             }
 
             _clients[packet.device_id] = client;

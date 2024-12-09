@@ -34,7 +34,7 @@ class LiveLinkPanel : public godot::Control {
     void start_server();
     void stop_server();
 
-    void update_mesh( const LiveLinkClientData *data );
+    void update_mesh( const godot::Ref<LiveLinkClientData> data );
 
     void _on_start_button_pressed();
 

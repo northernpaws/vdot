@@ -170,7 +170,10 @@ namespace UnifiedExpressions {
 
     // Yes, these traits are a mess, but allow for compile-time static optimization
     //  of the conversions, while still maintaining a decent amount of readability.
-    template <ARKit::BlendShape V> struct ToUnifiedExpression;
+    template <ARKit::BlendShape V> struct ToUnifiedExpression {
+        // TODO: zero length default
+        static constexpr BlendShape value[] = { FT_EYE_LOOK_OUT_RIGHT };
+    };
 
     // Base Shapes
     template <> struct ToUnifiedExpression<ARKit::BlendShape::EyeLookOutRight> {
@@ -337,20 +340,200 @@ namespace UnifiedExpressions {
     template <> struct ToUnifiedExpression<ARKit::BlendShape::TongueOut> {
         static constexpr BlendShape value[] = { FT_TONGUE_OUT };
     };
+    
+    // Yes, these traits are a mess, but allow for compile-time static optimization
+    //  of the conversions, while still maintaining a decent amount of readability.
+    template <BlendShape S> struct ToARKit {
+        // TODO: zero length default
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::EyeLookOutRight };
+    };
+    
+    // Base Shapes
+    template <> struct ToARKit<BlendShape::FT_EYE_LOOK_OUT_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::EyeLookOutRight };
+    };
+    template <> struct ToARKit<FT_EYE_LOOK_IN_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::EyeLookInRight };
+    };
+    template <> struct ToARKit<FT_EYE_LOOK_UP_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::EyeLookUpRight };
+    };
+    template <> struct ToARKit<FT_EYE_LOOK_DOWN_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::EyeLookDownRight };
+    };
+    template <> struct ToARKit<FT_EYE_LOOK_OUT_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::EyeLookOutLeft };
+    };
+    template <> struct ToARKit<FT_EYE_LOOK_IN_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::EyeLookInLeft };
+    };
+    template <> struct ToARKit<FT_EYE_LOOK_UP_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::EyeLookUpLeft };
+    };
+    template <> struct ToARKit<FT_EYE_LOOK_DOWN_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::EyeLookDownLeft };
+    };
+    template <> struct ToARKit<FT_EYE_CLOSED_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::EyeBlinkRight };
+    };
+    template <> struct ToARKit<FT_EYE_CLOSED_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::EyeBlinkLeft };
+    };
+    template <> struct ToARKit<FT_EYE_SQUINT_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::EyeSquintRight };
+    };
+    template <> struct ToARKit<FT_EYE_SQUINT_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::EyeSquintLeft };
+    };
+    template <> struct ToARKit<FT_EYE_WIDE_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::EyeWideRight };
+    };
+    template <> struct ToARKit<FT_EYE_WIDE_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::EyeWideLeft };
+    };
+    template <> struct ToARKit<FT_BROW_PINCH_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::BrowDownRight };
+    };
+    template <> struct ToARKit<FT_BROW_PINCH_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::BrowDownLeft };
+    };
+    template <> struct ToARKit<FT_BROW_INNER_UP_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::BrowInnerUp };
+    };
+    template <> struct ToARKit<FT_BROW_OUTER_UP_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::BrowOuterUpRight };
+    };
+    template <> struct ToARKit<FT_BROW_OUTER_UP_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::BrowOuterUpLeft };
+    };
+    template <> struct ToARKit<FT_NOSE_SNEER_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::NoseSneerRight };
+    };
+    template <> struct ToARKit<FT_NOSE_SNEER_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::NoseSneerLeft };
+    };
+    template <> struct ToARKit<FT_CHEEK_SQUINT_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::CheekSquintRight };
+    };
+    template <> struct ToARKit<FT_CHEEK_SQUINT_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::CheekSquintLeft };
+    };
+    template <> struct ToARKit<FT_CHEEK_PUFF_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::CheekPuff }; // FT_CHEEK_PUFF_LEFT
+    };
+    template <> struct ToARKit<FT_JAW_OPEN> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::JawOpen };
+    };
+    template <> struct ToARKit<FT_MOUTH_CLOSED> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthClose };
+    };
+    template <> struct ToARKit<FT_JAW_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::JawRight };
+    };
+    template <> struct ToARKit<FT_JAW_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::JawLeft };
+    };
+    template <> struct ToARKit<FT_JAW_FORWARD> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::JawForward };
+    };
+    template <> struct ToARKit<FT_LIP_SUCK_UPPER_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthRollUpper }; // FT_LIP_SUCK_UPPER_LEFT
+    };
+    template <> struct ToARKit<FT_LIP_SUCK_LOWER_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthRollLower }; // FT_LIP_SUCK_LOWER_LEFT
+    };
+    template <> struct ToARKit<FT_LIP_FUNNEL_UPPER_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthFunnel }; // TODO: FT_LIP_FUNNEL_UPPER_RIGHT, FT_LIP_FUNNEL_UPPER_LEFT,FT_LIP_FUNNEL_LOWER_RIGHT,FT_LIP_FUNNEL_LOWER_LEFT
+    };
+    template <> struct ToARKit<FT_LIP_PUCKER_UPPER_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthPucker }; // TODO: FT_LIP_PUCKER_UPPER_RIGHT, FT_LIP_PUCKER_UPPER_LEFT, FT_LIP_PUCKER_LOWER_RIGHT, FT_LIP_PUCKER_LOWER_LEFT
+    };
+    template <> struct ToARKit<FT_MOUTH_UPPER_UP_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthUpperUpRight }; // FT_MOUTH_UPPER_DEEPEN_RIGHT
+    }; // 2 NOTE = not in official mapping
+    template <> struct ToARKit<FT_MOUTH_UPPER_UP_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthUpperUpLeft }; // FT_MOUTH_UPPER_DEEPEN_LEFT
+    }; // 2 NOTE = not in official mapping
+    template <> struct ToARKit<FT_MOUTH_LOWER_DOWN_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthLowerDownRight };
+    };
+    template <> struct ToARKit<FT_MOUTH_LOWER_DOWN_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthLowerDownLeft };
+    };
+    template <> struct ToARKit<FT_MOUTH_UPPER_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthRight }; // FT_MOUTH_LOWER_RIGHT
+    }; // NOTE = not in official mapping
+    template <> struct ToARKit<FT_MOUTH_UPPER_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthLeft }; // FT_MOUTH_LOWER_LEFT
+    }; // NOTE = not in official mapping
+    template <> struct ToARKit<FT_MOUTH_CORNER_PULL_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthSmileRight }; // FT_MOUTH_CORNER_SLANT_RIGHT
+    }; // NOTE = not in official mapping
+    template <> struct ToARKit<FT_MOUTH_CORNER_PULL_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthSmileLeft }; // FT_MOUTH_CORNER_SLANT_LEFT
+    }; // NOTE = not in official mapping
+    template <> struct ToARKit<FT_MOUTH_FROWN_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthFrownRight };
+    };
+    template <> struct ToARKit<FT_MOUTH_FROWN_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthFrownLeft };
+    };
+    template <> struct ToARKit<FT_MOUTH_STRETCH_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthStretchRight };
+    };
+    template <> struct ToARKit<FT_MOUTH_STRETCH_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthStretchLeft };
+    };
+    template <> struct ToARKit<FT_MOUTH_DIMPLE_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthDimpleRight };
+    };
+    template <> struct ToARKit<FT_MOUTH_DIMPLE_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthDimpleLeft };
+    };
+    template <> struct ToARKit<FT_MOUTH_RAISER_UPPER> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthShrugUpper };
+    };
+    template <> struct ToARKit<FT_MOUTH_RAISER_LOWER> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthShrugLower };
+    };
+    template <> struct ToARKit<FT_MOUTH_PRESS_RIGHT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthPressRight };
+    };
+    template <> struct ToARKit<FT_MOUTH_PRESS_LEFT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::MouthPressLeft };
+    };
+    template <> struct ToARKit<FT_TONGUE_OUT> {
+        static constexpr ARKit::BlendShape value[] = { ARKit::BlendShape::TongueOut };
+    };
 
     /**
      * Converts the provided ARKit blend shape to the equivalent unified expression blend shape.
      * @param blend_shape The ARKit blend shape to convert.
-     * @return The equivilant Unified Expressions blend shape.
+     * @return The equivalent Unified Expressions blend shape.
      */
     template <ARKit::BlendShape V>
-    UnifiedExpressions::BlendShape arkit_to_unified( ARKit::BlendShape blend_shape ) {
+    UnifiedExpressions::BlendShape arkit_to_unified_cast( ARKit::BlendShape blend_shape ) {
         return ToUnifiedExpression<V>::value;
+    }
+
+    /**
+     * Converts the provided Unified Express blend shape to the equivalent ARKit blend shape.
+     * @param blend_shape The Unified Expression blend shape to convert.
+     * @return The equivalent ARKit blend shape.
+     */
+    template <BlendShape V>
+    ARKit::BlendShape unified_to_arkit_cast( BlendShape blend_shape ) {
+        return ToARKit<V>::value;
     }
 
     static godot::HashMap<BlendShape, godot::StringName> blend_shape_names;
 
     void _init_blend_shape_names();
+
+    static godot::HashMap<BlendShape, ARKit::BlendShape> unified_to_arkit;
+    static godot::HashMap<ARKit::BlendShape, BlendShape> arkit_to_unified;
+
+    void _init_arkit_unified_mappings();
 }
 
 #endif // VDOT_UNIFIED_EXPRESSIONS_H

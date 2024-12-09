@@ -34,8 +34,8 @@ struct LiveLinkPacket {
 /**
  * Holds and decodes packet data received from a Live Link client.
  */
-class LiveLinkClientData : public godot::Object {
-    GDCLASS( LiveLinkClientData, godot::Object )
+class LiveLinkClientData : public godot::RefCounted {
+    GDCLASS( LiveLinkClientData, godot::RefCounted )
   protected:
     static void _bind_methods();
 
@@ -220,7 +220,7 @@ class LiveLinkClient : public godot::RefCounted {
     uint64_t _last_seen;
     godot::Ref<godot::PacketPeerUDP> _connection;
 
-    LiveLinkClientData *_values; // tODO: use ref?
+    godot::Ref<LiveLinkClientData> _values; // tODO: use ref?
 
     LiveLinkClient();
     ~LiveLinkClient();

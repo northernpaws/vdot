@@ -189,7 +189,7 @@ void LiveLinkPanel::stop_server() {
     _start_button->set_text( "Start Server" );
 }
 
-void LiveLinkPanel::update_mesh( const LiveLinkClientData *data ) {
+void LiveLinkPanel::update_mesh( const godot::Ref<LiveLinkClientData> data ) {
     //    auto rotation = godot::Vector3(
     //                        - data->_get_head_pitch(),
     //                        data->_get_head_yaw(),

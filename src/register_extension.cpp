@@ -69,6 +69,7 @@ namespace {
         if ( p_level == MODULE_INITIALIZATION_LEVEL_SERVERS ) {
             ARKit::_init_arkit_shape_names();
             UnifiedExpressions::_init_blend_shape_names();
+            UnifiedExpressions::_init_arkit_unified_mappings();
 
             GDREGISTER_ABSTRACT_CLASS( Tracker )
             GDREGISTER_CLASS( FaceTracker )
