@@ -77,6 +77,9 @@ namespace {
 
         if ( p_level == MODULE_INITIALIZATION_LEVEL_SCENE ) {
             // Register the tracking server as a singleton.
+            //
+            // NOTE: Singleton registration isn't available in the
+            //  server initialization level, so we perform it here.
             tracking_server = memnew( TrackingServer );
             Engine::get_singleton()->register_singleton( "TrackingServer",
                                                          TrackingServer::get_singleton() );
@@ -171,6 +174,14 @@ namespace {
     void uninitializeExtension( ModuleInitializationLevel p_level ) {
         if ( p_level == MODULE_INITIALIZATION_LEVEL_SCENE ) {
             Csm::CubismFramework::Dispose();
+
+            tracking_server->remove_interface(live_link_interface);
+            Engine::get_singleton()->unregister_singleton( "LiveLinkInterface" );
+            memdelete( live_link_interface );
+
+            tracking_server->remove_interface(vts_interface);
+            Engine::get_singleton()->unregister_singleton( "VTSInterface" );
+            memdelete( vts_interface );
 
             Engine::get_singleton()->unregister_singleton( "TrackingServer" );
             memdelete( tracking_server );
