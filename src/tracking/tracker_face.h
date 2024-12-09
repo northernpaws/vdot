@@ -34,7 +34,8 @@ class FaceTracker : public Tracker {
 
     godot::StringName get_blend_shape_name(UnifiedExpressions::BlendShape blend_shape);
 
-    [[nodiscard]] float get_arkit_blend_shape( ARKit::BlendShape blend_shape ) const;
+    [[nodiscard]] UnifiedExpressions::BlendShape get_arkit_blend_shape( ARKit::BlendShape blend_shape ) const;
+    [[nodiscard]] float get_arkit_blend_shape_weight( ARKit::BlendShape blend_shape ) const;
 };
 
 VARIANT_ENUM_CAST( UnifiedExpressions::BlendShape );

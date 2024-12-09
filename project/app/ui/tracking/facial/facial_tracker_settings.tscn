@@ -1,0 +1,125 @@
+[gd_scene load_steps=6 format=3 uid="uid://th2bxd6n5yea"]
+
+[ext_resource type="Script" path="res://app/ui/tracking/facial/facial_tracker_settings.gd" id="1_6v6im"]
+[ext_resource type="ArrayMesh" uid="uid://88rqvljwpou0" path="res://app/ui/tracking/facial/preview_head_mesh.res" id="1_mluni"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_85nfs"]
+viewport_path = NodePath("PreviewContainer/PreviewTexture/PreviewViewport")
+
+[sub_resource type="Environment" id="Environment_wjoyi"]
+background_mode = 1
+
+[sub_resource type="World3D" id="World3D_hmqux"]
+environment = SubResource("Environment_wjoyi")
+
+[node name="FacialTrackerSettings" type="HSplitContainer"]
+custom_minimum_size = Vector2(0, 120)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+split_offset = -128
+script = ExtResource("1_6v6im")
+
+[node name="SettingsContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TabContainer" type="TabContainer" parent="SettingsContainer"]
+layout_mode = 2
+current_tab = 1
+
+[node name="Options" type="ScrollContainer" parent="SettingsContainer/TabContainer"]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+metadata/_tab_index = 0
+
+[node name="Container" type="VBoxContainer" parent="SettingsContainer/TabContainer/Options"]
+layout_mode = 2
+
+[node name="BlendShapes" type="ScrollContainer" parent="SettingsContainer/TabContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+metadata/_tab_index = 1
+
+[node name="BlendShapesList" type="ItemList" parent="SettingsContainer/TabContainer/BlendShapes"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+item_count = 1
+item_0/text = "Blend shape 1"
+
+[node name="PreviewContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PreviewTexture" type="TextureRect" parent="PreviewContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = SubResource("ViewportTexture_85nfs")
+stretch_mode = 3
+
+[node name="PreviewViewport" type="SubViewport" parent="PreviewContainer/PreviewTexture"]
+own_world_3d = true
+world_3d = SubResource("World3D_hmqux")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PreviewContainer/PreviewTexture/PreviewViewport"]
+mesh = ExtResource("1_mluni")
+blend_shapes/browDownLeft = 0.0
+blend_shapes/browDownRight = 0.0
+blend_shapes/browInnerUp = 0.0
+blend_shapes/browOuterUpLeft = 0.0
+blend_shapes/browOuterUpRight = 0.0
+blend_shapes/cheekPuff = 0.0
+blend_shapes/cheekSquintLeft = 0.0
+blend_shapes/cheekSquintRight = 0.0
+blend_shapes/eyeBlinkLeft = 0.0
+blend_shapes/eyeBlinkRight = 0.0
+blend_shapes/eyeLookDownLeft = 0.0
+blend_shapes/eyeLookDownRight = 0.0
+blend_shapes/eyeLookInLeft = 0.0
+blend_shapes/eyeLookInRight = 0.0
+blend_shapes/eyeLookOutLeft = 0.0
+blend_shapes/eyeLookOutRight = 0.0
+blend_shapes/eyeLookUpLeft = 0.0
+blend_shapes/eyeLookUpRight = 0.0
+blend_shapes/eyeSquintLeft = 0.0
+blend_shapes/eyeSquintRight = 0.0
+blend_shapes/eyeWideLeft = 0.0
+blend_shapes/eyeWideRight = 0.0
+blend_shapes/jawForward = 0.0
+blend_shapes/jawLeft = 0.0
+blend_shapes/jawOpen = 0.0
+blend_shapes/jawRight = 0.0
+blend_shapes/mouthClose = 0.0
+blend_shapes/mouthDimpleLeft = 0.0
+blend_shapes/mouthDimpleRight = 0.0
+blend_shapes/mouthFrownLeft = 0.0
+blend_shapes/mouthFrownRight = 0.0
+blend_shapes/mouthFunnel = 0.0
+blend_shapes/mouthLeft = 0.0
+blend_shapes/mouthLowerDownLeft = 0.0
+blend_shapes/mouthLowerDownRight = 0.0
+blend_shapes/mouthPressLeft = 0.0
+blend_shapes/mouthPressRight = 0.0
+blend_shapes/mouthPucker = 0.0
+blend_shapes/mouthRight = 0.0
+blend_shapes/mouthRollLower = 0.0
+blend_shapes/mouthRollUpper = 0.0
+blend_shapes/mouthShrugLower = 0.0
+blend_shapes/mouthShrugUpper = 0.0
+blend_shapes/mouthSmileLeft = 0.0
+blend_shapes/mouthSmileRight = 0.0
+blend_shapes/mouthStretchLeft = 0.0
+blend_shapes/mouthStretchRight = 0.0
+blend_shapes/mouthUpperUpLeft = 0.0
+blend_shapes/mouthUpperUpRight = 0.0
+blend_shapes/noseSneerLeft = 0.0
+blend_shapes/noseSneerRight = 0.0
+blend_shapes/tongueOut = 0.0
+
+[node name="Camera3D" type="Camera3D" parent="PreviewContainer/PreviewTexture/PreviewViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.384599)
+current = true

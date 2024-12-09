@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dymu8uym5seq1"]
+
+[ext_resource type="Texture2D" uid="uid://c6tvp7j3psnqa" path="res://addons/vdot/assets/tracking/live_link/face.png" id="1_bf26o"]
+
+[resource]
+shading_mode = 0
+albedo_color = Color(1, 0.506592, 0.265625, 1)
+albedo_texture = ExtResource("1_bf26o")

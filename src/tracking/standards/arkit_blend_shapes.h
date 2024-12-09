@@ -94,7 +94,9 @@ namespace ARKit {
         Max = 52,
     };
 
-    static godot::HashMap<godot::String, BlendShape> ShapeNames;
+    extern godot::HashMap<godot::StringName, BlendShape> ShapeNames;
+
+    extern godot::HashMap<BlendShape, godot::StringName> shape_to_name;
 
     // helper called to populate the hashmap.
     void _init_arkit_shape_names();

@@ -2,6 +2,11 @@
 #include "unified_expressions.h"
 
 namespace UnifiedExpressions {
+    godot::HashMap<BlendShape, godot::String> blend_shape_names;
+
+    godot::HashMap<BlendShape, ARKit::BlendShape> unified_to_arkit;
+    godot::HashMap<ARKit::BlendShape, BlendShape> arkit_to_unified;
+
     void _init_blend_shape_names() {
         blend_shape_names.clear();
 

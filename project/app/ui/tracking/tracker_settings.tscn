@@ -1,8 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://dt8agueqggxt2"]
+[gd_scene load_steps=3 format=3 uid="uid://dt8agueqggxt2"]
 
 [ext_resource type="Theme" uid="uid://db6s5ob3rvi4k" path="res://app/ui/app_theme.tres" id="1_qwjd6"]
+[ext_resource type="PackedScene" uid="uid://th2bxd6n5yea" path="res://app/ui/tracking/facial/facial_tracker_settings.tscn" id="2_8dx8e"]
 
 [node name="TrackerSettings" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_qwjd6")
 
 [node name="TrackerName" type="Label" parent="."]
@@ -14,4 +20,9 @@ layout_mode = 2
 text = "Tracker Description"
 
 [node name="GenericSettings" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FacialTrackerSettings" parent="." instance=ExtResource("2_8dx8e")]
+custom_minimum_size = Vector2(0, 128)
 layout_mode = 2

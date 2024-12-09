@@ -123,6 +123,7 @@ namespace UnifiedExpressions {
         FT_THROAT_SWALLOW,     // The Adam's apple visibly swallows.
         FT_NECK_FLEX_RIGHT,    // Right side neck visibly flexes.
         FT_NECK_FLEX_LEFT,     // Left side neck visibly flexes.
+
         // Blended Shapes
         FT_EYE_CLOSED,        // Closes both eye lids.
         FT_EYE_WIDE,          // Widens both eye lids.
@@ -526,12 +527,12 @@ namespace UnifiedExpressions {
         return ToARKit<V>::value;
     }
 
-    static godot::HashMap<BlendShape, godot::StringName> blend_shape_names;
+    extern godot::HashMap<BlendShape, godot::String> blend_shape_names;
 
     void _init_blend_shape_names();
 
-    static godot::HashMap<BlendShape, ARKit::BlendShape> unified_to_arkit;
-    static godot::HashMap<ARKit::BlendShape, BlendShape> arkit_to_unified;
+    extern godot::HashMap<BlendShape, ARKit::BlendShape> unified_to_arkit;
+    extern godot::HashMap<ARKit::BlendShape, BlendShape> arkit_to_unified;
 
     void _init_arkit_unified_mappings();
 }

@@ -68,7 +68,7 @@ LiveLinkInterface::LiveLinkInterface() {
 
 LiveLinkInterface::~LiveLinkInterface() {
     // Destroy the server.
-    _server.unref();
+//    _server.unref();
 
     _trackers.clear();
 }
@@ -189,6 +189,17 @@ void LiveLinkInterface::_on_server_client_updated( const godot::Ref<LiveLinkClie
     //  ref:
     //  https://github.com/kusomaigo/VRCFaceTracking-LiveLink/blob/736eae437b10ec9dc9e9bbe9cbfed7c7be2bac6a/VRCFT-LiveLink/LiveLinkExtTrackingInterface.cs#L152
 
+    for (int i = 0; i < ARKit::BlendShape::Max; i++) {
+        auto shape = static_cast<ARKit::BlendShape>( i );
+
+        if (UnifiedExpressions::arkit_to_unified.has(shape)) {
+            auto weight =  data->get_blend_shape( shape );
+            auto target = UnifiedExpressions::arkit_to_unified[shape];
+            tracker->set_blend_shape( target, weight );
+        }
+
+    }
+/*
     // Eye expressions
     tracker->set_blend_shape( UnifiedExpressions::BlendShape::FT_EYE_WIDE_LEFT,
                               data->get_blend_shape( ARKit::BlendShape::EyeWideLeft ) );
@@ -349,7 +360,7 @@ void LiveLinkInterface::_on_server_client_updated( const godot::Ref<LiveLinkClie
     // Tongue expression set
     tracker->set_blend_shape( UnifiedExpressions::BlendShape::FT_TONGUE_OUT,
                               data->get_blend_shape( ARKit::BlendShape::TongueOut ) );
-
+*/
     tracker->emit_signal("blend_shapes_updated");
 
     // TODO: process tracker data
