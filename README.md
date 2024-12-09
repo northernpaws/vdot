@@ -9,13 +9,13 @@
 -----
 
 - [x] Live2D Model support (expressions, motions, etc.)
-- [x] LiveLinkFace face tracking (iPhone FaceID)
+- [x] [Unified Expression BlendShapes](https://docs.vrcft.io/docs/tutorial-avatars/tutorial-avatars-extras/unified-blendshapes) as the default for tracking
+- [x] ⚠️ LiveLinkFace face tracking (iPhone FaceID)
+- [ ] ⚠️ Other face tracking software (FaceCap, VSeeFace, MeowFace, MediaPipe, etc.)
 - [ ] [inochi2d](https://inochi2d.com) avatar support (via [inochi2d-c](https://github.com/Inochi2D/inochi2d-c))
 - [ ] 3D VRM Model Support
 - [ ] Audio-based lip-syncing
-- [ ] Other face tracking software (FaceCap, VSeeFace, MeowFace, MediaPipe, etc.)
 - [ ] Integrate tracking with Godot XR objects (i.e. XRFaceTracker) when stable
-- [ ] [Unified Expression BlendShapes](https://docs.vrcft.io/docs/tutorial-avatars/tutorial-avatars-extras/unified-blendshapes) as the default for tracking
 
 -----
 
