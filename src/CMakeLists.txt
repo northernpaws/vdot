@@ -7,6 +7,7 @@ target_sources(${PROJECT_NAME}
         tracking/tracker_face.cpp
         tracking/tracking_server.cpp
         tracking/tracking_interface.cpp
+        tracking/tracking_manager_node.cpp
 
         tracking/standards/arkit_blend_shapes.cpp
 

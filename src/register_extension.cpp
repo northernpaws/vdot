@@ -40,6 +40,7 @@
 #include "tracking/interfaces/live_link/live_link_server.h"
 
 #include "tracking/interfaces/vts/vts_interface.h"
+#include "tracking/tracking_manager_node.h"
 
 using namespace godot;
 
@@ -73,9 +74,12 @@ namespace {
 
             GDREGISTER_ABSTRACT_CLASS( TrackingInterface )
             GDREGISTER_CLASS( TrackingServer )
+
         }
 
         if ( p_level == MODULE_INITIALIZATION_LEVEL_SCENE ) {
+            GDREGISTER_CLASS( TrackingManagerNode )
+
             // Register the tracking server as a singleton.
             //
             // NOTE: Singleton registration isn't available in the
@@ -135,7 +139,7 @@ namespace {
             csm_options.LoggingLevel = Csm::CubismFramework::Option::LogLevel::LogLevel_Warning;
 #endif // DEBUG_ENABLED
 
-            // Initialize the Cubism framework before registering it's resources.
+            // Initialize the Cubism framework before registering its resources.
             Csm::CubismFramework::StartUp( &cubism_allocator, &csm_options );
             Csm::CubismFramework::Initialize();
 
