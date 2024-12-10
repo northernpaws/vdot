@@ -110,13 +110,13 @@ class CollaborationSession : public godot::Node {
   public:
     CollaborationSession();
 
+    void _ready() override;
+
     godot::Error start_server(); // start a session server
     godot::Error connect_to_server(const godot::String& p_address, int p_port);
 
     void add_local_avatar(Avatar* p_avatar);
     void remove_local_avatar(Avatar* p_avatar);
-
-    void _set_peer(const godot::Ref<CollaborationPeer>& p_peer);
 
     void _client_connected_to_server();
     void _client_connection_failed();
