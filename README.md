@@ -12,6 +12,7 @@
 - [x] [Unified Expression BlendShapes](https://docs.vrcft.io/docs/tutorial-avatars/tutorial-avatars-extras/unified-blendshapes) as the default for tracking
 - [x] ⚠️ LiveLinkFace face tracking (iPhone FaceID)
 - [ ] ⚠️ Other face tracking software (FaceCap, VSeeFace, MeowFace, MediaPipe, etc.)
+- [ ] ⚠️ Network collaboration
 - [ ] [inochi2d](https://inochi2d.com) avatar support (via [inochi2d-c](https://github.com/Inochi2D/inochi2d-c))
 - [ ] 3D VRM Model Support
 - [ ] Audio-based lip-syncing
