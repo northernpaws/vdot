@@ -21,7 +21,13 @@ target_sources(${PROJECT_NAME}
         models/model_parameter.cpp
 
         avatar/avatar_parameter.cpp
+        avatar/avatar_parameter_eval.cpp
         avatar/avatar.cpp
+
+        networking/collaboration_peer.cpp
+        networking/collaboration_server.cpp
+        networking/collaboration_client.cpp
+        networking/collaboration_session.cpp
 
         tracking/interfaces/live_link/live_link_server.cpp
         tracking/interfaces/live_link/live_link_panel.cpp

@@ -29,6 +29,8 @@
 #include "avatar/avatar.h"
 #include "avatar/avatar_parameter.h"
 
+#include "networking/collaboration_session.h"
+
 #include "models/2d/live2d/cubism_effect.h"
 #include "models/2d/live2d/cubism_effect_breath.h"
 #include "models/2d/live2d/cubism_effect_custom.h"
@@ -49,7 +51,6 @@
 #include "tracking/interfaces/live_link/live_link_server.h"
 
 #include "tracking/interfaces/vts/vts_interface.h"
-
 
 using namespace godot;
 
@@ -114,7 +115,14 @@ namespace {
             // Avatar
 
             GDREGISTER_CLASS( AvatarParameter )
+            GDREGISTER_CLASS( AvatarParameterEval )
             GDREGISTER_CLASS( Avatar )
+
+            // ====================
+            // Collaboration
+
+            GDREGISTER_CLASS( CollaborationPeer )
+            GDREGISTER_CLASS( CollaborationSession )
 
             // ====================
             // LiveLinkFace Tracking
