@@ -147,6 +147,8 @@ grow_vertical = 2
 layout_mode = 2
 text = "Load Model"
 
+[node name="Model2D" type="Model2D" parent="Environment/Live2DModel"]
+
 [node name="Item" type="Node2D" parent="Environment"]
 
 [node name="Sprite" type="Sprite2D" parent="Environment/Item"]

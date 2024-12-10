@@ -16,6 +16,13 @@ target_sources(${PROJECT_NAME}
         tracking/editor/tracking_plugin_panel.cpp
         tracking/editor/trackers/face_tracker_panel.cpp
 
+        models/model.cpp
+        models/2d/model_2d.cpp
+        models/model_parameter.cpp
+
+        avatar_parameter.cpp
+        avatar.cpp
+
         tracking/interfaces/live_link/live_link_server.cpp
         tracking/interfaces/live_link/live_link_panel.cpp
         tracking/interfaces/live_link/editor_plugin.cpp
@@ -25,10 +32,6 @@ target_sources(${PROJECT_NAME}
         tracking/interfaces/vts/vts_client.cpp
         tracking/interfaces/vts/vts_face_tracker.cpp
         tracking/interfaces/vts/vts_interface.cpp
-
-        models/model.cpp
-        models/2d/model_2d.cpp
-        models/model_parameter.cpp
 
         models/2d/live2d/renderer/cubism_renderer.cpp
         models/2d/live2d/renderer/cubism_renderer_2d.cpp
