@@ -82,6 +82,10 @@ godot::MeshInstance2D *CubismRenderer::request_mesh_instance() {
         return godot::Object::cast_to<godot::MeshInstance2D>( this->ary_mesh_instance[counter] );
     } else {
         godot::MeshInstance2D *node = memnew( godot::MeshInstance2D );
+
+        // Add the mesh in the viewport to a target for item pinning.
+        node->add_to_group("pinning_target", true);
+
         this->ary_mesh_instance.append( node );
         return node;
     }
