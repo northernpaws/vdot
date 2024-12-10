@@ -1,10 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://th2bxd6n5yea"]
+[gd_scene load_steps=5 format=3 uid="uid://th2bxd6n5yea"]
 
 [ext_resource type="Script" path="res://app/ui/tracking/facial/facial_tracker_settings.gd" id="1_6v6im"]
 [ext_resource type="ArrayMesh" uid="uid://88rqvljwpou0" path="res://app/ui/tracking/facial/preview_head_mesh.res" id="1_mluni"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_85nfs"]
-viewport_path = NodePath("PreviewContainer/PreviewTexture/PreviewViewport")
 
 [sub_resource type="Environment" id="Environment_wjoyi"]
 background_mode = 1
@@ -55,15 +52,15 @@ item_0/text = "Blend shape 1"
 [node name="PreviewContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="PreviewTexture" type="TextureRect" parent="PreviewContainer"]
+[node name="PreviewTexture" type="SubViewportContainer" parent="PreviewContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-texture = SubResource("ViewportTexture_85nfs")
-stretch_mode = 3
+stretch = true
 
 [node name="PreviewViewport" type="SubViewport" parent="PreviewContainer/PreviewTexture"]
 own_world_3d = true
 world_3d = SubResource("World3D_hmqux")
+size = Vector2i(128, 648)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PreviewContainer/PreviewTexture/PreviewViewport"]
 mesh = ExtResource("1_mluni")
