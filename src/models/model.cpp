@@ -11,7 +11,7 @@ void Model::_bind_methods() {
                                  &Model::get_model_parameters );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::ARRAY, "model_parameters",
                                        godot::PROPERTY_HINT_TYPE_STRING,
-                                       godot::String::num(godot::Variant::OBJECT) + "/" + godot::String::num(godot::PROPERTY_HINT_RESOURCE_TYPE) + ":" + ModelParameter::get_class_static(),
+                                       ModelParameter::get_class_static(),
                                        godot::PROPERTY_USAGE_READ_ONLY),
                   godot::String(), "get_model_parameters" );
 
