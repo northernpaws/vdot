@@ -20,8 +20,8 @@ target_sources(${PROJECT_NAME}
         models/2d/model_2d.cpp
         models/model_parameter.cpp
 
-        avatar_parameter.cpp
-        avatar.cpp
+        avatar/avatar_parameter.cpp
+        avatar/avatar.cpp
 
         tracking/interfaces/live_link/live_link_server.cpp
         tracking/interfaces/live_link/live_link_panel.cpp
@@ -39,8 +39,6 @@ target_sources(${PROJECT_NAME}
         models/2d/live2d/renderer/cubism_renderer_impl.cpp
         models/2d/live2d/cubism_effect.cpp
         models/2d/live2d/cubism_model.cpp
-
-        integrations/tracking/live2d/cubism_effect_face_tracking.cpp
 
         vdot.h
         vdot.cpp

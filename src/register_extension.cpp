@@ -26,8 +26,8 @@
 
 #include "models/2d/model_2d.h"
 
-#include "avatar.h"
-#include "avatar_parameter.h"
+#include "avatar/avatar.h"
+#include "avatar/avatar_parameter.h"
 
 #include "models/2d/live2d/cubism_effect.h"
 #include "models/2d/live2d/cubism_effect_breath.h"
@@ -50,8 +50,6 @@
 
 #include "tracking/interfaces/vts/vts_interface.h"
 
-
-#include "integrations/tracking/live2d/cubism_effect_face_tracking.h"
 
 using namespace godot;
 
@@ -183,9 +181,6 @@ namespace {
             GDREGISTER_CLASS( CubismMotionEntry )
             GDREGISTER_CLASS( CubismModel )
 
-            // Integrations
-
-            GDREGISTER_CLASS( CubismEffectFaceTracking )
         }
 
         if ( p_level == MODULE_INITIALIZATION_LEVEL_EDITOR ) {

@@ -13,6 +13,18 @@ void Avatar::_bind_methods() {
                   "set_avatar_parameters", "get_avatar_parameters" );
 }
 
+Avatar::Avatar() {
+
+}
+
+Avatar::~Avatar() {
+
+}
+
+void Avatar::_process(double delta) {
+
+}
+
 godot::TypedArray<AvatarParameter> Avatar::get_avatar_parameters() const {
     return parameters;
 }

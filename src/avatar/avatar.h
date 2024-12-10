@@ -18,10 +18,13 @@ class Avatar : public godot::Sprite2D {
 
     static void _bind_methods();
   public:
+    Avatar();
+    ~Avatar() override;
+
+    void _process(double delta) override;
 
     [[nodiscard]] godot::TypedArray<AvatarParameter> get_avatar_parameters() const;
     void set_avatar_parameters(const godot::TypedArray<AvatarParameter>& p_parameters);
-
 };
 
 #endif // VDOT_AVATAR_H
