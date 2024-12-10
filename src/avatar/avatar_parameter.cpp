@@ -37,6 +37,9 @@ void AvatarParameter::_bind_methods() {
                                  &AvatarParameter::set_output_range );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::VECTOR2, "output_range" ),
                   "set_output_range", "get_output_range" );
+
+    godot::ClassDB::bind_method( godot::D_METHOD( "calculate_value", "input", "delta" ),
+                                 &AvatarParameter::calculate_value );
 }
 
 godot::StringName AvatarParameter::get_parameter_id() const {
@@ -77,4 +80,10 @@ godot::Vector2 AvatarParameter::get_output_range() const {
 
 void AvatarParameter::set_output_range(const godot::Vector2& p_range)  {
     output_range = p_range;
+}
+
+float AvatarParameter::calculate_value(float p_input, double delta) const {
+    // TODO: delta smoothing
+
+    return (((p_input - input_range.x) * (output_range.y - output_range.x)) / (input_range.y - input_range.x)) + output_range.x;
 }

@@ -16,8 +16,9 @@ class AvatarParameter : public godot::Resource {
     godot::String parameter_name;        // user-friendly name
     godot::String parameter_description; // user-friendly description
 
-    godot::Vector2 input_range;
-    godot::Vector2 output_range;
+    // NOTE: use 0-1 range by default as that's fairly standard.
+    godot::Vector2 input_range = godot::Vector2(0.0f, 1.0f);
+    godot::Vector2 output_range = godot::Vector2(0.0f, 1.0f);
 
     static void _bind_methods();
   public:
@@ -35,13 +36,15 @@ class AvatarParameter : public godot::Resource {
 
     godot::Vector2 get_output_range() const;
     void set_output_range(const godot::Vector2& p_range);
+
+    float calculate_value(float p_input, double delta) const;
 };
 
 
 namespace godot {
     // TODO: Ideally we'd use MAKE_TYPED_ARRAY and MAKE_TYPED_ARRAY_INFO, but in C++ they're undef'ed
     template <>
-    class TypedArray<AvatarParameter> : public Array {
+    class TypedArray<godot::Ref<AvatarParameter>> : public Array {
       public:
         _FORCE_INLINE_ void operator=(const Array &p_array) {
             ERR_FAIL_COND_MSG(!is_same_typed(p_array), "Cannot assign an array with a different element type.");
@@ -64,7 +67,7 @@ namespace godot {
     };
 
     template <>
-    struct GetTypeInfo<TypedArray<AvatarParameter>> {                                                                                                         \
+    struct GetTypeInfo<TypedArray<godot::Ref<AvatarParameter>>> {                                                                                                         \
         static constexpr GDExtensionVariantType VARIANT_TYPE = GDEXTENSION_VARIANT_TYPE_ARRAY;
         static constexpr GDExtensionClassMethodArgumentMetadata METADATA = GDEXTENSION_METHOD_ARGUMENT_METADATA_NONE;
         static inline PropertyInfo get_class_info() {
@@ -73,7 +76,7 @@ namespace godot {
     };
 
     template <>
-    struct GetTypeInfo<const TypedArray<AvatarParameter> &> {                                                                                                 \
+    struct GetTypeInfo<const TypedArray<godot::Ref<AvatarParameter>> &> {                                                                                                 \
         static constexpr GDExtensionVariantType VARIANT_TYPE = GDEXTENSION_VARIANT_TYPE_ARRAY;
         static constexpr GDExtensionClassMethodArgumentMetadata METADATA = GDEXTENSION_METHOD_ARGUMENT_METADATA_NONE;
         static inline PropertyInfo get_class_info() {
