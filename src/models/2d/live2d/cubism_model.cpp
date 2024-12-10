@@ -20,7 +20,7 @@
 #include "cubism_motion_entry.h"
 #include "cubism_value_parameter.h"
 #include "cubism_value_part_opacity.h"
-#include "renderer/cubism_model_proxy.h"
+#include "models/2d/live2d/renderer/cubism_model_proxy.h"
 
 #include "cubism_model.h"
 

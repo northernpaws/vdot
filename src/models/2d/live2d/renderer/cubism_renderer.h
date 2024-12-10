@@ -15,9 +15,9 @@
 #include <godot_cpp/classes/sub_viewport.hpp>
 #include <godot_cpp/classes/texture2d.hpp>
 
-#include "../cubism.h"
+#include "models/2d/live2d/cubism.h"
 
-#include "../cubism_effect.h"
+#include "models/2d/live2d/cubism_effect.h"
 
 class CubismModel;
 

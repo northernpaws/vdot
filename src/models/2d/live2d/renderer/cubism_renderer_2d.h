@@ -17,9 +17,9 @@
 
 #include <Rendering/CubismRenderer.hpp>
 
-#include "../cubism.h"
+#include "models/2d/live2d/cubism.h"
 
-#include "../cubism_model.h"
+#include "models/2d/live2d/cubism_model.h"
 
 #include "cubism_renderer.h"
 

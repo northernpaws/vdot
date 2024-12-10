@@ -10,7 +10,7 @@
 #include "cubism.h"
 
 #include "cubism_effect.h"
-#include "renderer/cubism_model_proxy.h"
+#include "models/2d/live2d/renderer/cubism_model_proxy.h"
 
 class CubismEffectCustom : public CubismEffect {
     GDCLASS( CubismEffectCustom, CubismEffect )
@@ -53,21 +53,21 @@ class CubismEffectCustom : public CubismEffect {
     }
 
     virtual void _cubism_prologue( CubismModelProxy *model, const float delta ) override {
-        if ( this->_active == false ) {
+        if ( !this->_active ) {
             return;
         }
         this->emit_signal( "cubism_prologue", model->_owner_viewport, delta );
     }
 
     virtual void _cubism_process( CubismModelProxy *model, const float delta ) override {
-        if ( this->_active == false ) {
+        if ( !this->_active ) {
             return;
         }
         this->emit_signal( "cubism_process", model->_owner_viewport, delta );
     }
 
     virtual void _cubism_epilogue( CubismModelProxy *model, const float delta ) override {
-        if ( this->_active == false ) {
+        if ( !this->_active ) {
             return;
         }
         this->emit_signal( "cubism_epilogue", model->_owner_viewport, delta );

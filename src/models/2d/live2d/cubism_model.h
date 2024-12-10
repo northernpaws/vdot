@@ -22,6 +22,8 @@
 #include "cubism_effect.h"
 #include "cubism_motion_entry.h"
 
+#include "models/2d/model_2d.h"
+
 class CubismModelProxy;
 class CubismEffect;
 
@@ -60,7 +62,7 @@ class anim_motion {
     }
 };
 
-class CubismModel : public godot::SubViewport {
+class CubismModel : public Model2D {
     GDCLASS( CubismModel, SubViewport )
 
   public:

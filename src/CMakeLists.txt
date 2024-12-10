@@ -26,12 +26,18 @@ target_sources(${PROJECT_NAME}
         tracking/interfaces/vts/vts_face_tracker.cpp
         tracking/interfaces/vts/vts_interface.cpp
 
-        models/live2d/renderer/cubism_renderer.cpp
-        models/live2d/renderer/cubism_renderer_2d.cpp
-        models/live2d/renderer/cubism_model_proxy.cpp
-        models/live2d/renderer/cubism_renderer_impl.cpp
-        models/live2d/cubism_effect.cpp
-        models/live2d/cubism_model.cpp
+        models/model.cpp
+        models/2d/model_2d.cpp
+        models/model_parameter.cpp
+
+        models/2d/live2d/renderer/cubism_renderer.cpp
+        models/2d/live2d/renderer/cubism_renderer_2d.cpp
+        models/2d/live2d/renderer/cubism_model_proxy.cpp
+        models/2d/live2d/renderer/cubism_renderer_impl.cpp
+        models/2d/live2d/cubism_effect.cpp
+        models/2d/live2d/cubism_model.cpp
+
+        integrations/tracking/live2d/cubism_effect_face_tracking.cpp
 
         vdot.h
         vdot.cpp
@@ -41,4 +47,7 @@ target_sources(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME}
         PRIVATE
         "src"
+        ${CMAKE_CURRENT_LIST_DIR}
 )
+
+include_directories(${CMAKE_CURRENT_LIST_DIR})

@@ -7,7 +7,7 @@
 #ifndef VDOT_CUBISM_PRINT_H
 #define VDOT_CUBISM_PRINT_H
 
-#include "../cubism.h"
+#include "models/2d/live2d/cubism.h"
 
 #ifdef WINDOWS_ENABLED
 #include <stdarg.h>

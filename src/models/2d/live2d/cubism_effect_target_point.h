@@ -10,7 +10,7 @@
 #include "cubism.h"
 
 #include "cubism_effect.h"
-#include "renderer/cubism_model_proxy.h"
+#include "models/2d/live2d/renderer/cubism_model_proxy.h"
 
 class CubismEffectTargetPoint : public CubismEffect {
     GDCLASS( CubismEffectTargetPoint, CubismEffect )

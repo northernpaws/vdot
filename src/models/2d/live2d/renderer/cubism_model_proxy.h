@@ -14,9 +14,9 @@
 #include <Motion/CubismMotionQueueManager.hpp>
 #include <Utils/CubismString.hpp>
 
-#include "../cubism.h"
+#include "models/2d/live2d/cubism.h"
 
-#include "../renderer/cubism_renderer.h"
+#include "cubism_renderer.h"
 
 class CubismEffectBreath;
 class CubismEffectCustom;
@@ -40,7 +40,7 @@ class CubismModelProxy : public Csm::CubismUserModel {
     CubismModel *_owner_viewport = nullptr;
     godot::Node *_parent_node = nullptr;
 
-  private:
+//  private:
     CubismRenderer _renderer_resource;
     CubismModel::moc3FileFormatVersion _moc3_file_format_version;
     godot::String _model_pathname;
