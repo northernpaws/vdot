@@ -9,10 +9,9 @@ void Model::_on_property_updated( const godot::StringName &p_name, float p_value
 void Model::_bind_methods() {
     godot::ClassDB::bind_method( godot::D_METHOD( "get_model_parameters" ),
                                  &Model::get_model_parameters );
-    ADD_PROPERTY( godot::PropertyInfo( godot::Variant::ARRAY, "model_parameters",
-                                       godot::PROPERTY_HINT_TYPE_STRING,
-                                       ModelParameter::get_class_static(),
-                                       godot::PROPERTY_USAGE_READ_ONLY),
+    ADD_PROPERTY( godot::PropertyInfo(
+                      godot::Variant::ARRAY, "model_parameters", godot::PROPERTY_HINT_TYPE_STRING,
+                      ModelParameter::get_class_static(), godot::PROPERTY_USAGE_READ_ONLY ),
                   godot::String(), "get_model_parameters" );
 
     godot::ClassDB::bind_method( godot::D_METHOD( "_on_property_updated" ),
@@ -104,4 +103,3 @@ void Model::_get_property_list( godot::List<godot::PropertyInfo> *p_list ) {
         p_list->push_back( pinfo );
     }
 }
-

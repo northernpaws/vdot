@@ -18,12 +18,14 @@ class Model : public godot::SubViewport {
     GDCLASS( Model, godot::SubViewport )
 
     void _on_property_updated( const godot::StringName &p_name, float p_value );
+
   protected:
     godot::TypedArray<godot::Ref<ModelParameter>> parameters;
 
     static void _bind_methods();
 
     void _add_parameter( const godot::Ref<ModelParameter> &p_parameter );
+
   public:
     Model() = default;
 

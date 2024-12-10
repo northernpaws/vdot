@@ -15,18 +15,21 @@
 #include "tracking/tracker.h"
 #include "tracking/tracker_face.h"
 #include "tracking/tracking_interface.h"
-#include "tracking/tracking_server.h"
 #include "tracking/tracking_manager_node.h"
+#include "tracking/tracking_server.h"
 
 #include "tracking/editor/editor_plugin.h"
 #include "tracking/editor/trackers/face_tracker_panel.h"
 
 #include "models/model.h"
+#include "models/model_bundle.h"
+#include "models/model_format.h"
 #include "models/model_parameter.h"
 
 #include "models/2d/model_2d.h"
 
 #include "avatar/avatar.h"
+#include "avatar/avatar_bundle.h"
 #include "avatar/avatar_parameter.h"
 
 #include "networking/collaboration_session.h"
@@ -42,6 +45,7 @@
 #include "models/2d/live2d/cubism_value_abs.h"
 #include "models/2d/live2d/cubism_value_parameter.h"
 #include "models/2d/live2d/cubism_value_part_opacity.h"
+#include "models/2d/live2d/live2d_model_format.h"
 #include "models/2d/live2d/renderer/cubism_allocator.h"
 
 #include "tracking/interfaces/live_link/editor_plugin.h"
@@ -107,6 +111,9 @@ namespace {
             // ====================
             // Models
 
+            GDREGISTER_CLASS( ModelBundle )
+            GDREGISTER_CLASS( ModelFormat )
+
             GDREGISTER_CLASS( ModelParameter )
             GDREGISTER_CLASS( Model )
             GDREGISTER_CLASS( Model2D )
@@ -116,6 +123,7 @@ namespace {
 
             GDREGISTER_CLASS( AvatarParameter )
             GDREGISTER_CLASS( AvatarParameterEval )
+            GDREGISTER_CLASS( AvatarBundle )
             GDREGISTER_CLASS( Avatar )
 
             // ====================
@@ -158,8 +166,6 @@ namespace {
             //            scene_tree->connect("process_frame", godot::Callable(tracking_server,
             //            "_process"));
 
-
-
             // ====================
             // Live2D Models
 
@@ -173,6 +179,8 @@ namespace {
             // Initialize the Cubism framework before registering its resources.
             Csm::CubismFramework::StartUp( &cubism_allocator, &csm_options );
             Csm::CubismFramework::Initialize();
+
+            GDREGISTER_VIRTUAL_CLASS( Live2DModelFormat )
 
             GDREGISTER_VIRTUAL_CLASS( CubismEffect )
             GDREGISTER_CLASS( CubismEffectBreath )
@@ -188,7 +196,6 @@ namespace {
             GDREGISTER_CLASS( CubismMotionQueueEntryHandle )
             GDREGISTER_CLASS( CubismMotionEntry )
             GDREGISTER_CLASS( CubismModel )
-
         }
 
         if ( p_level == MODULE_INITIALIZATION_LEVEL_EDITOR ) {

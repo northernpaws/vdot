@@ -1,17 +1,18 @@
 
-#include <godot_cpp/templates/hash_map.hpp>
 #include <godot_cpp/classes/multiplayer_api.hpp>
 #include <godot_cpp/classes/multiplayer_peer.hpp>
+#include <godot_cpp/templates/hash_map.hpp>
 
 #include "avatar.h"
 
 void Avatar::_bind_methods() {
     ADD_SIGNAL( godot::MethodInfo(
         "parameter_evaluated", godot::PropertyInfo( godot::Variant::OBJECT, "parameter",
-                                                   godot::PropertyHint::PROPERTY_HINT_TYPE_STRING,
-                                                    AvatarParameterEval::get_class_static() )));
+                                                    godot::PropertyHint::PROPERTY_HINT_TYPE_STRING,
+                                                    AvatarParameterEval::get_class_static() ) ) );
 
-    ADD_SIGNAL( godot::MethodInfo( "parameters_evaluated", godot::PropertyInfo( godot::Variant::DICTIONARY, "parameters")));
+    ADD_SIGNAL( godot::MethodInfo(
+        "parameters_evaluated", godot::PropertyInfo( godot::Variant::DICTIONARY, "parameters" ) ) );
 
     godot::ClassDB::bind_method( godot::D_METHOD( "get_avatar_parameters" ),
                                  &Avatar::get_avatar_parameters );
@@ -27,11 +28,9 @@ void Avatar::_bind_methods() {
 }
 
 Avatar::Avatar() {
-
 }
 
 Avatar::~Avatar() {
-
 }
 
 void Avatar::_ready() {
@@ -48,15 +47,15 @@ void Avatar::_ready() {
     }
 }
 
-void Avatar::_process(double delta) {
-    _process_parameters(delta);
+void Avatar::_process( double delta ) {
+    _process_parameters( delta );
 }
 
-void Avatar::_process_parameters(double delta) {
+void Avatar::_process_parameters( double delta ) {
     godot::Dictionary updated_parameter_values;
 
     // Loop over the parameters and
-    for(int i = 0; i < parameters.size(); i++) {
+    for ( int i = 0; i < parameters.size(); i++ ) {
         godot::Ref<AvatarParameter> parameter = parameters[i];
         godot::Ref<AvatarParameterEval> eval = parameter_values[parameter->get_parameter_id()];
 
@@ -65,7 +64,7 @@ void Avatar::_process_parameters(double delta) {
 
         // Skip evaluating parameters without a changed input value.
         // TODO: don't skip is an avatar parameter setting changed
-        if (input == eval->input) {
+        if ( input == eval->input ) {
             continue;
         }
 
@@ -75,7 +74,7 @@ void Avatar::_process_parameters(double delta) {
         //
         // This takes into account input and output range conversion, value
         // smoothing, and other possible transformations on the input value.
-        eval->value = parameter->calculate_value(input, delta);
+        eval->value = parameter->calculate_value( input, delta );
 
         // TODO: apply smoothing (use smoothstep?), use eval to store smoothing data.
 
@@ -85,15 +84,25 @@ void Avatar::_process_parameters(double delta) {
         // NOTE: We emit before applying the value to give a chance
         //  for external systems to process it in parallel, as
         //  applying the value might take a moment.
-        emit_signal("parameter_evaluated", eval);
+        emit_signal( "parameter_evaluated", eval );
 
         // Apply the calculated parameter values to the target parameters.
         //
         // Use an RPC call to sync it over the network.
-        rpc("_apply_parameter", parameter->get_parameter_id(), eval->value);
+        rpc( "_apply_parameter", parameter->get_parameter_id(), eval->value );
     }
 
-    emit_signal("parameters_evaluated", parameters);
+    emit_signal( "parameters_evaluated", parameters );
+}
+
+godot::PackedStringArray Avatar::_get_configuration_warnings() const {
+    godot::PackedStringArray warnings;
+
+    if ( model == nullptr ) {
+        warnings.push_back( "Avatar is missing a model." );
+    }
+
+    return warnings;
 }
 
 godot::TypedArray<AvatarParameter> Avatar::get_avatar_parameters() const {
@@ -104,17 +113,16 @@ void Avatar::set_avatar_parameters( const godot::TypedArray<AvatarParameter> &p_
     parameters = p_parameters;
 
     parameter_values.clear();
-    for(int i = 0; i < parameters.size(); i++) {
+    for ( int i = 0; i < parameters.size(); i++ ) {
         godot::Ref<AvatarParameter> param = parameters[i];
 
         godot::Ref<AvatarParameterEval> eval;
         eval.instantiate();
         eval->parameter_id = param->get_parameter_id();
 
-        parameter_values[param->get_parameter_id()] =eval;
+        parameter_values[param->get_parameter_id()] = eval;
     }
 }
 
-void Avatar::_apply_parameter(const godot::StringName& p_id, float p_value) {
-
+void Avatar::_apply_parameter( const godot::StringName &p_id, float p_value ) {
 }

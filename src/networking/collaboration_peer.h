@@ -15,13 +15,13 @@
 class CollaborationPeer : public godot::RefCounted {
     GDCLASS( CollaborationPeer, godot::RefCounted )
   protected:
-
     static void _bind_methods();
+
   public:
     godot::Ref<godot::ENetMultiplayerPeer> enet_peer;
 
     CollaborationPeer();
-    explicit CollaborationPeer(const godot::Ref<godot::ENetMultiplayerPeer>& p_peer);
+    explicit CollaborationPeer( const godot::Ref<godot::ENetMultiplayerPeer> &p_peer );
 
     [[nodiscard]] godot::Ref<godot::ENetMultiplayerPeer> get_enet_peer() const;
 };
