@@ -24,12 +24,14 @@ class VTSInterface : public TrackingInterface {
     bool _initialized = false;
 
     godot::Dictionary _trackers;
+
   protected:
-    static VTSInterface* singleton;
+    static VTSInterface *singleton;
 
     static void _bind_methods();
+
   public:
-    static VTSInterface* get_singleton();
+    static VTSInterface *get_singleton();
 
     VTSInterface();
     ~VTSInterface() override;
@@ -53,7 +55,7 @@ class VTSInterface : public TrackingInterface {
      * @param port - Port of the VTS server on the device.
      * @return The created tracker.
      */
-    godot::Ref<VTSFaceTracker> register_tracker(const godot::String& address, uint16_t port);
+    godot::Ref<VTSFaceTracker> register_tracker( const godot::String &address, uint16_t port );
 };
 
 #endif // VDOT_VTS_INTERFACE_H

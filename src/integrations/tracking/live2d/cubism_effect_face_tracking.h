@@ -3,7 +3,6 @@
 #ifndef VDOT_CUBISM_EFFECT_FACE_TRACKING_H
 #define VDOT_CUBISM_EFFECT_FACE_TRACKING_H
 
-
 #include <CubismDefaultParameterId.hpp>
 #include <CubismFramework.hpp>
 #include <Id/CubismIdManager.hpp>
@@ -22,6 +21,7 @@ class CubismEffectFaceTracking : public CubismEffect {
 
   protected:
     static void _bind_methods();
+
   public:
     CubismEffectFaceTracking();
 
@@ -34,12 +34,12 @@ class CubismEffectFaceTracking : public CubismEffect {
 
     void _cubism_process( CubismModelProxy *model, const float delta ) override;
 
-    bool _set(const godot::StringName &p_name, const godot::Variant &p_property);
-    bool _get(const godot::StringName &p_name, godot::Variant &r_property) const;
-    void _get_property_list(godot::List<godot::PropertyInfo> *p_list) const;
+    bool _set( const godot::StringName &p_name, const godot::Variant &p_property );
+    bool _get( const godot::StringName &p_name, godot::Variant &r_property ) const;
+    void _get_property_list( godot::List<godot::PropertyInfo> *p_list ) const;
 
-    void _server_tracker_added(const godot::StringName& p_tracker_name, TrackingServer::TrackerType p_tracker_type);
+    void _server_tracker_added( const godot::StringName &p_tracker_name,
+                                TrackingServer::TrackerType p_tracker_type );
 };
-
 
 #endif // VDOT_CUBISM_EFFECT_FACE_TRACKING_H

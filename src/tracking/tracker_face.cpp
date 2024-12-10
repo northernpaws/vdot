@@ -149,9 +149,9 @@ void FaceTracker::_bind_methods() {
     BIND_ENUM_CONSTANT( UnifiedExpressions::BlendShape::FT_MOUTH_PRESS );
     BIND_ENUM_CONSTANT( UnifiedExpressions::BlendShape::FT_MAX );
 
-    ADD_SIGNAL( godot::MethodInfo(
-        "blend_shape_updated", godot::PropertyInfo( godot::Variant::INT, "blend_shape"),
-        godot::PropertyInfo( godot::Variant::FLOAT, "weight")) );
+    ADD_SIGNAL( godot::MethodInfo( "blend_shape_updated",
+                                   godot::PropertyInfo( godot::Variant::INT, "blend_shape" ),
+                                   godot::PropertyInfo( godot::Variant::FLOAT, "weight" ) ) );
 
     ADD_SIGNAL( godot::MethodInfo( "blend_shapes_updated" ) );
 
@@ -165,12 +165,16 @@ void FaceTracker::_bind_methods() {
 
     godot::ClassDB::bind_method( godot::D_METHOD( "get_arkit_blend_shape", "arkit_blend_shape" ),
                                  &FaceTracker::get_arkit_blend_shape );
-    godot::ClassDB::bind_method( godot::D_METHOD( "get_arkit_blend_shape_weight", "arkit_blend_shape" ),
-                                 &FaceTracker::get_arkit_blend_shape_weight );
+    godot::ClassDB::bind_method(
+        godot::D_METHOD( "get_arkit_blend_shape_weight", "arkit_blend_shape" ),
+        &FaceTracker::get_arkit_blend_shape_weight );
 
-    godot::ClassDB::bind_method(godot::D_METHOD("get_blend_shapes"), &FaceTracker::get_blend_shapes);
-    godot::ClassDB::bind_method(godot::D_METHOD("set_blend_shapes", "weights"), &FaceTracker::set_blend_shapes);
-    ADD_PROPERTY(godot::PropertyInfo(godot::Variant::PACKED_FLOAT32_ARRAY, "blend_shapes"), "set_blend_shapes", "get_blend_shapes");
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_blend_shapes" ),
+                                 &FaceTracker::get_blend_shapes );
+    godot::ClassDB::bind_method( godot::D_METHOD( "set_blend_shapes", "weights" ),
+                                 &FaceTracker::set_blend_shapes );
+    ADD_PROPERTY( godot::PropertyInfo( godot::Variant::PACKED_FLOAT32_ARRAY, "blend_shapes" ),
+                  "set_blend_shapes", "get_blend_shapes" );
 }
 
 FaceTracker::FaceTracker() {
@@ -191,39 +195,40 @@ void FaceTracker::set_blend_shape( UnifiedExpressions::BlendShape blend_shape, f
 
     blend_shape_values[blend_shape] = weight;
 
-    emit_signal("blend_shape_updated", blend_shape, weight);
+    emit_signal( "blend_shape_updated", blend_shape, weight );
 }
 
 godot::PackedFloat32Array FaceTracker::get_blend_shapes() const {
     // Create a packed float32 array and copy the blend shape values into it.
     godot::PackedFloat32Array data;
-    data.resize(UnifiedExpressions::BlendShape::FT_MAX);
-    memcpy(data.ptrw(), blend_shape_values, sizeof(blend_shape_values));
+    data.resize( UnifiedExpressions::BlendShape::FT_MAX );
+    memcpy( data.ptrw(), blend_shape_values, sizeof( blend_shape_values ) );
 
     // Return the blend shape array.
     return data;
 }
 
-void FaceTracker::set_blend_shapes(const godot::PackedFloat32Array &p_blend_shapes) {
+void FaceTracker::set_blend_shapes( const godot::PackedFloat32Array &p_blend_shapes ) {
     // Fail if the blend shape array is not the correct size.
-    ERR_FAIL_COND(p_blend_shapes.size() != UnifiedExpressions::BlendShape::FT_MAX);
+    ERR_FAIL_COND( p_blend_shapes.size() != UnifiedExpressions::BlendShape::FT_MAX );
 
     // Copy the blend shape values into the blend shape array.
-    memcpy(blend_shape_values, p_blend_shapes.ptr(), sizeof(blend_shape_values));
+    memcpy( blend_shape_values, p_blend_shapes.ptr(), sizeof( blend_shape_values ) );
 
-    emit_signal("blend_shapes_updated");
+    emit_signal( "blend_shapes_updated" );
 }
 
-godot::StringName FaceTracker::get_blend_shape_name(UnifiedExpressions::BlendShape blend_shape) {
-    if (!UnifiedExpressions::blend_shape_names.has(blend_shape)) {
+godot::StringName FaceTracker::get_blend_shape_name( UnifiedExpressions::BlendShape blend_shape ) {
+    if ( !UnifiedExpressions::blend_shape_names.has( blend_shape ) ) {
         return "Unknown";
     }
 
     return UnifiedExpressions::blend_shape_names[blend_shape];
 }
 
-UnifiedExpressions::BlendShape FaceTracker::get_arkit_blend_shape( ARKit::BlendShape blend_shape ) const {
-    if (!UnifiedExpressions::arkit_to_unified.has(blend_shape)) {
+UnifiedExpressions::BlendShape FaceTracker::get_arkit_blend_shape(
+    ARKit::BlendShape blend_shape ) const {
+    if ( !UnifiedExpressions::arkit_to_unified.has( blend_shape ) ) {
         return UnifiedExpressions::BlendShape::FT_MAX;
     }
 
@@ -231,7 +236,7 @@ UnifiedExpressions::BlendShape FaceTracker::get_arkit_blend_shape( ARKit::BlendS
 }
 
 float FaceTracker::get_arkit_blend_shape_weight( ARKit::BlendShape blend_shape ) const {
-    if (!UnifiedExpressions::arkit_to_unified.has(blend_shape)) {
+    if ( !UnifiedExpressions::arkit_to_unified.has( blend_shape ) ) {
         return 0.0f;
     }
 

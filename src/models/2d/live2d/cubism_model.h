@@ -63,7 +63,7 @@ class anim_motion {
 };
 
 class CubismModel : public Model2D {
-    GDCLASS( CubismModel, SubViewport )
+    GDCLASS( CubismModel, Model2D )
 
   public:
     CubismModel();

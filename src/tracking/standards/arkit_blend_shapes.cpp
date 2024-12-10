@@ -80,9 +80,9 @@ namespace ARKit {
         ShapeNames["NoseSneerRight"] = BlendShape::NoseSneerRight;
 
         ShapeNames["TongueOut"] = BlendShape::TongueOut;
-        
+
         shape_to_name.clear();
-        
+
         shape_to_name[BlendShape::EyeBlinkLeft] = "eyeBlinkLeft";
         shape_to_name[BlendShape::EyeLookDownLeft] = "eyeLookDownLeft";
         shape_to_name[BlendShape::EyeLookInLeft] = "eyeLookInLeft";
@@ -153,6 +153,5 @@ namespace ARKit {
         shape_to_name[BlendShape::NoseSneerRight] = "noseSneerRight";
 
         shape_to_name[BlendShape::TongueOut] = "tongueOut";
-
     }
 }

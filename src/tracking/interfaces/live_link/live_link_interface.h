@@ -23,11 +23,12 @@ class LiveLinkInterface : public TrackingInterface {
     godot::Dictionary _trackers;
 
   protected:
-    static LiveLinkInterface* singleton;
+    static LiveLinkInterface *singleton;
 
     static void _bind_methods();
+
   public:
-    static LiveLinkInterface* get_singleton();
+    static LiveLinkInterface *get_singleton();
 
     LiveLinkInterface();
     ~LiveLinkInterface() override;

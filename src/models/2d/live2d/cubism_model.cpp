@@ -677,6 +677,10 @@ void CubismModel::setup_property() {
 }
 
 bool CubismModel::_set( const godot::StringName &p_name, const godot::Variant &p_value ) {
+    if ( Model2D::_set( p_name, p_value ) ) {
+        return true;
+    }
+
     if ( !this->is_initialized() ) {
         return false;
     }
@@ -736,6 +740,10 @@ bool CubismModel::_set( const godot::StringName &p_name, const godot::Variant &p
 }
 
 bool CubismModel::_get( const godot::StringName &p_name, godot::Variant &r_ret ) const {
+    if ( Model2D::_get( p_name, r_ret ) ) {
+        return true;
+    }
+
     if ( !this->is_initialized() ) {
         return false;
     }
@@ -784,6 +792,10 @@ bool CubismModel::_get( const godot::StringName &p_name, godot::Variant &r_ret )
 }
 
 bool CubismModel::_property_can_revert( const godot::StringName &p_name ) const {
+    if ( Model2D::_property_can_revert( p_name ) ) {
+        return true;
+    }
+
     if ( !this->is_initialized() ) {
         return false;
     }
@@ -810,6 +822,10 @@ bool CubismModel::_property_can_revert( const godot::StringName &p_name ) const 
 
 bool CubismModel::_property_get_revert( const godot::StringName &p_name,
                                         godot::Variant &r_property ) const {
+    if ( Model2D::_property_get_revert( p_name, r_property ) ) {
+        return true;
+    }
+
     if ( !this->is_initialized() ) {
         return false;
     }
@@ -838,6 +854,8 @@ bool CubismModel::_property_get_revert( const godot::StringName &p_name,
 }
 
 void CubismModel::_get_property_list( godot::List<godot::PropertyInfo> *p_list ) {
+    Model2D::_get_property_list( p_list );
+
     if ( !this->is_initialized() ) {
         return;
     }

@@ -80,8 +80,10 @@ namespace UnifiedExpressions {
         blend_shape_names[FT_MOUTH_UPPER_LEFT] = "Moves upper lip left";
         blend_shape_names[FT_MOUTH_LOWER_RIGHT] = "Moves lower lip right";
         blend_shape_names[FT_MOUTH_LOWER_LEFT] = "Moves lower lip left";
-        blend_shape_names[FT_MOUTH_CORNER_PULL_RIGHT] = "Right lip corner pulls diagonally up and out";
-        blend_shape_names[FT_MOUTH_CORNER_PULL_LEFT] = "Left lip corner pulls diagonally up and out";
+        blend_shape_names[FT_MOUTH_CORNER_PULL_RIGHT] =
+            "Right lip corner pulls diagonally up and out";
+        blend_shape_names[FT_MOUTH_CORNER_PULL_LEFT] =
+            "Left lip corner pulls diagonally up and out";
         blend_shape_names[FT_MOUTH_CORNER_SLANT_RIGHT] = "Right corner lip slants up";
         blend_shape_names[FT_MOUTH_CORNER_SLANT_LEFT] = "Left corner lip slants up";
         blend_shape_names[FT_MOUTH_FROWN_RIGHT] = "Right corner lip pulls down";
@@ -92,9 +94,12 @@ namespace UnifiedExpressions {
         blend_shape_names[FT_MOUTH_DIMPLE_LEFT] = "Left lip corner is pushed backwards";
         blend_shape_names[FT_MOUTH_RAISER_UPPER] = "Raises and slightly pushes out the upper mouth";
         blend_shape_names[FT_MOUTH_RAISER_LOWER] = "Raises and slightly pushes out the lower mouth";
-        blend_shape_names[FT_MOUTH_PRESS_RIGHT] = "Right side lips press and flatten together vertically";
-        blend_shape_names[FT_MOUTH_PRESS_LEFT] = "Left side lips press and flatten together vertically";
-        blend_shape_names[FT_MOUTH_TIGHTENER_RIGHT] = "Right side lips squeeze together horizontally";
+        blend_shape_names[FT_MOUTH_PRESS_RIGHT] =
+            "Right side lips press and flatten together vertically";
+        blend_shape_names[FT_MOUTH_PRESS_LEFT] =
+            "Left side lips press and flatten together vertically";
+        blend_shape_names[FT_MOUTH_TIGHTENER_RIGHT] =
+            "Right side lips squeeze together horizontally";
         blend_shape_names[FT_MOUTH_TIGHTENER_LEFT] = "Left side lips squeeze together horizontally";
         blend_shape_names[FT_TONGUE_OUT] = "Tongue visibly sticks out of the mouth";
         blend_shape_names[FT_TONGUE_UP] = "Tongue points upwards";
@@ -106,14 +111,16 @@ namespace UnifiedExpressions {
         blend_shape_names[FT_TONGUE_CURL_UP] = "Tongue arches down then up inside the mouth";
         blend_shape_names[FT_TONGUE_SQUISH] = "Tongue squishes together and thickens";
         blend_shape_names[FT_TONGUE_FLAT] = "Tongue flattens and thins out";
-        blend_shape_names[FT_TONGUE_TWIST_RIGHT] = "Tongue tip rotates clockwise, with the rest following gradually";
-        blend_shape_names[FT_TONGUE_TWIST_LEFT] = "Tongue tip rotates counter-clockwise, with the rest followin";
-                                             // gradually.
+        blend_shape_names[FT_TONGUE_TWIST_RIGHT] =
+            "Tongue tip rotates clockwise, with the rest following gradually";
+        blend_shape_names[FT_TONGUE_TWIST_LEFT] =
+            "Tongue tip rotates counter-clockwise, with the rest followin";
+        // gradually.
         blend_shape_names[FT_SOFT_PALATE_CLOSE] = "Inner mouth throat closes";
         blend_shape_names[FT_THROAT_SWALLOW] = "The Adam's apple visibly swallows";
         blend_shape_names[FT_NECK_FLEX_RIGHT] = "Right side neck visibly flexes";
         blend_shape_names[FT_NECK_FLEX_LEFT] = "Left side neck visibly flexes";
-                // Blended Shapes
+        // Blended Shapes
         blend_shape_names[FT_EYE_CLOSED] = "Closes both eye lids";
         blend_shape_names[FT_EYE_WIDE] = "Widens both eye lids";
         blend_shape_names[FT_EYE_SQUINT] = "Squints both eye lids";
@@ -193,14 +200,20 @@ namespace UnifiedExpressions {
         unified_to_arkit[FT_LIP_SUCK_LOWER_RIGHT] = ARKit::BlendShape::MouthRollLower;
         unified_to_arkit[FT_LIP_FUNNEL_UPPER_RIGHT] = ARKit::BlendShape::MouthFunnel;
         unified_to_arkit[FT_LIP_PUCKER_UPPER_RIGHT] = ARKit::BlendShape::MouthPucker;
-        unified_to_arkit[FT_MOUTH_UPPER_UP_RIGHT] = ARKit::BlendShape::MouthPucker;  // 2 NOTE = not in official mapping
-        unified_to_arkit[FT_MOUTH_UPPER_UP_LEFT] = ARKit::BlendShape::MouthUpperUpLeft; // 2 NOTE = not in official mapping
+        unified_to_arkit[FT_MOUTH_UPPER_UP_RIGHT] =
+            ARKit::BlendShape::MouthPucker; // 2 NOTE = not in official mapping
+        unified_to_arkit[FT_MOUTH_UPPER_UP_LEFT] =
+            ARKit::BlendShape::MouthUpperUpLeft; // 2 NOTE = not in official mapping
         unified_to_arkit[FT_MOUTH_LOWER_DOWN_RIGHT] = ARKit::BlendShape::MouthLowerDownRight;
         unified_to_arkit[FT_MOUTH_LOWER_DOWN_LEFT] = ARKit::BlendShape::MouthLowerDownLeft;
-        unified_to_arkit[FT_MOUTH_UPPER_RIGHT] = ARKit::BlendShape::MouthRight; // NOTE = not in official mapping
-        unified_to_arkit[FT_MOUTH_UPPER_LEFT] = ARKit::BlendShape::MouthLeft; // NOTE = not in official mapping
-        unified_to_arkit[FT_MOUTH_CORNER_PULL_RIGHT] = ARKit::BlendShape::MouthSmileRight; // NOTE = not in official mapping
-        unified_to_arkit[FT_MOUTH_CORNER_PULL_LEFT] = ARKit::BlendShape::MouthSmileLeft; // NOTE = not in official mapping
+        unified_to_arkit[FT_MOUTH_UPPER_RIGHT] =
+            ARKit::BlendShape::MouthRight; // NOTE = not in official mapping
+        unified_to_arkit[FT_MOUTH_UPPER_LEFT] =
+            ARKit::BlendShape::MouthLeft; // NOTE = not in official mapping
+        unified_to_arkit[FT_MOUTH_CORNER_PULL_RIGHT] =
+            ARKit::BlendShape::MouthSmileRight; // NOTE = not in official mapping
+        unified_to_arkit[FT_MOUTH_CORNER_PULL_LEFT] =
+            ARKit::BlendShape::MouthSmileLeft; // NOTE = not in official mapping
         unified_to_arkit[FT_MOUTH_FROWN_RIGHT] = ARKit::BlendShape::MouthFrownRight;
         unified_to_arkit[FT_MOUTH_FROWN_LEFT] = ARKit::BlendShape::MouthFrownLeft;
         unified_to_arkit[FT_MOUTH_STRETCH_RIGHT] = ARKit::BlendShape::MouthStretchRight;
@@ -248,14 +261,20 @@ namespace UnifiedExpressions {
         arkit_to_unified[ARKit::BlendShape::MouthRollLower] = FT_LIP_SUCK_LOWER_RIGHT;
         arkit_to_unified[ARKit::BlendShape::MouthFunnel] = FT_LIP_FUNNEL_UPPER_RIGHT;
         arkit_to_unified[ARKit::BlendShape::MouthPucker] = FT_LIP_PUCKER_UPPER_RIGHT;
-        arkit_to_unified[ARKit::BlendShape::MouthPucker] = FT_MOUTH_UPPER_UP_RIGHT;  // 2 NOTE = not in official mapping
-        arkit_to_unified[ARKit::BlendShape::MouthUpperUpLeft] = FT_MOUTH_UPPER_UP_LEFT; // 2 NOTE = not in official mapping
+        arkit_to_unified[ARKit::BlendShape::MouthPucker] =
+            FT_MOUTH_UPPER_UP_RIGHT; // 2 NOTE = not in official mapping
+        arkit_to_unified[ARKit::BlendShape::MouthUpperUpLeft] =
+            FT_MOUTH_UPPER_UP_LEFT; // 2 NOTE = not in official mapping
         arkit_to_unified[ARKit::BlendShape::MouthLowerDownRight] = FT_MOUTH_LOWER_DOWN_RIGHT;
         arkit_to_unified[ARKit::BlendShape::MouthLowerDownLeft] = FT_MOUTH_LOWER_DOWN_LEFT;
-        arkit_to_unified[ARKit::BlendShape::MouthRight] = FT_MOUTH_UPPER_RIGHT; // NOTE = not in official mapping
-        arkit_to_unified[ARKit::BlendShape::MouthLeft] = FT_MOUTH_UPPER_LEFT; // NOTE = not in official mapping
-        arkit_to_unified[ARKit::BlendShape::MouthSmileRight] = FT_MOUTH_CORNER_PULL_RIGHT; // NOTE = not in official mapping
-        arkit_to_unified[ARKit::BlendShape::MouthSmileLeft] = FT_MOUTH_CORNER_PULL_LEFT; // NOTE = not in official mapping
+        arkit_to_unified[ARKit::BlendShape::MouthRight] =
+            FT_MOUTH_UPPER_RIGHT; // NOTE = not in official mapping
+        arkit_to_unified[ARKit::BlendShape::MouthLeft] =
+            FT_MOUTH_UPPER_LEFT; // NOTE = not in official mapping
+        arkit_to_unified[ARKit::BlendShape::MouthSmileRight] =
+            FT_MOUTH_CORNER_PULL_RIGHT; // NOTE = not in official mapping
+        arkit_to_unified[ARKit::BlendShape::MouthSmileLeft] =
+            FT_MOUTH_CORNER_PULL_LEFT; // NOTE = not in official mapping
         arkit_to_unified[ARKit::BlendShape::MouthFrownRight] = FT_MOUTH_FROWN_RIGHT;
         arkit_to_unified[ARKit::BlendShape::MouthFrownLeft] = FT_MOUTH_FROWN_LEFT;
         arkit_to_unified[ARKit::BlendShape::MouthStretchRight] = FT_MOUTH_STRETCH_RIGHT;

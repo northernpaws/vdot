@@ -22,7 +22,7 @@ class VTSFaceTracker : public FaceTracker {
 
   public:
     VTSFaceTracker() = default;
-    explicit VTSFaceTracker( const godot::String& p_address, uint32_t p_port );
+    explicit VTSFaceTracker( const godot::String &p_address, uint32_t p_port );
     ~VTSFaceTracker() override;
 };
 

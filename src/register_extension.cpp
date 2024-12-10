@@ -2,15 +2,32 @@
 
 #include <gdextension_interface.h>
 
+#include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
-#include <godot_cpp/classes/scene_tree.hpp>
 
 #include "vdot.h"
 
 #include <CubismFramework.hpp>
 #include <godot_cpp/classes/os.hpp>
+
+#include "tracking/tracker.h"
+#include "tracking/tracker_face.h"
+#include "tracking/tracking_interface.h"
+#include "tracking/tracking_server.h"
+#include "tracking/tracking_manager_node.h"
+
+#include "tracking/editor/editor_plugin.h"
+#include "tracking/editor/trackers/face_tracker_panel.h"
+
+#include "models/model.h"
+#include "models/model_parameter.h"
+
+#include "models/2d/model_2d.h"
+
+#include "avatar.h"
+#include "avatar_parameter.h"
 
 #include "models/2d/live2d/cubism_effect.h"
 #include "models/2d/live2d/cubism_effect_breath.h"
@@ -25,14 +42,6 @@
 #include "models/2d/live2d/cubism_value_part_opacity.h"
 #include "models/2d/live2d/renderer/cubism_allocator.h"
 
-#include "tracking/tracker.h"
-#include "tracking/tracker_face.h"
-#include "tracking/tracking_interface.h"
-#include "tracking/tracking_server.h"
-
-#include "tracking/editor/editor_plugin.h"
-#include "tracking/editor/trackers/face_tracker_panel.h"
-
 #include "tracking/interfaces/live_link/editor_plugin.h"
 #include "tracking/interfaces/live_link/live_link_face_tracker.h"
 #include "tracking/interfaces/live_link/live_link_interface.h"
@@ -40,7 +49,7 @@
 #include "tracking/interfaces/live_link/live_link_server.h"
 
 #include "tracking/interfaces/vts/vts_interface.h"
-#include "tracking/tracking_manager_node.h"
+
 
 #include "integrations/tracking/live2d/cubism_effect_face_tracking.h"
 
@@ -78,10 +87,14 @@ namespace {
 
             GDREGISTER_ABSTRACT_CLASS( TrackingInterface )
             GDREGISTER_CLASS( TrackingServer )
-
         }
 
         if ( p_level == MODULE_INITIALIZATION_LEVEL_SCENE ) {
+            ClassDB::register_class<VDot>();
+
+            // ====================
+            // Tracking
+
             GDREGISTER_CLASS( TrackingManagerNode )
 
             // Register the tracking server as a singleton.
@@ -92,13 +105,18 @@ namespace {
             Engine::get_singleton()->register_singleton( "TrackingServer",
                                                          TrackingServer::get_singleton() );
 
-            //            ClassDB::register_class<ExampleRef>();
-            //            ClassDB::register_class<ExampleMin>();
-            //            ClassDB::register_class<Example>();
-            //            ClassDB::register_class<ExampleVirtual>( true );
-            //            ClassDB::register_abstract_class<ExampleAbstract>();
+            // ====================
+            // Models
 
-            ClassDB::register_class<VDot>();
+            GDREGISTER_CLASS( ModelParameter )
+            GDREGISTER_CLASS( Model )
+            GDREGISTER_CLASS( Model2D )
+
+            // ====================
+            // Avatar
+
+            GDREGISTER_CLASS( AvatarParameter )
+            GDREGISTER_CLASS( Avatar )
 
             // ====================
             // LiveLinkFace Tracking
@@ -129,9 +147,12 @@ namespace {
 
             // A little hacky, but the best way we were able to find
             //  to inject a process loop call for the tracking server.
-//            auto* main_loop = godot::Engine::get_singleton()->get_main_loop();
-//            auto* scene_tree = godot::Object::cast_to<godot::SceneTree>(main_loop);
-//            scene_tree->connect("process_frame", godot::Callable(tracking_server, "_process"));
+            //            auto* main_loop = godot::Engine::get_singleton()->get_main_loop();
+            //            auto* scene_tree = godot::Object::cast_to<godot::SceneTree>(main_loop);
+            //            scene_tree->connect("process_frame", godot::Callable(tracking_server,
+            //            "_process"));
+
+
 
             // ====================
             // Live2D Models
@@ -162,13 +183,9 @@ namespace {
             GDREGISTER_CLASS( CubismMotionEntry )
             GDREGISTER_CLASS( CubismModel )
 
-
-
-
             // Integrations
 
             GDREGISTER_CLASS( CubismEffectFaceTracking )
-
         }
 
         if ( p_level == MODULE_INITIALIZATION_LEVEL_EDITOR ) {

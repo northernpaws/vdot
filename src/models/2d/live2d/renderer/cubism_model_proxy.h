@@ -40,7 +40,7 @@ class CubismModelProxy : public Csm::CubismUserModel {
     CubismModel *_owner_viewport = nullptr;
     godot::Node *_parent_node = nullptr;
 
-//  private:
+    //  private:
     CubismRenderer _renderer_resource;
     CubismModel::moc3FileFormatVersion _moc3_file_format_version;
     godot::String _model_pathname;

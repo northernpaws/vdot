@@ -42,7 +42,7 @@ class TrackingServer : public godot::Object {
     TrackingServer();
     ~TrackingServer() override;
 
-    void _notification(int p_what);
+    void _notification( int p_what );
 
     void _process();
 
@@ -57,8 +57,6 @@ class TrackingServer : public godot::Object {
     void remove_tracker( const godot::Ref<Tracker> &p_tracker );
     godot::Dictionary get_trackers( TrackerType p_tracker_types );
     godot::Ref<Tracker> get_tracker( const godot::StringName &p_name ) const;
-
-
 };
 
 VARIANT_ENUM_CAST( TrackingServer::TrackerType );

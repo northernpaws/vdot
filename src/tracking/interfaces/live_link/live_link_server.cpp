@@ -775,7 +775,7 @@ void LiveLinkClient::_bind_methods() {
 }
 
 LiveLinkClient::LiveLinkClient() {
-    _values = godot::Ref<LiveLinkClientData>(memnew(LiveLinkClientData));
+    _values = godot::Ref<LiveLinkClientData>( memnew( LiveLinkClientData ) );
 }
 
 LiveLinkClient::~LiveLinkClient() {
@@ -824,7 +824,7 @@ LiveLinkServer::~LiveLinkServer() {
     }
 
     memdelete( _server_mutex );
-    if (_thread) {
+    if ( _thread ) {
         memdelete( _thread );
     }
 }

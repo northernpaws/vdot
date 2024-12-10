@@ -13,10 +13,11 @@ class TrackingManagerNode : public godot::Node {
     GDCLASS( TrackingManagerNode, godot::Node )
   protected:
     static void _bind_methods();
+
   public:
     void _enter_tree() override;
 
-    void _process(double p_delta) override;
+    void _process( double p_delta ) override;
 
     [[nodiscard]] godot::PackedStringArray _get_configuration_warnings() const override;
 };

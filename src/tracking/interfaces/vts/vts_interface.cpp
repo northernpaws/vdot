@@ -5,18 +5,15 @@
 #include "vts_face_tracker.h"
 #include "vts_interface.h"
 
-VTSInterface* VTSInterface::singleton = nullptr;
+VTSInterface *VTSInterface::singleton = nullptr;
 
-
-VTSInterface* VTSInterface::get_singleton() {
+VTSInterface *VTSInterface::get_singleton() {
     return singleton;
 }
 
 void VTSInterface::_bind_methods() {
-    godot::ClassDB::bind_method( godot::D_METHOD( "initialize" ),
-                                 &VTSInterface::initialize );
-    godot::ClassDB::bind_method( godot::D_METHOD( "uninitialize" ),
-                                 &VTSInterface::uninitialize );
+    godot::ClassDB::bind_method( godot::D_METHOD( "initialize" ), &VTSInterface::initialize );
+    godot::ClassDB::bind_method( godot::D_METHOD( "uninitialize" ), &VTSInterface::uninitialize );
     godot::ClassDB::bind_method( godot::D_METHOD( "is_initialized" ),
                                  &VTSInterface::is_initialized );
 
@@ -59,17 +56,19 @@ void VTSInterface::uninitialize() {
 void VTSInterface::process() {
 }
 
-godot::Ref<VTSFaceTracker> VTSInterface::register_tracker(const godot::String& address, uint16_t port) {
-    ERR_FAIL_COND_V_MSG(_initialized == false, nullptr, "VTS Interface needs to be initialized.");
+godot::Ref<VTSFaceTracker> VTSInterface::register_tracker( const godot::String &address,
+                                                           uint16_t port ) {
+    ERR_FAIL_COND_V_MSG( _initialized == false, nullptr, "VTS Interface needs to be initialized." );
 
-    godot::Ref<VTSFaceTracker> tracker = memnew(VTSFaceTracker);
+    godot::Ref<VTSFaceTracker> tracker = memnew( VTSFaceTracker );
 
     // Add the tracker to the tracker dictionary.
     _trackers[tracker->get_tracker_name()] = tracker;
 
     // Register the tracker with the tracking server.
     TrackingServer *server = TrackingServer::get_singleton();
-    ERR_FAIL_NULL_V_MSG(server, nullptr, "Expected tracking server to be initialized to register VTS tracker.");
+    ERR_FAIL_NULL_V_MSG( server, nullptr,
+                         "Expected tracking server to be initialized to register VTS tracker." );
     server->add_tracker( tracker );
 
     return tracker;

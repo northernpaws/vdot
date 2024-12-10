@@ -30,11 +30,12 @@ class FaceTracker : public Tracker {
     void set_blend_shape( UnifiedExpressions::BlendShape blend_shape, float weight );
 
     [[nodiscard]] godot::PackedFloat32Array get_blend_shapes() const;
-    void set_blend_shapes(const godot::PackedFloat32Array &p_blend_shapes);
+    void set_blend_shapes( const godot::PackedFloat32Array &p_blend_shapes );
 
-    godot::StringName get_blend_shape_name(UnifiedExpressions::BlendShape blend_shape);
+    godot::StringName get_blend_shape_name( UnifiedExpressions::BlendShape blend_shape );
 
-    [[nodiscard]] UnifiedExpressions::BlendShape get_arkit_blend_shape( ARKit::BlendShape blend_shape ) const;
+    [[nodiscard]] UnifiedExpressions::BlendShape get_arkit_blend_shape(
+        ARKit::BlendShape blend_shape ) const;
     [[nodiscard]] float get_arkit_blend_shape_weight( ARKit::BlendShape blend_shape ) const;
 };
 
