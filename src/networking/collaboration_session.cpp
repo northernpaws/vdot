@@ -26,6 +26,11 @@ void CollaborationSession::_bind_methods() {
                                                    godot::PropertyHint::PROPERTY_HINT_TYPE_STRING,
                                                    Avatar::get_class_static() ) ) );
 
+    godot::ClassDB::bind_method( godot::D_METHOD( "start_server" ),
+                                 &CollaborationSession::start_server );
+    godot::ClassDB::bind_method( godot::D_METHOD( "connect_to_server", "address", "port" ),
+                                 &CollaborationSession::connect_to_server );
+
     godot::ClassDB::bind_method( godot::D_METHOD( "_client_connected_to_server" ),
                                  &CollaborationSession::_client_connected_to_server );
     godot::ClassDB::bind_method( godot::D_METHOD( "_client_connection_failed" ),

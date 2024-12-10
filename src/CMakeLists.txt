@@ -25,8 +25,6 @@ target_sources(${PROJECT_NAME}
         avatar/avatar.cpp
 
         networking/collaboration_peer.cpp
-        networking/collaboration_server.cpp
-        networking/collaboration_client.cpp
         networking/collaboration_session.cpp
 
         tracking/interfaces/live_link/live_link_server.cpp
