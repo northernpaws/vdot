@@ -12,18 +12,18 @@
 #include <CubismFramework.hpp>
 #include <godot_cpp/classes/os.hpp>
 
-#include "models/live2d/cubism_effect.h"
-#include "models/live2d/cubism_effect_breath.h"
-#include "models/live2d/cubism_effect_custom.h"
-#include "models/live2d/cubism_effect_eye_blink.h"
-#include "models/live2d/cubism_effect_hit_area.h"
-#include "models/live2d/cubism_effect_target_point.h"
-#include "models/live2d/cubism_model.h"
-#include "models/live2d/cubism_motion_entry.h"
-#include "models/live2d/cubism_value_abs.h"
-#include "models/live2d/cubism_value_parameter.h"
-#include "models/live2d/cubism_value_part_opacity.h"
-#include "models/live2d/renderer/cubism_allocator.h"
+#include "models/2d/live2d/cubism_effect.h"
+#include "models/2d/live2d/cubism_effect_breath.h"
+#include "models/2d/live2d/cubism_effect_custom.h"
+#include "models/2d/live2d/cubism_effect_eye_blink.h"
+#include "models/2d/live2d/cubism_effect_hit_area.h"
+#include "models/2d/live2d/cubism_effect_target_point.h"
+#include "models/2d/live2d/cubism_model.h"
+#include "models/2d/live2d/cubism_motion_entry.h"
+#include "models/2d/live2d/cubism_value_abs.h"
+#include "models/2d/live2d/cubism_value_parameter.h"
+#include "models/2d/live2d/cubism_value_part_opacity.h"
+#include "models/2d/live2d/renderer/cubism_allocator.h"
 
 #include "tracking/tracker.h"
 #include "tracking/tracker_face.h"
@@ -41,6 +41,8 @@
 
 #include "tracking/interfaces/vts/vts_interface.h"
 #include "tracking/tracking_manager_node.h"
+
+#include "integrations/tracking/live2d/cubism_effect_face_tracking.h"
 
 using namespace godot;
 
@@ -159,6 +161,14 @@ namespace {
             GDREGISTER_CLASS( CubismMotionQueueEntryHandle )
             GDREGISTER_CLASS( CubismMotionEntry )
             GDREGISTER_CLASS( CubismModel )
+
+
+
+
+            // Integrations
+
+            GDREGISTER_CLASS( CubismEffectFaceTracking )
+
         }
 
         if ( p_level == MODULE_INITIALIZATION_LEVEL_EDITOR ) {
