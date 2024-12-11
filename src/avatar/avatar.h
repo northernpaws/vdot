@@ -63,6 +63,8 @@ class Avatar : public godot::Sprite2D {
      */
     void _apply_parameter( const godot::StringName &p_id, float p_value );
 
+    [[nodiscard]] Model * get_model() const;
+
     /**
      * Pack the avatar and it's resources into a bundle for transmission.
      *
@@ -70,7 +72,7 @@ class Avatar : public godot::Sprite2D {
      *
      * @return the avatar bundle
      */
-    godot::Ref<AvatarBundle> pack_bundle() const;
+    [[nodiscard]] godot::Ref<AvatarBundle> pack_bundle() const;
 
     void _child_entered_tree(godot::Node* p_node);
     void _child_exiting_tree(godot::Node* p_node);

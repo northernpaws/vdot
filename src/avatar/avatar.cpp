@@ -28,6 +28,9 @@ void Avatar::_bind_methods() {
     godot::ClassDB::bind_method( godot::D_METHOD( "_apply_parameter", "id", "value" ),
                                  &Avatar::_apply_parameter );
 
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_model" ),
+                                 &Avatar::get_model );
+
     godot::ClassDB::bind_method( godot::D_METHOD( "_child_entered_tree", "node" ),
                                  &Avatar::_child_entered_tree );
     godot::ClassDB::bind_method( godot::D_METHOD( "_child_exiting_tree", "node" ),
@@ -134,6 +137,10 @@ void Avatar::_process_parameters( double delta ) {
     emit_signal( "parameters_evaluated", parameters );
 }
 
+Model * Avatar::get_model() const {
+    return model;
+}
+
 godot::PackedStringArray Avatar::_get_configuration_warnings() const {
     godot::PackedStringArray warnings;
 
@@ -179,8 +186,16 @@ godot::Ref<AvatarBundle> Avatar::pack_bundle() const {
 
     bundle->set_avatar_name( "Unnamed" );
 
-    // TODO: pack and add models
-    // bundle->add_model
+    // TODO: pack avatar parameters
+
+    if (model != nullptr) {
+        auto model_bundle = model->pack_bundle();
+        ERR_FAIL_COND_V_MSG(model_bundle.is_null(), {}, "Failed to pack model for avatar bundle.");
+
+        bundle->add_model(model_bundle);
+    } else {
+        WARN_PRINT("No model is loaded for the Avatar. Packing the avatar to a bundle will effectively be blank.");
+    }
 
     return bundle;
 }

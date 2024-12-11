@@ -41,6 +41,6 @@ godot::TypedArray<ModelBundle> AvatarBundle::get_models() const {
     return models;
 }
 
-void AvatarBundle::add_model( const godot::TypedArray<ModelBundle> &p_model ) {
+void AvatarBundle::add_model( const godot::Ref<ModelBundle> &p_model ) {
     models.append( p_model );
 }

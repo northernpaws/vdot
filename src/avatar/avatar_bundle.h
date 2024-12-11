@@ -28,7 +28,7 @@ class AvatarBundle : public godot::Resource {
 
     void set_models( const godot::TypedArray<ModelBundle> &p_models );
     [[nodiscard]] godot::TypedArray<ModelBundle> get_models() const;
-    void add_model( const godot::TypedArray<ModelBundle> &p_model );
+    void add_model( const godot::Ref<ModelBundle> &p_model );
 };
 
 #endif // VDOT_AVATAR_BUNDLE_H
