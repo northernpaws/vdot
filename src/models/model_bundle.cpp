@@ -146,21 +146,29 @@ bool ModelBundle::_set(const godot::StringName &p_name, const godot::Variant &p_
 }
 
 bool ModelBundle::_get(const godot::StringName &p_name, godot::Variant &r_property) const {
-    godot::String prop_name = p_name;
-    godot::String path = prop_name.get_slicec('/', 1);
-    ERR_FAIL_COND_V(!files.has(path), false);
-    godot::String what = prop_name.get_slicec('/', 2);
+    if (p_name.begins_with("file/")) {
+        godot::String prop_name = p_name;
+        godot::String path = prop_name.get_slicec( '/', 1 );
+        ERR_FAIL_COND_V( !files.has( path ), false );
+        godot::String what = prop_name.get_slicec( '/', 2 );
 
-    if (what == "data") {
-        r_property = get_file_data(path);
-    } else {
-        return false;
+        if ( what == "data" ) {
+            r_property = get_file_data( path );
+        } else {
+            return false;
+        }
+
+        return true;
     }
 
-    return true;
+    return false;
 }
 
 void ModelBundle::_get_property_list(godot::List<godot::PropertyInfo> *p_list) const {
+    p_list->push_back( godot::PropertyInfo( godot::Variant::STRING, "Bundle Files",
+                                            godot::PROPERTY_HINT_NONE, "",
+                                            godot::PROPERTY_USAGE_GROUP ) );
+
     for (const godot::KeyValue<godot::String, BundleFile> &file : files) {
         godot::String prop_name = vformat("%s/%s/", "file", file.key);
         p_list->push_back(godot::PropertyInfo(godot::Variant::PACKED_BYTE_ARRAY, prop_name + "data"));
@@ -190,57 +198,4 @@ godot::Error ModelBundle::unpack_bundle( const godot::String &p_path ) {
 
 godot::Error ModelBundle::pack_bundle( const godot::String &p_path ) {
     return add_directory(p_path, p_path, true);
-}
-
-godot::PackedStringArray ModelBundleResourceFormatLoader::_get_recognized_extensions() const {
-    godot::PackedStringArray extensions;
-
-    extensions.push_back( "model.zip" );
-
-    return extensions;
-}
-
-bool ModelBundleResourceFormatLoader::_handles_type( const godot::StringName &p_type ) const {
-    // allows handling any derived resource types.
-    return godot::ClassDB::is_parent_class( p_type, ModelBundle::get_class_static() );
-}
-
-godot::Variant ModelBundleResourceFormatLoader::_load( const godot::String &p_path,
-                                                       const godot::String &p_original_path,
-                                                       bool p_use_sub_threads,
-                                                       int32_t p_cache_mode ) const {
-    godot::ResourceLoader::get_singleton()
-
-    return bundle;
-}
-
-godot::String ModelBundleResourceFormatLoader::_get_resource_type(
-    const godot::String &p_path ) const {
-    return ModelBundle::get_class_static();
-}
-
-godot::Error ModelBundleResourceFormatSaver::_save( const godot::Ref<godot::Resource> &p_resource,
-                                                    const godot::String &p_path,
-                                                    uint32_t p_flags ) {
-    godot::Ref<ModelBundle> bundle = p_resource;
-
-    godot::Error error = bundle->save_bundle( p_path );
-
-    return error;
-}
-
-bool ModelBundleResourceFormatSaver::_recognize(
-    const godot::Ref<godot::Resource> &p_resource ) const {
-    return godot::Object::cast_to<ModelBundle>( *p_resource ) != nullptr;
-}
-
-godot::PackedStringArray ModelBundleResourceFormatSaver::_get_recognized_extensions(
-    const godot::Ref<godot::Resource> &p_resource ) const {
-    godot::PackedStringArray extensions;
-
-    if ( godot::Object::cast_to<ModelBundle>( *p_resource ) ) {
-        extensions.push_back( "model.zip" );
-    }
-
-    return extensions;
 }

@@ -50,36 +50,6 @@ class ModelBundle : public godot::Resource {
     godot::Error pack_bundle( const godot::String &p_path );
 };
 
-class ModelBundleResourceFormatLoader : public godot::ResourceFormatLoader {
-    GDCLASS( ModelBundleResourceFormatLoader, godot::ResourceFormatLoader )
-  protected:
-    static void _bind_methods() {
-    }
-
-  public:
-    virtual godot::PackedStringArray _get_recognized_extensions() const override;
-    virtual bool _handles_type( const godot::StringName &p_type ) const override;
-
-    virtual godot::Variant _load( const godot::String &p_path, const godot::String &p_original_path,
-                                  bool p_use_sub_threads, int32_t p_cache_mode ) const override;
-
-    virtual godot::String _get_resource_type( const godot::String &p_path ) const override;
-};
-
-class ModelBundleResourceFormatSaver : public godot::ResourceFormatSaver {
-    GDCLASS( ModelBundleResourceFormatSaver, godot::ResourceFormatSaver )
-  protected:
-    static void _bind_methods() {
-    }
-
-  public:
-    godot::Error _save( const godot::Ref<godot::Resource> &p_resource, const godot::String &p_path,
-                        uint32_t p_flags ) override;
-    bool _recognize( const godot::Ref<godot::Resource> &p_resource ) const override;
-    godot::PackedStringArray _get_recognized_extensions(
-        const godot::Ref<godot::Resource> &p_resource ) const override;
-};
-
 namespace godot {
     // TODO: Ideally we'd use MAKE_TYPED_ARRAY and MAKE_TYPED_ARRAY_INFO, but in C++ they're
     // undef'ed

@@ -95,4 +95,6 @@ godot::Error Live2DModelBundle::pack_from_model3(const godot::String& p_path) {
                                  godot::vformat( "Failed to pack motion: %s", motion_filename ) );
         }
     }
+
+    return godot::OK;
 }

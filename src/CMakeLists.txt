@@ -19,13 +19,14 @@ target_sources(${PROJECT_NAME}
         models/2d/model_2d.cpp
         models/model_parameter.cpp
         models/model_bundle.cpp
-        models/model_format.cpp
         models/model.cpp
 
         avatar/avatar_parameter.cpp
         avatar/avatar_parameter_eval.cpp
         avatar/avatar_bundle.cpp
         avatar/avatar.cpp
+
+        avatar/avatar_manager.cpp
 
         networking/collaboration_peer.cpp
         networking/collaboration_session.cpp
@@ -46,7 +47,6 @@ target_sources(${PROJECT_NAME}
         models/2d/live2d/renderer/cubism_renderer_impl.cpp
         models/2d/live2d/cubism_effect.cpp
         models/2d/live2d/cubism_model.cpp
-        models/2d/live2d/live2d_model_format.cpp
         models/2d/live2d/live2d_model_bundle.cpp
 
         vdot.h

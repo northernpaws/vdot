@@ -11,7 +11,9 @@ void Model::_bind_methods() {
                                  &Model::get_model_parameters );
     ADD_PROPERTY( godot::PropertyInfo(
                       godot::Variant::ARRAY, "model_parameters", godot::PROPERTY_HINT_TYPE_STRING,
-                      ModelParameter::get_class_static(), godot::PROPERTY_USAGE_READ_ONLY ),
+                      godot::String::num( godot::Variant::OBJECT ) + "/" +
+                          godot::String::num( godot::PROPERTY_HINT_RESOURCE_TYPE ) + ":" +
+                          ModelParameter::get_class_static(), godot::PROPERTY_USAGE_READ_ONLY | godot::PROPERTY_USAGE_EDITOR ),
                   godot::String(), "get_model_parameters" );
 
     godot::ClassDB::bind_method( godot::D_METHOD( "_on_property_updated" ),
@@ -24,7 +26,7 @@ void Model::_add_parameter( const godot::Ref<ModelParameter> &p_parameter ) {
     p_parameter->connect( "value_updated", godot::Callable( this, "_on_property_updated" ) );
 }
 
-godot::TypedArray<godot::Ref<ModelParameter>> Model::get_model_parameters() const {
+godot::TypedArray<ModelParameter> Model::get_model_parameters() const {
     return parameters;
 }
 

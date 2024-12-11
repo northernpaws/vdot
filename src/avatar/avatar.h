@@ -7,6 +7,7 @@
 
 #include "models/model.h"
 
+#include "avatar_bundle.h"
 #include "avatar_parameter.h"
 #include "avatar_parameter_eval.h"
 
@@ -18,13 +19,12 @@
 class Avatar : public godot::Sprite2D {
     GDCLASS( Avatar, godot::Sprite2D )
   protected:
-    godot::TypedArray<godot::Ref<AvatarParameter>> parameters;
+    godot::TypedArray<AvatarParameter> parameters;
     godot::HashMap<godot::StringName, godot::Ref<AvatarParameterEval>> parameter_values;
 
     Model *model;
 
     static void _bind_methods();
-
   public:
     Avatar();
     ~Avatar() override;
@@ -40,6 +40,15 @@ class Avatar : public godot::Sprite2D {
     void set_avatar_parameters( const godot::TypedArray<AvatarParameter> &p_parameters );
 
     void _apply_parameter( const godot::StringName &p_id, float p_value );
+
+    /**
+     * Pack the avatar and it's resources into a bundle for transmission.
+     *
+     * Primarily intended for use with networked collaboration sessions.
+     *
+     * @return the avatar bundle
+     */
+    godot::Ref<AvatarBundle> pack_bundle() const;
 };
 
 #endif // VDOT_AVATAR_H

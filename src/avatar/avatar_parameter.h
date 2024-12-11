@@ -44,7 +44,7 @@ class AvatarParameter : public godot::Resource {
 namespace godot {
     // TODO: Ideally we'd use MAKE_TYPED_ARRAY and MAKE_TYPED_ARRAY_INFO, but in C++ they're
     // undef'ed
-    template <> class TypedArray<godot::Ref<AvatarParameter>> : public Array {
+    template <> class TypedArray<AvatarParameter> : public Array {
       public:
         _FORCE_INLINE_ void operator=( const Array &p_array ) {
             ERR_FAIL_COND_MSG( !is_same_typed( p_array ),
@@ -66,23 +66,23 @@ namespace godot {
         }
     };
 
-    template <> struct GetTypeInfo<TypedArray<godot::Ref<AvatarParameter>>> {
+    template <> struct GetTypeInfo<TypedArray<AvatarParameter>> {
         static constexpr GDExtensionVariantType VARIANT_TYPE = GDEXTENSION_VARIANT_TYPE_ARRAY;
         static constexpr GDExtensionClassMethodArgumentMetadata METADATA =
             GDEXTENSION_METHOD_ARGUMENT_METADATA_NONE;
         static inline PropertyInfo get_class_info() {
             return make_property_info( Variant::Type::ARRAY, "", PROPERTY_HINT_ARRAY_TYPE,
-                                       AvatarParameter::get_class_static() );
+                                       Variant::get_type_name(godot::Variant::OBJECT).utf8().get_data() );
         }
     };
 
-    template <> struct GetTypeInfo<const TypedArray<godot::Ref<AvatarParameter>> &> {
+    template <> struct GetTypeInfo<const TypedArray<AvatarParameter> &> {
         static constexpr GDExtensionVariantType VARIANT_TYPE = GDEXTENSION_VARIANT_TYPE_ARRAY;
         static constexpr GDExtensionClassMethodArgumentMetadata METADATA =
             GDEXTENSION_METHOD_ARGUMENT_METADATA_NONE;
         static inline PropertyInfo get_class_info() {
             return make_property_info( Variant::Type::ARRAY, "", PROPERTY_HINT_ARRAY_TYPE,
-                                       AvatarParameter::get_class_static() );
+                                       Variant::get_type_name(godot::Variant::OBJECT).utf8().get_data() );
         }
     };
 };

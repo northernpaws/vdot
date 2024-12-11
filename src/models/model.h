@@ -21,7 +21,7 @@ class Model : public godot::SubViewport {
     void _on_property_updated( const godot::StringName &p_name, float p_value );
 
   protected:
-    godot::TypedArray<godot::Ref<ModelParameter>> parameters;
+    godot::TypedArray<ModelParameter> parameters;
 
     static void _bind_methods();
 
@@ -30,7 +30,7 @@ class Model : public godot::SubViewport {
   public:
     Model() = default;
 
-    [[nodiscard]] godot::TypedArray<godot::Ref<ModelParameter>> get_model_parameters() const;
+    [[nodiscard]] godot::TypedArray<ModelParameter> get_model_parameters() const;
 
     bool _set( const godot::StringName &p_name, const godot::Variant &p_value );
     bool _get( const godot::StringName &p_name, godot::Variant &r_ret ) const;
@@ -40,6 +40,9 @@ class Model : public godot::SubViewport {
 
     /**
      * Returns a model bundle for the currently loaded model assets.
+     *
+     * Primarily intended for use with networked collaboration sessions.
+     *
      * @return the packed model bundle.
      */
     virtual godot::Ref<ModelBundle> pack_bundle() { return {}; };
