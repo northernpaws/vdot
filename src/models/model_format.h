@@ -17,6 +17,9 @@ class ModelFormat : public godot::RefCounted {
     static void _bind_methods();
   public:
 
+    virtual godot::String get_format_loader_name() const { return godot::String(); }
+    virtual godot::String get_format_loader_description() const { return godot::String(); }
+
     /**
      * Returns the list of file extensions that can be loaded by this format.
      * @return the recognized file extensions

@@ -5,9 +5,21 @@
 #include "live2d_model_format.h"
 
 void Live2DModelFormat::_bind_methods() {
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_format_loader_name" ),
+                                 &Live2DModelFormat::get_format_loader_name );
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_format_loader_description" ),
+                                 &Live2DModelFormat::get_format_loader_description );
+
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_recognized_extensions" ),
+                                 &Live2DModelFormat::get_recognized_extensions );
+    godot::ClassDB::bind_method( godot::D_METHOD( "load_from_path" ),
+                                 &Live2DModelFormat::load_from_path );
+
     godot::ClassDB::bind_method( godot::D_METHOD( "get_supported_formats" ),
                                  &Live2DModelFormat::get_supported_formats );
-    godot::ClassDB::bind_method( godot::D_METHOD( "create_from_bundle", "bundle" ),
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_bundle_type" ),
+                                 &Live2DModelFormat::get_bundle_type );
+    godot::ClassDB::bind_method( godot::D_METHOD( "create_from_bundle" ),
                                  &Live2DModelFormat::create_from_bundle );
 }
 
