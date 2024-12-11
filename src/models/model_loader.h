@@ -26,9 +26,10 @@ class ModelLoader : public godot::Object {
 
     ModelLoader();
 
+    godot::TypedArray<ModelFormat> get_model_formats() const;
     void add_model_format(const godot::Ref<ModelFormat>& p_format);
 
-    [[nodiscard]] godot::Ref<ModelFormat> find_format_by_extension(const godot::String& p_extension) const;
+    [[nodiscard]] godot::Ref<ModelFormat> find_format_by_path(const godot::String& p_path) const;
     [[nodiscard]] Model* load_from_path(const godot::String& p_path) const;
 
     [[nodiscard]] godot::Ref<ModelFormat> find_format(const godot::String& p_format) const;

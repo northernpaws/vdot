@@ -7,10 +7,13 @@
 ModelLoader* ModelLoader::singleton = nullptr;
 
 void ModelLoader::_bind_methods() {
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_model_formats" ),
+                                 &ModelLoader::get_model_formats );
     godot::ClassDB::bind_method( godot::D_METHOD( "add_model_format", "model_format" ),
                                  &ModelLoader::add_model_format );
-    godot::ClassDB::bind_method( godot::D_METHOD( "find_format_by_extension", "extension" ),
-                                 &ModelLoader::find_format_by_extension );
+
+    godot::ClassDB::bind_method( godot::D_METHOD( "find_format_by_path", "path" ),
+                                 &ModelLoader::find_format_by_path );
     godot::ClassDB::bind_method( godot::D_METHOD( "load_from_path", "path" ),
                                  &ModelLoader::load_from_path );
     godot::ClassDB::bind_method( godot::D_METHOD( "find_format", "format_name" ),
@@ -25,11 +28,15 @@ ModelLoader::ModelLoader() {
     singleton = this;
 }
 
+godot::TypedArray<ModelFormat> ModelLoader::get_model_formats() const {
+    return formats;
+}
+
 void ModelLoader::add_model_format(const godot::Ref<ModelFormat>& p_format) {
     formats.push_back(p_format);
 }
 
-godot::Ref<ModelFormat> ModelLoader::find_format_by_extension(const godot::String& p_extension) const {
+godot::Ref<ModelFormat> ModelLoader::find_format_by_path(const godot::String& p_path) const {
     godot::Ref<ModelFormat> ret = nullptr;
 
     for (int i = 0; i < formats.size(); i++) {
@@ -37,10 +44,15 @@ godot::Ref<ModelFormat> ModelLoader::find_format_by_extension(const godot::Strin
 
         auto recognized_extensions = format->get_recognized_extensions();
         for (const auto& extension : recognized_extensions) {
-            if (extension == p_extension) {
+            if (extension == p_path.get_extension()) {
                 ret = format;
                 break;
             }
+        }
+
+        if (format->can_handle_path(p_path)) {
+            ret = format;
+            break;
         }
 
         if (ret.is_valid()) {
@@ -52,8 +64,9 @@ godot::Ref<ModelFormat> ModelLoader::find_format_by_extension(const godot::Strin
 }
 
 Model* ModelLoader::load_from_path(const godot::String& p_path) const {
-    godot::Ref<ModelFormat> model_format = find_format_by_extension(p_path.get_extension());
-    ERR_FAIL_COND_V_MSG(!model_format.is_valid(), nullptr, "Couldn't find model format to for extension.");
+    godot::Ref<ModelFormat> model_format = find_format_by_path(p_path);
+    ERR_FAIL_COND_V_MSG(!model_format.is_valid(), nullptr,
+                         godot::vformat("Couldn't find model format for extension '%s'.", p_path.get_extension()));
 
     auto model = model_format->load_from_path(p_path);
     ERR_FAIL_COND_V_MSG(model == nullptr, nullptr, "Failed to load model from path.");

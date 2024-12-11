@@ -31,10 +31,11 @@ godot::PackedStringArray Live2DModelFormat::get_recognized_extensions() const {
     return extensions;
 }
 
-Model* Live2DModelFormat::load_from_path(const godot::String& p_path) const {
-    ERR_FAIL_COND_V_MSG(p_path.get_extension() != "model3.json", nullptr,
-                         godot::vformat("Expected model3.json filepath, got %s", p_path.get_extension()));
+bool Live2DModelFormat::can_handle_path(const godot::String& p_path) const {
+    return p_path.ends_with("model3.json");
+}
 
+Model* Live2DModelFormat::load_from_path(const godot::String& p_path) const {
     CubismModel* model = memnew(CubismModel);
 
     // Load the model assets from the model3 file.

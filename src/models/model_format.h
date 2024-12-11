@@ -29,6 +29,14 @@ class ModelFormat : public godot::RefCounted {
     }
 
     /**
+     * Alternative matches that's checked if get_recognized_extensions doesn't pass.
+     * @return if the format can handle the specified path
+     */
+    [[nodiscard]] virtual bool can_handle_path(const godot::String& p_path) const {
+        return false;
+    }
+
+    /**
      * Creates a model node from model sources at the provided filepath.
      * @param p_path the path to create the model from
      * @return the created model node

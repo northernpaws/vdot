@@ -20,6 +20,8 @@ class Live2DModelFormat : public ModelFormat {
     }
 
     [[nodiscard]] godot::PackedStringArray get_recognized_extensions() const override;
+    [[nodiscard]] bool can_handle_path(const godot::String& p_path) const override;
+
     [[nodiscard]] Model* load_from_path(const godot::String& p_path) const override;
 
     [[nodiscard]] godot::PackedStringArray get_supported_formats() const override;
