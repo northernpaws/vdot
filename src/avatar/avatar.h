@@ -3,6 +3,7 @@
 #define VDOT_AVATAR_H
 
 #include <godot_cpp/classes/sprite2d.hpp>
+#include <godot_cpp/classes/viewport_texture.hpp>
 #include <godot_cpp/templates/hash_map.hpp>
 
 #include "models/model.h"
@@ -22,6 +23,8 @@ class Avatar : public godot::Sprite2D {
     godot::TypedArray<AvatarParameter> parameters;
     godot::HashMap<godot::StringName, godot::Ref<AvatarParameterEval>> parameter_values;
 
+    godot::Ref<godot::ViewportTexture> viewport_texture;
+
     Model *model;
 
     static void _bind_methods();
@@ -30,6 +33,10 @@ class Avatar : public godot::Sprite2D {
     Avatar();
     ~Avatar() override;
 
+    void _validate_property(godot::PropertyInfo &p_property) const;
+
+    void _notification(int p_what);
+
     void _ready() override;
     void _process( double delta ) override;
 
@@ -37,9 +44,23 @@ class Avatar : public godot::Sprite2D {
 
     [[nodiscard]] godot::PackedStringArray _get_configuration_warnings() const override;
 
+    /**
+     * Retrieve the list of avatar parameters.
+     * @return list of avatar parameters
+     */
     [[nodiscard]] godot::TypedArray<AvatarParameter> get_avatar_parameters() const;
+
+    /**
+     * Set the list of parameters for the avatar.
+     * @param p_parameters new avatar parameters
+     */
     void set_avatar_parameters( const godot::TypedArray<AvatarParameter> &p_parameters );
 
+    /**
+     * Applies the parameter with the specified pre-calculated "output" value.
+     * @param p_id id of the parameter to apply
+     * @param p_value value to apply to the parameter
+     */
     void _apply_parameter( const godot::StringName &p_id, float p_value );
 
     /**
@@ -50,6 +71,9 @@ class Avatar : public godot::Sprite2D {
      * @return the avatar bundle
      */
     godot::Ref<AvatarBundle> pack_bundle() const;
+
+    void _child_entered_tree(godot::Node* p_node);
+    void _child_exiting_tree(godot::Node* p_node);
 };
 
 #endif // VDOT_AVATAR_H
