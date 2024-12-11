@@ -11,6 +11,8 @@
 
 #include <CubismFramework.hpp>
 #include <godot_cpp/classes/os.hpp>
+#include <godot_cpp/classes/resource_loader.hpp>
+#include <godot_cpp/classes/resource_saver.hpp>
 
 #include "tracking/tracker.h"
 #include "tracking/tracker_face.h"
@@ -73,6 +75,9 @@ static TrackingServer *tracking_server = nullptr;
 static godot::Ref<LiveLinkInterface> live_link_interface = nullptr;
 static godot::Ref<VTSInterface> vts_interface = nullptr;
 
+static godot::Ref<ModelBundleResourceFormatSaver> model_saver = nullptr;
+static godot::Ref<ModelBundleResourceFormatLoader> model_loader = nullptr;
+
 namespace {
     /// @brief Called by Godot to let us register our classes with Godot.
     ///
@@ -112,7 +117,15 @@ namespace {
             // Models
 
             GDREGISTER_CLASS( ModelBundle )
+            GDREGISTER_CLASS( ModelBundleResourceFormatLoader )
+            GDREGISTER_CLASS( ModelBundleResourceFormatSaver )
             GDREGISTER_CLASS( ModelFormat )
+
+            model_saver.instantiate();
+            ResourceSaver::get_singleton()->add_resource_format_saver(model_saver);
+
+            model_loader.instantiate();
+            ResourceLoader::get_singleton()->add_resource_format_loader(model_loader);
 
             GDREGISTER_CLASS( ModelParameter )
             GDREGISTER_CLASS( Model )
@@ -220,6 +233,10 @@ namespace {
 
             Engine::get_singleton()->unregister_singleton( "TrackingServer" );
             memdelete( tracking_server );
+
+            ResourceSaver::get_singleton()->remove_resource_format_saver(model_saver);
+
+            ResourceLoader::get_singleton()->remove_resource_format_loader(model_loader);
         }
     }
 }

@@ -89,7 +89,7 @@ void Avatar::_process_parameters( double delta ) {
         // Apply the calculated parameter values to the target parameters.
         //
         // Use an RPC call to sync it over the network.
-        rpc( "_apply_parameter", parameter->get_parameter_id(), eval->value );
+        _apply_parameter( parameter->get_parameter_id(), eval->value );
     }
 
     emit_signal( "parameters_evaluated", parameters );
@@ -125,4 +125,5 @@ void Avatar::set_avatar_parameters( const godot::TypedArray<AvatarParameter> &p_
 }
 
 void Avatar::_apply_parameter( const godot::StringName &p_id, float p_value ) {
+    //    rpc( "_apply_parameter", parameter->get_parameter_id(), eval->value );
 }

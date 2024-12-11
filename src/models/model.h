@@ -6,6 +6,7 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/array.hpp>
 
+#include "model_bundle.h"
 #include "model_parameter.h"
 
 /**
@@ -36,6 +37,12 @@ class Model : public godot::SubViewport {
     bool _property_can_revert( const godot::StringName &p_name ) const;
     bool _property_get_revert( const godot::StringName &p_name, godot::Variant &r_property ) const;
     void _get_property_list( godot::List<godot::PropertyInfo> *p_list );
+
+    /**
+     * Returns a model bundle for the currently loaded model assets.
+     * @return the packed model bundle.
+     */
+    virtual godot::Ref<ModelBundle> pack_bundle() { return {}; };
 };
 
 #endif // VDOT_MODEL_H

@@ -8,6 +8,10 @@ void ModelFormat::_bind_methods() {
                                  &ModelFormat::get_format_type );
 }
 
+godot::String ModelFormat::get_model_directory_path( const godot::String &p_name ){
+    return godot::vformat( "user://bundles/models/%s", p_name )
+}
+
 godot::StringName ModelFormat::get_format_type() const {
     return format_type;
 }

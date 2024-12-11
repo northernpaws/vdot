@@ -298,6 +298,8 @@ class CubismModel : public Model2D {
 
     void _on_append_child_act( CubismEffect *node );
     void _on_remove_child_act( CubismEffect *node );
+
+    godot::Ref<ModelBundle> pack_bundle() override;
 };
 
 VARIANT_ENUM_CAST( CubismModel::moc3FileFormatVersion );

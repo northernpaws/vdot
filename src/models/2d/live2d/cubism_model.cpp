@@ -23,6 +23,7 @@
 #include "models/2d/live2d/renderer/cubism_model_proxy.h"
 
 #include "cubism_model.h"
+#include "live2d_model_bundle.h"
 
 CubismModel::CubismModel() :
     proxy_model( nullptr ), enable_load_expressions( true ), enable_load_motions( true ),
@@ -318,6 +319,8 @@ void CubismModel::set_assets( const godot::String p_assets ) {
 
     {
         Csm::CubismModel *model = this->proxy_model->GetModel();
+
+        // TODO load the DisplayInfo file to get parameter friendly names
 
         this->ary_parameter.clear();
 
@@ -1003,4 +1006,16 @@ void CubismModel::_on_remove_child_act( CubismEffect *node ) {
         }
     }
     this->cubism_effect_dirty = true;
+}
+
+godot::Ref<ModelBundle> CubismModel::pack_bundle() {
+    ERR_FAIL_COND_V_MSG(assets.is_empty(), nullptr, "Live2D assets must be loaded to pack a model bundle.");
+
+    godot::Ref<Live2DModelBundle> bundle;
+    bundle.instantiate();
+
+    auto err = bundle->pack_from_model3(assets);
+    ERR_FAIL_COND_V_MSG(err != godot::OK, nullptr, "Failed to pack .model3.json to bundle.");
+
+    return bundle;
 }

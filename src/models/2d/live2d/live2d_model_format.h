@@ -14,6 +14,10 @@ class Live2DModelFormat : public ModelFormat {
 
   public:
     Live2DModelFormat();
+
+    godot::Ref<ModelBundle> load_model( const godot::String &p_path ) const override;
+    [[nodiscard]] godot::Ref<ModelBundle> import_model(
+        const godot::String &p_path ) const override;
 };
 
 #endif // VDOT_LIVE2D_MODEL_FORMAT_H

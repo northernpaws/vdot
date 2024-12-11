@@ -34,7 +34,7 @@ class Avatar : public godot::Sprite2D {
 
     void _process_parameters( double delta );
 
-    godot::PackedStringArray _get_configuration_warnings() const override;
+    [[nodiscard]] godot::PackedStringArray _get_configuration_warnings() const override;
 
     [[nodiscard]] godot::TypedArray<AvatarParameter> get_avatar_parameters() const;
     void set_avatar_parameters( const godot::TypedArray<AvatarParameter> &p_parameters );

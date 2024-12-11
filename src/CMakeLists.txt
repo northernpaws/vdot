@@ -47,6 +47,7 @@ target_sources(${PROJECT_NAME}
         models/2d/live2d/cubism_effect.cpp
         models/2d/live2d/cubism_model.cpp
         models/2d/live2d/live2d_model_format.cpp
+        models/2d/live2d/live2d_model_bundle.cpp
 
         vdot.h
         vdot.cpp
