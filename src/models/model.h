@@ -25,7 +25,7 @@ class Model : public godot::SubViewport {
 
     static void _bind_methods();
 
-    void _add_parameter( const godot::Ref<ModelParameter> &p_parameter );
+    void _add_model_parameter( const godot::Ref<ModelParameter> &p_parameter );
 
   public:
     Model() = default;

@@ -21,7 +21,7 @@ void Model::_bind_methods() {
                                  &Model::_on_property_updated );
 }
 
-void Model::_add_parameter( const godot::Ref<ModelParameter> &p_parameter ) {
+void Model::_add_model_parameter( const godot::Ref<ModelParameter> &p_parameter ) {
     parameters.append( p_parameter );
 
     p_parameter->connect( "value_updated", godot::Callable( this, "_on_property_updated" ) );
