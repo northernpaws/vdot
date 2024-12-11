@@ -24,7 +24,7 @@ void ModelBundle::_bind_methods() {
         godot::D_METHOD( "add_directory", "path", "basepath", "recursive" ),
         &ModelBundle::add_directory );
     godot::ClassDB::bind_method( godot::D_METHOD( "add_file", "path", "basepath" ),
-                                 &ModelBundle::set_format_type );
+                                 &ModelBundle::add_file );
 
     godot::ClassDB::bind_method( godot::D_METHOD( "create_file", "path" ),
                                  &ModelBundle::create_file );

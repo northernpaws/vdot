@@ -15,10 +15,15 @@
 class ModelParameter : public godot::Resource {
     GDCLASS( ModelParameter, godot::Resource )
   protected:
+    static void _bind_methods();
+
+  public:
     godot::StringName parameter_id; // unique for the model
 
     godot::String parameter_name;        // user-friendly name
     godot::String parameter_description; // user-friendly description
+
+    godot::PackedStringArray parameter_labels; // contextual user-facing hints
 
     float parameter_minimum = 0.0f;
     float parameter_maximum = 1.0f;
@@ -27,9 +32,6 @@ class ModelParameter : public godot::Resource {
 
     float parameter_value = 0.0f;
 
-    static void _bind_methods();
-
-  public:
     [[nodiscard]] godot::StringName get_parameter_id() const;
 
     [[nodiscard]] godot::String get_parameter_name() const;
