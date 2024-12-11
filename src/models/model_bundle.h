@@ -48,6 +48,8 @@ class ModelBundle : public godot::Resource {
     bool _get( const godot::StringName &p_name, godot::Variant &r_property ) const;
     void _get_property_list( godot::List<godot::PropertyInfo> *p_list ) const;
 
+    godot::String compute_hash() const;
+
     godot::Error unpack_bundle( const godot::String &p_path );
     godot::Error pack_bundle( const godot::String &p_path );
 };

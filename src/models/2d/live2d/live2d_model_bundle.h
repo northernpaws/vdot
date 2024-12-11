@@ -7,9 +7,13 @@
 class Live2DModelBundle : public ModelBundle {
     GDCLASS( Live2DModelBundle, ModelBundle )
   protected:
-    static void _bind_methods();
+    godot::String model3_path;
 
+    static void _bind_methods();
   public:
+    [[nodiscard]] godot::String get_model3_path() const;
+    void set_model3_path(const godot::String& p_path);
+
     /**
      * Packs the model bundle using the specified .model3.json file.
      *

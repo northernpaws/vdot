@@ -20,6 +20,8 @@ target_sources(${PROJECT_NAME}
         models/model_parameter.cpp
         models/model_bundle.cpp
         models/model.cpp
+        models/model_format.cpp
+        models/model_loader.cpp
 
         avatar/avatar_parameter.cpp
         avatar/avatar_parameter_eval.cpp
@@ -48,6 +50,7 @@ target_sources(${PROJECT_NAME}
         models/2d/live2d/cubism_effect.cpp
         models/2d/live2d/cubism_model.cpp
         models/2d/live2d/live2d_model_bundle.cpp
+        models/2d/live2d/live2d_model_format.cpp
 
         vdot.h
         vdot.cpp

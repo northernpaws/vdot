@@ -8,6 +8,8 @@
 #include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/classes/resource_saver.hpp>
 
+#include <godot_cpp/classes/hashing_context.hpp>
+
 #include "model_bundle.h"
 
 void ModelBundle::_bind_methods() {
@@ -186,6 +188,25 @@ void ModelBundle::_get_property_list( godot::List<godot::PropertyInfo> *p_list )
         p_list->push_back(
             godot::PropertyInfo( godot::Variant::PACKED_BYTE_ARRAY, prop_name + "data" ) );
     }
+}
+
+godot::String ModelBundle::compute_hash() const {
+    godot::Ref<godot::HashingContext> hash;
+    hash.instantiate();
+
+    hash->start(godot::HashingContext::HASH_SHA256);
+
+    for ( const godot::KeyValue<godot::String, BundleFile> &file : files ) {
+        auto err = hash->update(file.key.to_utf8_buffer());
+        ERR_FAIL_COND_V_MSG(err, {}, "Failed to calculate hash for bundle file path.");
+
+        err = hash->update(file.value.data);
+        ERR_FAIL_COND_V_MSG(err, {}, "Failed to calculate hash for bundle file data.");
+    }
+
+    auto res= hash->finish();
+
+    return res.hex_encode();
 }
 
 godot::Error ModelBundle::unpack_bundle( const godot::String &p_path ) {

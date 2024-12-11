@@ -26,12 +26,14 @@
 #include "models/model.h"
 #include "models/model_bundle.h"
 #include "models/model_parameter.h"
+#include "models/model_format.h"
 
 #include "models/2d/model_2d.h"
 
 #include "avatar/avatar.h"
 #include "avatar/avatar_bundle.h"
 #include "avatar/avatar_parameter.h"
+#include "avatar/avatar_manager.h"
 
 #include "networking/collaboration_session.h"
 
@@ -47,6 +49,8 @@
 #include "models/2d/live2d/cubism_value_parameter.h"
 #include "models/2d/live2d/cubism_value_part_opacity.h"
 #include "models/2d/live2d/renderer/cubism_allocator.h"
+#include "models/2d/live2d/live2d_model_bundle.h"
+#include "models/2d/live2d/live2d_model_format.h"
 
 #include "tracking/interfaces/live_link/editor_plugin.h"
 #include "tracking/interfaces/live_link/live_link_face_tracker.h"
@@ -54,8 +58,7 @@
 #include "tracking/interfaces/live_link/live_link_panel.h"
 #include "tracking/interfaces/live_link/live_link_server.h"
 
-#include "avatar/avatar_manager.h"
-#include "models/2d/live2d/live2d_model_bundle.h"
+#include "models/model_loader.h"
 #include "tracking/interfaces/vts/vts_interface.h"
 
 using namespace godot;
@@ -71,6 +74,8 @@ void cubism_output( const char *message ) {
 }
 
 static TrackingServer *tracking_server = nullptr;
+
+static ModelLoader* model_loader = nullptr;
 
 static godot::Ref<LiveLinkInterface> live_link_interface = nullptr;
 static godot::Ref<VTSInterface> vts_interface = nullptr;
@@ -114,10 +119,16 @@ namespace {
             // Models
 
             GDREGISTER_CLASS( ModelBundle )
+            GDREGISTER_CLASS( ModelFormat )
+            GDREGISTER_CLASS( ModelLoader )
 
             GDREGISTER_CLASS( ModelParameter )
             GDREGISTER_CLASS( Model )
             GDREGISTER_CLASS( Model2D )
+
+            model_loader = memnew( ModelLoader );
+            Engine::get_singleton()->register_singleton( "ModelLoader",
+                                                         ModelLoader::get_singleton() );
 
             // ====================
             // Avatar
@@ -200,6 +211,9 @@ namespace {
             GDREGISTER_CLASS( CubismMotionQueueEntryHandle )
             GDREGISTER_CLASS( CubismMotionEntry )
             GDREGISTER_CLASS( CubismModel )
+
+            GDREGISTER_CLASS( Live2DModelFormat )
+            model_loader->add_model_format(memnew(Live2DModelFormat));
         }
 
         if ( p_level == MODULE_INITIALIZATION_LEVEL_EDITOR ) {
@@ -220,6 +234,8 @@ namespace {
     /// @see GDExtensionInit
     void uninitializeExtension( ModuleInitializationLevel p_level ) {
         if ( p_level == MODULE_INITIALIZATION_LEVEL_SCENE ) {
+            memdelete(model_loader);
+
             Csm::CubismFramework::Dispose();
 
             Engine::get_singleton()->unregister_singleton( "TrackingServer" );
