@@ -11,6 +11,26 @@ void Live2DModelFormat::_bind_methods() {
                                  &Live2DModelFormat::create_from_bundle );
 }
 
+godot::PackedStringArray Live2DModelFormat::get_recognized_extensions() const {
+    godot::PackedStringArray extensions;
+
+    extensions.push_back("model3.json");
+
+    return extensions;
+}
+
+Model* Live2DModelFormat::load_from_path(const godot::String& p_path) const {
+    ERR_FAIL_COND_V_MSG(p_path.get_extension() != "model3.json", nullptr,
+                         godot::vformat("Expected model3.json filepath, got %s", p_path.get_extension()));
+
+    CubismModel* model = memnew(CubismModel);
+
+    // Load the model assets from the model3 file.
+    model->set_assets(p_path);
+
+    return model;
+}
+
 godot::PackedStringArray Live2DModelFormat::get_supported_formats() const {
     godot::PackedStringArray formats;
 
@@ -34,10 +54,6 @@ Model* Live2DModelFormat::create_from_bundle(const godot::Ref<ModelBundle>& p_bu
     auto err = bundle->unpack_bundle(p_extract_path);
     ERR_FAIL_COND_V_MSG(err, nullptr, "Failed to extract model bundle.");
 
-    CubismModel* model = memnew(CubismModel);
-
     // Load the model assets from the model3 file embedded in the bundle.
-    model->set_assets(p_extract_path.path_join(bundle->get_model3_path()));
-
-    return model;
+    return load_from_path(p_extract_path.path_join(bundle->get_model3_path()));
 }

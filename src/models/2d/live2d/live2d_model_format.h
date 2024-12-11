@@ -11,6 +11,9 @@ class Live2DModelFormat : public ModelFormat {
     static void _bind_methods();
   public:
 
+    godot::PackedStringArray get_recognized_extensions() const override;
+    Model* load_from_path(const godot::String& p_path) const override;
+
     [[nodiscard]] godot::PackedStringArray get_supported_formats() const override;
     godot::String get_bundle_type() const override;
     Model* create_from_bundle(const godot::Ref<ModelBundle>& p_bundle, const godot::String& p_extract_path) override;

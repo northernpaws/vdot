@@ -17,10 +17,34 @@ class ModelFormat : public godot::RefCounted {
     static void _bind_methods();
   public:
 
+    /**
+     * Returns the list of file extensions that can be loaded by this format.
+     * @return the recognized file extensions
+     */
+    [[nodiscard]] virtual godot::PackedStringArray get_recognized_extensions() const {
+        return {};
+    }
+
+    /**
+     * Creates a model node from model sources at the provided filepath.
+     * @param p_path the path to create the model from
+     * @return the created model node
+     */
+    virtual Model* load_from_path(const godot::String& p_path) const {
+        ERR_FAIL_V_MSG(nullptr, "create_from_path not implemented");
+    }
+
+    /**
+     * Returns an array of format names to match against model bundle formats.
+     */
     [[nodiscard]] virtual godot::PackedStringArray get_supported_formats() const {
         ERR_FAIL_V_MSG({}, "get_supported_formats not implemented");
     }
 
+    /**
+     * Returns the object class to use for loading models supported by this format.
+     * @return the object class name
+     */
     [[nodiscard]] virtual godot::String get_bundle_type() const {
         return ModelBundle::get_class_static();
     }
@@ -34,6 +58,8 @@ class ModelFormat : public godot::RefCounted {
     virtual Model* create_from_bundle(const godot::Ref<ModelBundle>& p_bundle, const godot::String& p_extract_path) {
         ERR_FAIL_V_MSG(nullptr, "create_from_bundle not implemented");
     }
+
+
 };
 
 #endif // VDOT_MODEL_FORMAT_H

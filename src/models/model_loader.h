@@ -28,8 +28,10 @@ class ModelLoader : public godot::Object {
 
     void add_model_format(const godot::Ref<ModelFormat>& p_format);
 
-    [[nodiscard]] godot::Ref<ModelFormat> find_format(const godot::String& p_format) const;
+    [[nodiscard]] godot::Ref<ModelFormat> find_format_by_extension(const godot::String& p_extension) const;
+    [[nodiscard]] Model* load_from_path(const godot::String& p_path) const;
 
+    [[nodiscard]] godot::Ref<ModelFormat> find_format(const godot::String& p_format) const;
     [[nodiscard]] godot::Ref<ModelBundle> load_bundle(const godot::String& p_path) const;
     [[nodiscard]] Model* create_from_bundle(const godot::Ref<ModelBundle>& p_bundle) const;
 };
