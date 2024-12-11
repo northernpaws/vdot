@@ -1,10 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://dg8w0woeegm0n"]
+[gd_scene load_steps=12 format=3 uid="uid://dg8w0woeegm0n"]
 
 [ext_resource type="PackedScene" uid="uid://b1og747hsnjrt" path="res://app/ui/menu/menu_button.tscn" id="1_tc77p"]
-[ext_resource type="Script" path="res://app/ui/avatar.gd" id="2_jlwrj"]
 [ext_resource type="Script" path="res://models/live2d/live_2d_model.gd" id="2_mbv38"]
 [ext_resource type="Theme" uid="uid://db6s5ob3rvi4k" path="res://app/ui/app_theme.tres" id="3_72s4j"]
-[ext_resource type="Texture2D" uid="uid://cqkkx4hrjwh78" path="res://icon.svg" id="3_j15i7"]
 [ext_resource type="PackedScene" uid="uid://con8gt818tbhy" path="res://app/ui/tracking/live_link.tscn" id="4_pd7c2"]
 [ext_resource type="PackedScene" uid="uid://cm87t18y8ifj8" path="res://app/ui/tracking/v_tube_studio.tscn" id="5_m1yyw"]
 
@@ -21,8 +19,11 @@ font_size = 11
 
 [sub_resource type="AvatarParameter" id="AvatarParameter_k0674"]
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_gcbd8"]
+viewport_path = NodePath("Environment/AvatarManager/Avatar1/CubismModel")
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_y460c"]
-viewport_path = NodePath("Environment/AvatarManager/Avatar/CubismModel")
+viewport_path = NodePath("Environment/AvatarManager/Avatar1/CubismModel")
 
 [node name="Scene" type="Node"]
 
@@ -98,21 +99,20 @@ text_overrun_behavior = 3
 
 [node name="AvatarManager" type="AvatarManager" parent="Environment"]
 
-[node name="Avatar" type="Avatar" parent="Environment/AvatarManager"]
+[node name="Avatar1" type="Avatar" parent="Environment/AvatarManager"]
 parameters = Array[Object]([SubResource("AvatarParameter_k0674")])
-texture = ExtResource("3_j15i7")
-script = ExtResource("2_jlwrj")
+texture = SubResource("ViewportTexture_gcbd8")
 
-[node name="CubismModel" type="CubismModel" parent="Environment/AvatarManager/Avatar"]
+[node name="CubismModel" type="CubismModel" parent="Environment/AvatarManager/Avatar1"]
 assets = "res://ClouddleBlackCat_VTS/clouddle blackcat.model3.json"
 disable_3d = true
 transparent_bg = true
 gui_disable_input = true
 render_target_update_mode = 4
 
-[node name="CubismEffectBreath" type="CubismEffectBreath" parent="Environment/AvatarManager/Avatar/CubismModel"]
+[node name="CubismEffectBreath" type="CubismEffectBreath" parent="Environment/AvatarManager/Avatar1/CubismModel"]
 
-[node name="CubismEffectEyeBlink" type="CubismEffectEyeBlink" parent="Environment/AvatarManager/Avatar/CubismModel"]
+[node name="CubismEffectEyeBlink" type="CubismEffectEyeBlink" parent="Environment/AvatarManager/Avatar1/CubismModel"]
 
 [node name="Live2DModel" type="Node2D" parent="Environment"]
 position = Vector2(500, 400)

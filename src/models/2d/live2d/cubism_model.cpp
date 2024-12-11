@@ -9,6 +9,7 @@
 #include <godot_cpp/classes/sprite2d.hpp>
 #include <godot_cpp/classes/viewport_texture.hpp>
 #include <godot_cpp/classes/window.hpp>
+#include <godot_cpp/classes/json.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/object.hpp>
 
@@ -320,8 +321,6 @@ void CubismModel::set_assets( const godot::String p_assets ) {
     {
         Csm::CubismModel *model = this->proxy_model->GetModel();
 
-        // TODO load the DisplayInfo file to get parameter friendly names
-
         this->ary_parameter.clear();
 
         for ( Csm::csmInt32 index = 0; index < model->GetParameterCount(); index++ ) {
@@ -329,6 +328,78 @@ void CubismModel::set_assets( const godot::String p_assets ) {
             param.instantiate();
             param->setup( model, index );
             this->ary_parameter.append( param );
+        }
+
+        godot::Dictionary displayinfo_data;
+        if ( strcmp( this->proxy_model->_model_setting->GetDisplayInfoFileName(), "" ) != 0 ) {
+            godot::String display_info_filename;
+            auto err = display_info_filename.parse_utf8(this->proxy_model->_model_setting->GetDisplayInfoFileName());
+            ERR_FAIL_COND_MSG(err, "Failed to parse display info file name.");
+
+            auto displayinfo_file = godot::FileAccess::open(display_info_filename, godot::FileAccess::ModeFlags::READ);
+            ERR_FAIL_COND_MSG(displayinfo_file->get_open_error(), "Failed to open display info file.");
+
+            auto displayinfo_text = displayinfo_file->get_as_text();
+
+            godot::Ref<godot::JSON> json;
+            json.instantiate();
+
+            displayinfo_data = json->parse_string(displayinfo_text);
+
+            // TODO load the DisplayInfo file to get parameter friendly names
+        }
+
+        parameters.clear();
+
+        auto csm_model = proxy_model->_model->GetModel();
+        for ( Csm::csmInt32 index = 0; index < model->GetParameterCount(); index++ ) {
+            auto param_id = godot::String( Live2D::Cubism::Core::csmGetParameterIds( csm_model )[index] );
+
+            // TODO: do we need to expose Live2D::Cubism::Core::csmGetParameterTypes( csm_model )[index];
+            //  somehow? it returns "normal" or "blendshape".
+
+            auto param_type = Live2D::Cubism::Core::csmGetParameterTypes( csm_model )[index];
+
+            godot::Ref<ModelParameter> model_param;
+            model_param.instantiate();
+            model_param->parameter_id = godot::StringName(param_id);
+
+            bool found_displayinfo = false;
+            // TODO: also read info from ParameterGroups
+            if (!displayinfo_data.is_empty() && displayinfo_data["Parameters"]) {
+                godot::Array params_info = displayinfo_data["Parameters"];
+                for (int i = 0; i < params_info.size(); i++) {
+                    godot::Dictionary param_info = params_info[i];
+                    godot::String param_info_id = param_info["Id"];
+                    godot::String param_info_group = param_info["GroupId"];
+                    godot::String param_info_name = param_info["Name"];
+
+                    if (param_id == param_info_id) {
+                        found_displayinfo = true;
+
+                        model_param->parameter_name = param_info_name;
+                        model_param->parameter_description = param_info_name;
+                        model_param->parameter_labels.append(param_info_group);
+                    }
+                }
+
+            }
+
+            if (!found_displayinfo) {
+                model_param->parameter_name = godot::StringName(param_id);
+                model_param->parameter_description = godot::StringName(param_id);
+            }
+
+            if (param_type == Live2D::Cubism::Core::csmParameterType_BlendShape) {
+                model_param->parameter_labels.push_back("Blend Shape");
+            }
+
+            model_param->parameter_minimum = Live2D::Cubism::Core::csmGetParameterMinimumValues( csm_model )[index];
+            model_param->parameter_maximum = Live2D::Cubism::Core::csmGetParameterMaximumValues( csm_model )[index];
+            model_param->parameter_default = Live2D::Cubism::Core::csmGetParameterDefaultValues( csm_model )[index];
+            model_param->parameter_value = Live2D::Cubism::Core::csmGetParameterValues( csm_model )[index];
+
+            _add_model_parameter(model_param);
         }
     }
 
