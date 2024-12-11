@@ -2,8 +2,8 @@
 #ifndef VDOT_AVATAR_MANAGER_H
 #define VDOT_AVATAR_MANAGER_H
 
-#include <godot_cpp/classes/resource.hpp>
 #include <godot_cpp/classes/node.hpp>
+#include <godot_cpp/classes/resource.hpp>
 #include <godot_cpp/templates/hash_map.hpp>
 
 class AvatarType : public godot::Resource {
@@ -13,13 +13,13 @@ class AvatarType : public godot::Resource {
     godot::String description = "Generic avatar type.";
 
     static void _bind_methods();
-  public:
 
+  public:
     [[nodiscard]] godot::String get_avatar_type_name() const;
-    void set_avatar_type_name(const godot::String& p_name);
+    void set_avatar_type_name( const godot::String &p_name );
 
     [[nodiscard]] godot::String get_avatar_type_description() const;
-    void set_avatar_type_description(const godot::String& p_description);
+    void set_avatar_type_description( const godot::String &p_description );
 };
 
 namespace godot {
@@ -52,8 +52,9 @@ namespace godot {
         static constexpr GDExtensionClassMethodArgumentMetadata METADATA =
             GDEXTENSION_METHOD_ARGUMENT_METADATA_NONE;
         static inline PropertyInfo get_class_info() {
-            return make_property_info( Variant::Type::ARRAY, "", PROPERTY_HINT_ARRAY_TYPE,
-                                       Variant::get_type_name(godot::Variant::OBJECT).utf8().get_data() );
+            return make_property_info(
+                Variant::Type::ARRAY, "", PROPERTY_HINT_ARRAY_TYPE,
+                Variant::get_type_name( godot::Variant::OBJECT ).utf8().get_data() );
         }
     };
 
@@ -62,8 +63,9 @@ namespace godot {
         static constexpr GDExtensionClassMethodArgumentMetadata METADATA =
             GDEXTENSION_METHOD_ARGUMENT_METADATA_NONE;
         static inline PropertyInfo get_class_info() {
-            return make_property_info( Variant::Type::ARRAY, "", PROPERTY_HINT_ARRAY_TYPE,
-                                       Variant::get_type_name(godot::Variant::OBJECT).utf8().get_data() );
+            return make_property_info(
+                Variant::Type::ARRAY, "", PROPERTY_HINT_ARRAY_TYPE,
+                Variant::get_type_name( godot::Variant::OBJECT ).utf8().get_data() );
         }
     };
 };
@@ -77,8 +79,9 @@ class AvatarManager : public godot::Node {
     godot::TypedArray<AvatarType> avatar_types;
 
     static void _bind_methods();
+
   public:
-    void set_avatar_types(const godot::TypedArray<AvatarType>& p_types) ;
+    void set_avatar_types( const godot::TypedArray<AvatarType> &p_types );
     [[nodiscard]] godot::TypedArray<AvatarType> get_avatar_types() const;
 };
 

@@ -106,7 +106,7 @@ void TrackingServer::remove_interface( const godot::Ref<TrackingInterface> &p_in
 }
 
 int TrackingServer::get_interface_count() const {
-    return _interfaces.size();
+    return static_cast<int>( _interfaces.size() );
 }
 
 godot::Ref<TrackingInterface> TrackingServer::get_interface( int p_index ) const {

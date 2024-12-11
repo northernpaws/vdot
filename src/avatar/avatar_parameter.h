@@ -71,8 +71,9 @@ namespace godot {
         static constexpr GDExtensionClassMethodArgumentMetadata METADATA =
             GDEXTENSION_METHOD_ARGUMENT_METADATA_NONE;
         static inline PropertyInfo get_class_info() {
-            return make_property_info( Variant::Type::ARRAY, "", PROPERTY_HINT_ARRAY_TYPE,
-                                       Variant::get_type_name(godot::Variant::OBJECT).utf8().get_data() );
+            return make_property_info(
+                Variant::Type::ARRAY, "", PROPERTY_HINT_ARRAY_TYPE,
+                Variant::get_type_name( godot::Variant::OBJECT ).utf8().get_data() );
         }
     };
 
@@ -81,8 +82,9 @@ namespace godot {
         static constexpr GDExtensionClassMethodArgumentMetadata METADATA =
             GDEXTENSION_METHOD_ARGUMENT_METADATA_NONE;
         static inline PropertyInfo get_class_info() {
-            return make_property_info( Variant::Type::ARRAY, "", PROPERTY_HINT_ARRAY_TYPE,
-                                       Variant::get_type_name(godot::Variant::OBJECT).utf8().get_data() );
+            return make_property_info(
+                Variant::Type::ARRAY, "", PROPERTY_HINT_ARRAY_TYPE,
+                Variant::get_type_name( godot::Variant::OBJECT ).utf8().get_data() );
         }
     };
 };

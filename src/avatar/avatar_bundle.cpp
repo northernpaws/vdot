@@ -15,9 +15,10 @@ void AvatarBundle::_bind_methods() {
 
     godot::ClassDB::bind_method( godot::D_METHOD( "set_avatar_name", "name" ),
                                  &AvatarBundle::set_avatar_name );
-    godot::ClassDB::bind_method( godot::D_METHOD( "get_avatar_name" ), &AvatarBundle::get_avatar_name );
-    ADD_PROPERTY( godot::PropertyInfo( godot::Variant::STRING, "name" ),
-                  "set_avatar_name", "get_avatar_name" );
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_avatar_name" ),
+                                 &AvatarBundle::get_avatar_name );
+    ADD_PROPERTY( godot::PropertyInfo( godot::Variant::STRING, "name" ), "set_avatar_name",
+                  "get_avatar_name" );
 }
 
 AvatarBundle::AvatarBundle() = default;
@@ -28,7 +29,7 @@ godot::String AvatarBundle::get_avatar_name() const {
     return name;
 }
 
-void AvatarBundle::set_avatar_name(const godot::String& p_name) {
+void AvatarBundle::set_avatar_name( const godot::String &p_name ) {
     name = p_name;
 }
 
@@ -40,6 +41,6 @@ godot::TypedArray<ModelBundle> AvatarBundle::get_models() const {
     return models;
 }
 
-void AvatarBundle::add_model(const godot::TypedArray<ModelBundle> &p_model) {
-    models.append(p_model);
+void AvatarBundle::add_model( const godot::TypedArray<ModelBundle> &p_model ) {
+    models.append( p_model );
 }

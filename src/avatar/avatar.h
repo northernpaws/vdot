@@ -25,6 +25,7 @@ class Avatar : public godot::Sprite2D {
     Model *model;
 
     static void _bind_methods();
+
   public:
     Avatar();
     ~Avatar() override;

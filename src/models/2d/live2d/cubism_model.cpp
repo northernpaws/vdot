@@ -1009,13 +1009,14 @@ void CubismModel::_on_remove_child_act( CubismEffect *node ) {
 }
 
 godot::Ref<ModelBundle> CubismModel::pack_bundle() {
-    ERR_FAIL_COND_V_MSG(assets.is_empty(), nullptr, "Live2D assets must be loaded to pack a model bundle.");
+    ERR_FAIL_COND_V_MSG( assets.is_empty(), nullptr,
+                         "Live2D assets must be loaded to pack a model bundle." );
 
     godot::Ref<Live2DModelBundle> bundle;
     bundle.instantiate();
 
-    auto err = bundle->pack_from_model3(assets);
-    ERR_FAIL_COND_V_MSG(err != godot::OK, nullptr, "Failed to pack .model3.json to bundle.");
+    auto err = bundle->pack_from_model3( assets );
+    ERR_FAIL_COND_V_MSG( err != godot::OK, nullptr, "Failed to pack .model3.json to bundle." );
 
     return bundle;
 }

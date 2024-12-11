@@ -45,7 +45,9 @@ class Model : public godot::SubViewport {
      *
      * @return the packed model bundle.
      */
-    virtual godot::Ref<ModelBundle> pack_bundle() { return {}; };
+    virtual godot::Ref<ModelBundle> pack_bundle() {
+        return {};
+    };
 };
 
 #endif // VDOT_MODEL_H

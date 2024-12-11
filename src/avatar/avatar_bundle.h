@@ -23,12 +23,12 @@ class AvatarBundle : public godot::Resource {
     AvatarBundle();
     ~AvatarBundle() override;
 
-    void set_avatar_name(const godot::String& p_name);
+    void set_avatar_name( const godot::String &p_name );
     [[nodiscard]] godot::String get_avatar_name() const;
 
     void set_models( const godot::TypedArray<ModelBundle> &p_models );
     [[nodiscard]] godot::TypedArray<ModelBundle> get_models() const;
-    void add_model(const godot::TypedArray<ModelBundle> &p_model);
+    void add_model( const godot::TypedArray<ModelBundle> &p_model );
 };
 
 #endif // VDOT_AVATAR_BUNDLE_H

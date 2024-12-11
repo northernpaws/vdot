@@ -18,12 +18,12 @@ void Avatar::_bind_methods() {
                                  &Avatar::get_avatar_parameters );
     godot::ClassDB::bind_method( godot::D_METHOD( "set_avatar_parameters", "parameters" ),
                                  &Avatar::set_avatar_parameters );
-    ADD_PROPERTY( godot::PropertyInfo(
-        godot::Variant::ARRAY,
-        "parameters",
-        godot::PROPERTY_HINT_TYPE_STRING,
-        godot::String::num(godot::Variant::OBJECT) + "/" + godot::String::num(godot::PROPERTY_HINT_RESOURCE_TYPE) + ":" + AvatarParameter::get_class_static()
-    ), "set_avatar_parameters", "get_avatar_parameters" );
+    ADD_PROPERTY(
+        godot::PropertyInfo( godot::Variant::ARRAY, "parameters", godot::PROPERTY_HINT_TYPE_STRING,
+                             godot::String::num( godot::Variant::OBJECT ) + "/" +
+                                 godot::String::num( godot::PROPERTY_HINT_RESOURCE_TYPE ) + ":" +
+                                 AvatarParameter::get_class_static() ),
+        "set_avatar_parameters", "get_avatar_parameters" );
 
     godot::ClassDB::bind_method( godot::D_METHOD( "_apply_parameter", "id", "value" ),
                                  &Avatar::_apply_parameter );
@@ -59,7 +59,7 @@ void Avatar::_process_parameters( double delta ) {
     // Loop over the parameters and
     for ( int i = 0; i < parameters.size(); i++ ) {
         godot::Ref<AvatarParameter> parameter = parameters[i];
-        if (!parameter.is_valid()) {
+        if ( !parameter.is_valid() ) {
             continue;
         }
 
@@ -121,7 +121,7 @@ void Avatar::set_avatar_parameters( const godot::TypedArray<AvatarParameter> &p_
     parameter_values.clear();
     for ( int i = 0; i < parameters.size(); i++ ) {
         godot::Ref<AvatarParameter> param = parameters[i];
-        if (!param.is_valid()) {
+        if ( !param.is_valid() ) {
             continue;
         }
 
@@ -141,7 +141,7 @@ godot::Ref<AvatarBundle> Avatar::pack_bundle() const {
     godot::Ref<AvatarBundle> bundle;
     bundle.instantiate();
 
-    bundle->set_avatar_name("Unnamed");
+    bundle->set_avatar_name( "Unnamed" );
 
     // TODO: pack and add models
     // bundle->add_model
