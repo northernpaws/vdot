@@ -37,6 +37,8 @@ class ModelParameter : public godot::Resource {
     [[nodiscard]] godot::String get_parameter_name() const;
     [[nodiscard]] godot::String get_parameter_description() const;
 
+    [[nodiscard]] godot::PackedStringArray get_parameter_labels() const;
+
     [[nodiscard]] float get_parameter_minimum_value() const;
     [[nodiscard]] float get_parameter_maximum_value() const;
 
