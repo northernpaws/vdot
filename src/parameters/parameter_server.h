@@ -36,6 +36,7 @@ class ParameterServer : public godot::RefCounted {
     [[nodiscard]] godot::TypedArray<ParameterContext> get_parameter_contexts() const;
     void set_parameter_contexts( const godot::TypedArray<ParameterContext> &p_parameter_contexts );
     void add_parameter_context(const godot::Ref<ParameterContext> &p_parameter_context);
+    void remove_parameter_context(const godot::Ref<ParameterContext> &p_parameter_context);
 };
 
 #endif // VDOT_PARAMETER_SERVER_H

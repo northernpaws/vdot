@@ -74,3 +74,7 @@ void ParameterServer::set_parameter_contexts( const godot::TypedArray<ParameterC
 void ParameterServer::add_parameter_context(const godot::Ref<ParameterContext> &p_parameter_context) {
     parameter_contexts.append(p_parameter_context);
 }
+
+void ParameterServer::remove_parameter_context(const godot::Ref<ParameterContext> &p_parameter_context) {
+    parameter_contexts.erase(p_parameter_context);
+}
