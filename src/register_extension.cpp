@@ -7,12 +7,13 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
-#include "vdot.h"
-
-#include <CubismFramework.hpp>
 #include <godot_cpp/classes/os.hpp>
 #include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/classes/resource_saver.hpp>
+
+#include <CubismFramework.hpp>
+
+#include "vdot.h"
 
 #include "tracking/tracker.h"
 #include "tracking/tracker_face.h"
@@ -30,6 +31,8 @@
 
 #include "models/2d/model_2d.h"
 
+#include "avatar/parameter_input.h"
+#include "avatar/parameter_output.h"
 #include "avatar/avatar.h"
 #include "avatar/avatar_bundle.h"
 #include "avatar/avatar_parameter.h"
@@ -132,6 +135,9 @@ namespace {
 
             // ====================
             // Avatar
+
+            GDREGISTER_CLASS( InputParameter )
+            GDREGISTER_CLASS( OutputParameter )
 
             GDREGISTER_CLASS( AvatarParameter )
             GDREGISTER_CLASS( AvatarParameterEval )

@@ -23,6 +23,9 @@ target_sources(${PROJECT_NAME}
         models/model_format.cpp
         models/model_loader.cpp
 
+        avatar/parameter_input.cpp
+        avatar/parameter_output.cpp
+
         avatar/avatar_parameter.cpp
         avatar/avatar_parameter_eval.cpp
         avatar/avatar_bundle.cpp

@@ -37,7 +37,7 @@ void Avatar::_bind_methods() {
                                  &Avatar::get_model );
     ADD_PROPERTY(
         godot::PropertyInfo( godot::Variant::NODE_PATH, "model", godot::PROPERTY_HINT_TYPE_STRING,
-                             Model::get_class_static() ),
+                             Model::get_class_static(), godot::PROPERTY_USAGE_READ_ONLY | godot::PROPERTY_USAGE_EDITOR | godot::PROPERTY_USAGE_RESOURCE_NOT_PERSISTENT ),
         godot::String(), "get_model" );
 
     godot::ClassDB::bind_method( godot::D_METHOD( "_child_entered_tree", "node" ),
