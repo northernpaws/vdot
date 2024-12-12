@@ -35,8 +35,8 @@
 #include "avatar/avatar_bundle.h"
 #include "avatar/avatar_manager.h"
 #include "avatar/avatar_parameter.h"
-#include "avatar/parameter_input.h"
-#include "avatar/parameter_output.h"
+#include "parameters/parameter_input.h"
+#include "parameters/parameter_output.h"
 
 #include "networking/collaboration_session.h"
 
@@ -144,7 +144,6 @@ namespace {
             GDREGISTER_CLASS( AvatarBundle )
             GDREGISTER_CLASS( Avatar )
 
-            GDREGISTER_CLASS( AvatarType )
             GDREGISTER_CLASS( AvatarManager )
 
             // ====================
