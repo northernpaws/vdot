@@ -25,6 +25,7 @@ class AvatarParameter : public godot::Resource {
     godot::Ref<OutputParameter> output;
 
     static void _bind_methods();
+
   public:
     [[nodiscard]] godot::StringName get_parameter_id() const;
     void set_parameter_id( const godot::StringName &p_id );

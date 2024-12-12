@@ -11,15 +11,15 @@ void Live2DModelBundle::_bind_methods() {
                                  &Live2DModelBundle::set_model3_path );
     godot::ClassDB::bind_method( godot::D_METHOD( "get_model3_path" ),
                                  &Live2DModelBundle::get_model3_path );
-    ADD_PROPERTY( godot::PropertyInfo( godot::Variant::STRING, "model3_path" ),
-                  "set_model3_path", "get_model3_path" );
+    ADD_PROPERTY( godot::PropertyInfo( godot::Variant::STRING, "model3_path" ), "set_model3_path",
+                  "get_model3_path" );
 }
 
 godot::String Live2DModelBundle::get_model3_path() const {
     return model3_path;
 }
 
-void Live2DModelBundle::set_model3_path(const godot::String& p_path) {
+void Live2DModelBundle::set_model3_path( const godot::String &p_path ) {
     model3_path = p_path;
 }
 
@@ -36,7 +36,7 @@ godot::Error Live2DModelBundle::pack_from_model3( const godot::String &p_path ) 
     ERR_FAIL_COND_V_MSG( err != godot::OK, err, "Failed to pack .model3.json" );
 
     // Record the path to the model3 file in the bundle for reference when loading.
-    set_model3_path(p_path.trim_prefix(p_path.get_base_dir()));
+    set_model3_path( p_path.trim_prefix( p_path.get_base_dir() ) );
 
     // Derive the moc3 file path
     godot::String gd_filename;

@@ -2,10 +2,10 @@
 #ifndef VDOT_AVATAR_H
 #define VDOT_AVATAR_H
 
+#include <godot_cpp/classes/input_event.hpp>
 #include <godot_cpp/classes/sprite2d.hpp>
 #include <godot_cpp/classes/viewport_texture.hpp>
 #include <godot_cpp/templates/hash_map.hpp>
-#include <godot_cpp/classes/input_event.hpp>
 
 #include "models/model.h"
 
@@ -35,16 +35,16 @@ class Avatar : public godot::Sprite2D {
     Avatar();
     ~Avatar() override;
 
-    void _validate_property(godot::PropertyInfo &p_property) const;
+    void _validate_property( godot::PropertyInfo &p_property ) const;
 
-    void _notification(int p_what);
+    void _notification( int p_what );
 
     void _ready() override;
 
     void _enter_tree() override;
     void _exit_tree() override;
 
-    void _input(const godot::Ref<godot::InputEvent> &p_event) override;
+    void _input( const godot::Ref<godot::InputEvent> &p_event ) override;
 
     void _process( double delta ) override;
 
@@ -71,7 +71,7 @@ class Avatar : public godot::Sprite2D {
      */
     void _apply_parameter( const godot::StringName &p_id, float p_value );
 
-    [[nodiscard]] Model * get_model() const;
+    [[nodiscard]] Model *get_model() const;
 
     /**
      * Pack the avatar and it's resources into a bundle for transmission.
@@ -82,8 +82,8 @@ class Avatar : public godot::Sprite2D {
      */
     [[nodiscard]] godot::Ref<AvatarBundle> pack_bundle() const;
 
-    void _child_entered_tree(godot::Node* p_node);
-    void _child_exiting_tree(godot::Node* p_node);
+    void _child_entered_tree( godot::Node *p_node );
+    void _child_exiting_tree( godot::Node *p_node );
 
     void _update_model_references();
 };

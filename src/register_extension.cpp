@@ -26,17 +26,17 @@
 
 #include "models/model.h"
 #include "models/model_bundle.h"
-#include "models/model_parameter.h"
 #include "models/model_format.h"
+#include "models/model_parameter.h"
 
 #include "models/2d/model_2d.h"
 
-#include "avatar/parameter_input.h"
-#include "avatar/parameter_output.h"
 #include "avatar/avatar.h"
 #include "avatar/avatar_bundle.h"
-#include "avatar/avatar_parameter.h"
 #include "avatar/avatar_manager.h"
+#include "avatar/avatar_parameter.h"
+#include "avatar/parameter_input.h"
+#include "avatar/parameter_output.h"
 
 #include "networking/collaboration_session.h"
 
@@ -51,9 +51,9 @@
 #include "models/2d/live2d/cubism_value_abs.h"
 #include "models/2d/live2d/cubism_value_parameter.h"
 #include "models/2d/live2d/cubism_value_part_opacity.h"
-#include "models/2d/live2d/renderer/cubism_allocator.h"
 #include "models/2d/live2d/live2d_model_bundle.h"
 #include "models/2d/live2d/live2d_model_format.h"
+#include "models/2d/live2d/renderer/cubism_allocator.h"
 
 #include "tracking/interfaces/live_link/editor_plugin.h"
 #include "tracking/interfaces/live_link/live_link_face_tracker.h"
@@ -78,7 +78,7 @@ void cubism_output( const char *message ) {
 
 static TrackingServer *tracking_server = nullptr;
 
-static ModelLoader* model_loader = nullptr;
+static ModelLoader *model_loader = nullptr;
 
 static godot::Ref<LiveLinkInterface> live_link_interface = nullptr;
 static godot::Ref<VTSInterface> vts_interface = nullptr;
@@ -219,7 +219,7 @@ namespace {
             GDREGISTER_CLASS( CubismModel )
 
             GDREGISTER_CLASS( Live2DModelFormat )
-            model_loader->add_model_format(memnew(Live2DModelFormat));
+            model_loader->add_model_format( memnew( Live2DModelFormat ) );
         }
 
         if ( p_level == MODULE_INITIALIZATION_LEVEL_EDITOR ) {
@@ -240,7 +240,7 @@ namespace {
     /// @see GDExtensionInit
     void uninitializeExtension( ModuleInitializationLevel p_level ) {
         if ( p_level == MODULE_INITIALIZATION_LEVEL_SCENE ) {
-            memdelete(model_loader);
+            memdelete( model_loader );
 
             Csm::CubismFramework::Dispose();
 

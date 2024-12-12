@@ -38,14 +38,13 @@ void AvatarParameter::_bind_methods() {
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::VECTOR2, "output_range" ),
                   "set_output_range", "get_output_range" );
 
-    godot::ClassDB::bind_method( godot::D_METHOD( "get_output" ),
-                                 &AvatarParameter::get_output );
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_output" ), &AvatarParameter::get_output );
     godot::ClassDB::bind_method( godot::D_METHOD( "set_output", "output_parameter" ),
                                  &AvatarParameter::set_output );
-    ADD_PROPERTY( godot::PropertyInfo( godot::Variant::OBJECT, "output",
-                                       godot::PROPERTY_HINT_TYPE_STRING,
-                                       OutputParameter::get_class_static(),
-                                       godot::PROPERTY_USAGE_DEFAULT | godot::PROPERTY_USAGE_NEVER_DUPLICATE),
+    ADD_PROPERTY( godot::PropertyInfo(
+                      godot::Variant::OBJECT, "output", godot::PROPERTY_HINT_TYPE_STRING,
+                      OutputParameter::get_class_static(),
+                      godot::PROPERTY_USAGE_DEFAULT | godot::PROPERTY_USAGE_NEVER_DUPLICATE ),
                   "set_output", "get_output" );
 
     godot::ClassDB::bind_method( godot::D_METHOD( "calculate_value", "input", "delta" ),

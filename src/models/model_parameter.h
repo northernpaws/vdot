@@ -18,6 +18,7 @@ class ModelParameter : public OutputParameter {
     GDCLASS( ModelParameter, OutputParameter )
   protected:
     static void _bind_methods();
+
   public:
 };
 

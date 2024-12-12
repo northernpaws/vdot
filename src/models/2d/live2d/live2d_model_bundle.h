@@ -10,9 +10,10 @@ class Live2DModelBundle : public ModelBundle {
     godot::String model3_path;
 
     static void _bind_methods();
+
   public:
     [[nodiscard]] godot::String get_model3_path() const;
-    void set_model3_path(const godot::String& p_path);
+    void set_model3_path( const godot::String &p_path );
 
     /**
      * Packs the model bundle using the specified .model3.json file.

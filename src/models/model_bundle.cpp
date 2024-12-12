@@ -194,17 +194,17 @@ godot::String ModelBundle::compute_hash() const {
     godot::Ref<godot::HashingContext> hash;
     hash.instantiate();
 
-    hash->start(godot::HashingContext::HASH_SHA256);
+    hash->start( godot::HashingContext::HASH_SHA256 );
 
     for ( const godot::KeyValue<godot::String, BundleFile> &file : files ) {
-        auto err = hash->update(file.key.to_utf8_buffer());
-        ERR_FAIL_COND_V_MSG(err, {}, "Failed to calculate hash for bundle file path.");
+        auto err = hash->update( file.key.to_utf8_buffer() );
+        ERR_FAIL_COND_V_MSG( err, {}, "Failed to calculate hash for bundle file path." );
 
-        err = hash->update(file.value.data);
-        ERR_FAIL_COND_V_MSG(err, {}, "Failed to calculate hash for bundle file data.");
+        err = hash->update( file.value.data );
+        ERR_FAIL_COND_V_MSG( err, {}, "Failed to calculate hash for bundle file data." );
     }
 
-    auto res= hash->finish();
+    auto res = hash->finish();
 
     return res.hex_encode();
 }

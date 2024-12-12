@@ -5,8 +5,8 @@
 
 #include <godot_cpp/classes/ref_counted.hpp>
 
-#include "model_bundle.h"
 #include "model.h"
+#include "model_bundle.h"
 
 /**
  * Base class for implementing loaders for model formats.
@@ -15,10 +15,14 @@ class ModelFormat : public godot::RefCounted {
     GDCLASS( ModelFormat, godot::RefCounted )
   protected:
     static void _bind_methods();
-  public:
 
-    virtual godot::String get_format_loader_name() const { return godot::String(); }
-    virtual godot::String get_format_loader_description() const { return godot::String(); }
+  public:
+    virtual godot::String get_format_loader_name() const {
+        return godot::String();
+    }
+    virtual godot::String get_format_loader_description() const {
+        return godot::String();
+    }
 
     /**
      * Returns the list of file extensions that can be loaded by this format.
@@ -32,7 +36,7 @@ class ModelFormat : public godot::RefCounted {
      * Alternative matches that's checked if get_recognized_extensions doesn't pass.
      * @return if the format can handle the specified path
      */
-    [[nodiscard]] virtual bool can_handle_path(const godot::String& p_path) const {
+    [[nodiscard]] virtual bool can_handle_path( const godot::String &p_path ) const {
         return false;
     }
 
@@ -41,15 +45,15 @@ class ModelFormat : public godot::RefCounted {
      * @param p_path the path to create the model from
      * @return the created model node
      */
-    virtual Model* load_from_path(const godot::String& p_path) const {
-        ERR_FAIL_V_MSG(nullptr, "create_from_path not implemented");
+    virtual Model *load_from_path( const godot::String &p_path ) const {
+        ERR_FAIL_V_MSG( nullptr, "create_from_path not implemented" );
     }
 
     /**
      * Returns an array of format names to match against model bundle formats.
      */
     [[nodiscard]] virtual godot::PackedStringArray get_supported_formats() const {
-        ERR_FAIL_V_MSG({}, "get_supported_formats not implemented");
+        ERR_FAIL_V_MSG( {}, "get_supported_formats not implemented" );
     }
 
     /**
@@ -66,11 +70,10 @@ class ModelFormat : public godot::RefCounted {
      * @param p_bundle - model bundle to create a model from.
      * @return the model node
      */
-    virtual Model* create_from_bundle(const godot::Ref<ModelBundle>& p_bundle, const godot::String& p_extract_path) {
-        ERR_FAIL_V_MSG(nullptr, "create_from_bundle not implemented");
+    virtual Model *create_from_bundle( const godot::Ref<ModelBundle> &p_bundle,
+                                       const godot::String &p_extract_path ) {
+        ERR_FAIL_V_MSG( nullptr, "create_from_bundle not implemented" );
     }
-
-
 };
 
 #endif // VDOT_MODEL_FORMAT_H
