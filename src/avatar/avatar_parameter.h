@@ -21,7 +21,6 @@ class AvatarParameter : public godot::Resource {
     godot::Vector2 output_range = godot::Vector2( 0.0f, 1.0f );
 
     static void _bind_methods();
-
   public:
     [[nodiscard]] godot::StringName get_parameter_id() const;
     void set_parameter_id( const godot::StringName &p_id );
