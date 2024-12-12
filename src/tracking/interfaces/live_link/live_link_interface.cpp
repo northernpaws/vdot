@@ -162,7 +162,7 @@ void LiveLinkInterface::_on_server_client_disconnected( const godot::Ref<LiveLin
 
         emit_signal( "tracker_disconnected", tracker );
 
-        _trackers.erase( LiveLinkFaceTracker::tracker_name( client ) );
+        _trackers.erase( LiveLinkFaceTracker::_tracker_name( client ) );
 
         TrackingServer *server = TrackingServer::get_singleton();
         if ( server != nullptr ) {

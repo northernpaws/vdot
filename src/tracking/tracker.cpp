@@ -14,13 +14,13 @@ Tracker::Tracker() = default;
 Tracker::~Tracker() = default;
 
 godot::StringName Tracker::get_tracker_name() const {
-    return name;
+    return tracker_name;
 }
 
 godot::StringName Tracker::get_tracker_description() const {
-    return description;
+    return tracker_description;
 }
 
 TrackingServer::TrackerType Tracker::get_tracker_type() const {
-    return type;
+    return tracker_type;
 }

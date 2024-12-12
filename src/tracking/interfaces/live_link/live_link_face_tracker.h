@@ -22,7 +22,7 @@ class LiveLinkFaceTracker : public FaceTracker {
     explicit LiveLinkFaceTracker( const godot::Ref<LiveLinkClient> &p_client );
     ~LiveLinkFaceTracker() override;
 
-    static godot::StringName tracker_name( const godot::Ref<LiveLinkClient> &client );
+    static godot::StringName _tracker_name( const godot::Ref<LiveLinkClient> &client );
 };
 
 #endif // VDOT_LIVE_LINK_FACE_TRACKER_H

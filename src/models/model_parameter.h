@@ -5,7 +5,7 @@
 
 #include <godot_cpp/classes/resource.hpp>
 
-#include "avatar/parameter_output.h"
+#include "parameters/parameter_output.h"
 
 /**
  * Provides a handle to access a specific parameter for a model.

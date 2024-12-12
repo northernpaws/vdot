@@ -13,6 +13,7 @@ class AvatarManager : public godot::Node {
     GDCLASS( AvatarManager, godot::Node )
   protected:
     static void _bind_methods();
+
   public:
 };
 

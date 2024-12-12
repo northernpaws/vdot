@@ -5,37 +5,16 @@
 
 #include <godot_cpp/classes/resource.hpp>
 
-class OutputParameter : public godot::Resource {
-    GDCLASS( OutputParameter, godot::Resource )
+#include "parameter.h"
+
+class OutputParameter : public Parameter {
+    GDCLASS( OutputParameter, Parameter )
   protected:
     static void _bind_methods();
-
   public:
-    godot::StringName parameter_id; // unique for the model
-
-    godot::String parameter_name;        // user-friendly name
-    godot::String parameter_description; // user-friendly description
-
-    godot::PackedStringArray parameter_labels; // contextual user-facing hints
-
-    float parameter_minimum = 0.0f;
-    float parameter_maximum = 1.0f;
-
-    float parameter_default = 0.0f;
+    static constexpr const char * SIGNAL_VALUE_CHANGED = "value_changed";
 
     float parameter_value = 0.0f;
-
-    [[nodiscard]] godot::StringName get_parameter_id() const;
-
-    [[nodiscard]] godot::String get_parameter_name() const;
-    [[nodiscard]] godot::String get_parameter_description() const;
-
-    [[nodiscard]] godot::PackedStringArray get_parameter_labels() const;
-
-    [[nodiscard]] float get_parameter_minimum_value() const;
-    [[nodiscard]] float get_parameter_maximum_value() const;
-
-    [[nodiscard]] float get_parameter_default_value() const;
 
     [[nodiscard]] float get_parameter_value() const;
     void set_parameter_value( float value );

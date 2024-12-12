@@ -9,6 +9,9 @@
 
 #include "standards/unified_expressions.h"
 
+#include "parameters/parameter_context.h"
+#include "parameters/parameter_input.h"
+
 #include "tracker.h"
 
 /**
@@ -21,6 +24,9 @@ class FaceTracker : public Tracker {
     static void _bind_methods();
 
     float blend_shape_values[UnifiedExpressions::BlendShape::FT_MAX] = {};
+
+    godot::Ref<ParameterContext> parameter_context;
+    godot::Ref<InputParameter> blend_shape_parameters[UnifiedExpressions::BlendShape::FT_MAX] = {};
 
   public:
     FaceTracker();

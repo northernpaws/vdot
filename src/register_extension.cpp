@@ -24,10 +24,16 @@
 #include "tracking/editor/editor_plugin.h"
 #include "tracking/editor/trackers/face_tracker_panel.h"
 
+#include "parameters/parameter_server.h"
+#include "parameters/parameter_input.h"
+#include "parameters/parameter_output.h"
+#include "parameters/parameter_context.h"
+
 #include "models/model.h"
 #include "models/model_bundle.h"
 #include "models/model_format.h"
 #include "models/model_parameter.h"
+#include "models/model_loader.h"
 
 #include "models/2d/model_2d.h"
 
@@ -61,7 +67,7 @@
 #include "tracking/interfaces/live_link/live_link_panel.h"
 #include "tracking/interfaces/live_link/live_link_server.h"
 
-#include "models/model_loader.h"
+
 #include "tracking/interfaces/vts/vts_interface.h"
 
 using namespace godot;
@@ -82,6 +88,7 @@ static ModelLoader *model_loader = nullptr;
 
 static godot::Ref<LiveLinkInterface> live_link_interface = nullptr;
 static godot::Ref<VTSInterface> vts_interface = nullptr;
+static godot::Ref<ParameterServer> parameter_server = nullptr;
 
 namespace {
     /// @brief Called by Godot to let us register our classes with Godot.
@@ -104,6 +111,19 @@ namespace {
 
         if ( p_level == MODULE_INITIALIZATION_LEVEL_SCENE ) {
             ClassDB::register_class<VDot>();
+
+            // ====================
+            // Parameter System
+
+            GDREGISTER_CLASS( Parameter )
+            GDREGISTER_CLASS( InputParameter )
+            GDREGISTER_CLASS( OutputParameter )
+            GDREGISTER_CLASS( ParameterContext )
+            GDREGISTER_CLASS( ParameterServer )
+
+            parameter_server.instantiate();
+            Engine::get_singleton()->register_singleton( "ParameterServer",
+                                                         ParameterServer::get_singleton() );
 
             // ====================
             // Tracking
@@ -135,9 +155,6 @@ namespace {
 
             // ====================
             // Avatar
-
-            GDREGISTER_CLASS( InputParameter )
-            GDREGISTER_CLASS( OutputParameter )
 
             GDREGISTER_CLASS( AvatarParameter )
             GDREGISTER_CLASS( AvatarParameterEval )

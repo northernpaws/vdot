@@ -5,7 +5,8 @@
 
 #include <godot_cpp/classes/resource.hpp>
 
-#include "parameter_output.h"
+#include "parameters/parameter_input.h"
+#include "parameters/parameter_output.h"
 
 /**
  * Defines a n input->output parameter mapping associated with the avatar.
@@ -22,10 +23,12 @@ class AvatarParameter : public godot::Resource {
     godot::Vector2 input_range = godot::Vector2( 0.0f, 1.0f );
     godot::Vector2 output_range = godot::Vector2( 0.0f, 1.0f );
 
-    godot::Ref<OutputParameter> output;
+    // references to the input parameter to pull values from,
+    // and the output parameter to push the derived values to.
+    godot::Ref<InputParameter> input_parameter;
+    godot::Ref<OutputParameter> output_parameter;
 
     static void _bind_methods();
-
   public:
     [[nodiscard]] godot::StringName get_parameter_id() const;
     void set_parameter_id( const godot::StringName &p_id );
@@ -42,10 +45,15 @@ class AvatarParameter : public godot::Resource {
     godot::Vector2 get_output_range() const;
     void set_output_range( const godot::Vector2 &p_range );
 
-    godot::Ref<OutputParameter> get_output() const;
-    void set_output( const godot::Ref<OutputParameter> &p_output );
+    godot::Ref<InputParameter> get_input_parameter() const;
+    void set_input_parameter( const godot::Ref<InputParameter> &p_input_parameter );
+
+    godot::Ref<OutputParameter> get_output_parameter() const;
+    void set_output_parameter( const godot::Ref<OutputParameter> &p_output_parameter );
 
     float calculate_value( float p_input, double delta ) const;
+
+    void _on_input_changed(float p_input_value);
 };
 
 namespace godot {

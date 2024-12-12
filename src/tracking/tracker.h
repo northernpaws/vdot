@@ -12,9 +12,9 @@
 class Tracker : public godot::RefCounted {
     GDCLASS( Tracker, godot::RefCounted )
   protected:
-    TrackingServer::TrackerType type = TrackingServer::TrackerType::TRACKER_UNKNOWN;
-    godot::StringName name = "unknown";
-    godot::String description;
+    TrackingServer::TrackerType tracker_type = TrackingServer::TrackerType::TRACKER_UNKNOWN;
+    godot::StringName tracker_name = "unknown";
+    godot::String tracker_description;
 
     static void _bind_methods();
 
