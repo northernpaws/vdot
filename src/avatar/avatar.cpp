@@ -264,7 +264,6 @@ void Avatar::_update_model_references() {
     if ( !is_inside_tree() ) {
         model = nullptr;
         set_texture( nullptr );
-        godot::UtilityFunctions::print( "outside tree, cleared model and texture reference" );
         return;
     }
 
@@ -279,25 +278,16 @@ void Avatar::_update_model_references() {
             if ( godot::ClassDB::is_parent_class( Model::get_class_static(),
                                                   child->get_class_static() ) ) {
                 model = godot::Object::cast_to<Model>( child );
-                godot::UtilityFunctions::print( "found model in children" );
                 break;
             }
-        }
-
-        if ( model == nullptr ) {
-            godot::UtilityFunctions::print( "no model found in children" );
         }
     }
 
     if ( model == nullptr ) {
         set_texture( nullptr );
-        godot::UtilityFunctions::print( "model null, cleared texture" );
     } else {
         if ( is_inside_tree() ) {
-            godot::UtilityFunctions::print( "inside tree, set texture" );
             set_texture( model->get_texture() );
-        } else {
-            godot::UtilityFunctions::print( "outside tree, didn't set texture" );
         }
     }
 
