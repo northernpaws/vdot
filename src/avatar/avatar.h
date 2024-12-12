@@ -5,6 +5,7 @@
 #include <godot_cpp/classes/sprite2d.hpp>
 #include <godot_cpp/classes/viewport_texture.hpp>
 #include <godot_cpp/templates/hash_map.hpp>
+#include <godot_cpp/classes/input_event.hpp>
 
 #include "models/model.h"
 
@@ -23,7 +24,8 @@ class Avatar : public godot::Sprite2D {
     godot::TypedArray<AvatarParameter> parameters;
     godot::HashMap<godot::StringName, godot::Ref<AvatarParameterEval>> parameter_values;
 
-    godot::Ref<godot::ViewportTexture> viewport_texture;
+    bool mouse_dragging = false;
+    godot::Vector2 drag_offset;
 
     Model *model;
 
@@ -38,6 +40,12 @@ class Avatar : public godot::Sprite2D {
     void _notification(int p_what);
 
     void _ready() override;
+
+    void _enter_tree() override;
+    void _exit_tree() override;
+
+    void _input(const godot::Ref<godot::InputEvent> &p_event) override;
+
     void _process( double delta ) override;
 
     void _process_parameters( double delta );
@@ -76,6 +84,8 @@ class Avatar : public godot::Sprite2D {
 
     void _child_entered_tree(godot::Node* p_node);
     void _child_exiting_tree(godot::Node* p_node);
+
+    void _update_model_references();
 };
 
 #endif // VDOT_AVATAR_H

@@ -60,7 +60,9 @@ stretch = true
 [node name="PreviewViewport" type="SubViewport" parent="PreviewContainer/PreviewTexture"]
 own_world_3d = true
 world_3d = SubResource("World3D_hmqux")
-size = Vector2i(128, 648)
+handle_input_locally = false
+size = Vector2i(2, 2)
+render_target_update_mode = 4
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PreviewContainer/PreviewTexture/PreviewViewport"]
 mesh = ExtResource("1_mluni")

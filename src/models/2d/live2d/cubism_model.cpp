@@ -303,7 +303,7 @@ void CubismModel::set_assets( const godot::String p_assets ) {
     godot::Ref<godot::FileAccess> f = godot::FileAccess::open( p_assets, godot::FileAccess::READ );
     if ( f.is_null() ) {
         this->clear();
-        return;
+        ERR_FAIL_MSG(godot::vformat("Failed to open .model3.json file '%s': %s", p_assets, f->get_open_error()));
     }
 
     this->clear();
@@ -311,11 +311,11 @@ void CubismModel::set_assets( const godot::String p_assets ) {
 
     if ( !this->proxy_model->model_load( p_assets ) ) {
         this->clear();
-        return;
+        ERR_FAIL_MSG(godot::vformat("Failed to load model from .model3.json file '%s'", p_assets));
     }
     if ( !this->proxy_model->IsInitialized() ) {
         this->clear();
-        return;
+        ERR_FAIL_MSG(godot::vformat("Failed to initialize model from .model3.json file '%s'", p_assets));
     }
 
     {
@@ -336,8 +336,8 @@ void CubismModel::set_assets( const godot::String p_assets ) {
             auto err = display_info_filename.parse_utf8(this->proxy_model->_model_setting->GetDisplayInfoFileName());
             ERR_FAIL_COND_MSG(err, "Failed to parse display info file name.");
 
-            auto displayinfo_file = godot::FileAccess::open(display_info_filename, godot::FileAccess::ModeFlags::READ);
-            ERR_FAIL_COND_MSG(displayinfo_file->get_open_error(), "Failed to open display info file.");
+            auto displayinfo_file = godot::FileAccess::open(p_assets.get_base_dir().path_join(display_info_filename), godot::FileAccess::ModeFlags::READ);
+            ERR_FAIL_COND_MSG(displayinfo_file->get_open_error(), godot::vformat("Failed to open display info file: ", p_assets.get_base_dir().path_join(display_info_filename)));
 
             auto displayinfo_text = displayinfo_file->get_as_text();
 

@@ -1,4 +1,5 @@
 
+#include <godot_cpp/classes/input_event.hpp>
 #include <godot_cpp/classes/e_net_packet_peer.hpp>
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/multiplayer_api.hpp>
