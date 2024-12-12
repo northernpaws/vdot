@@ -16,6 +16,8 @@ target_sources(${PROJECT_NAME}
         tracking/editor/tracking_plugin_panel.cpp
         tracking/editor/trackers/face_tracker_panel.cpp
 
+        lipsync/lipsync_server.cpp
+
         models/2d/model_2d.cpp
         models/model_parameter.cpp
         models/model_bundle.cpp

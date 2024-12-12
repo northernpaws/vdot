@@ -67,7 +67,7 @@
 #include "tracking/interfaces/live_link/live_link_panel.h"
 #include "tracking/interfaces/live_link/live_link_server.h"
 
-
+#include "lipsync/lipsync_server.h"
 #include "tracking/interfaces/vts/vts_interface.h"
 
 using namespace godot;
@@ -82,13 +82,16 @@ void cubism_output( const char *message ) {
     WARN_PRINT( message );
 }
 
+static godot::Ref<ParameterServer> parameter_server = nullptr;
+
 static TrackingServer *tracking_server = nullptr;
 
 static ModelLoader *model_loader = nullptr;
 
 static godot::Ref<LiveLinkInterface> live_link_interface = nullptr;
 static godot::Ref<VTSInterface> vts_interface = nullptr;
-static godot::Ref<ParameterServer> parameter_server = nullptr;
+
+static godot::Ref<LipsyncServer> lipsync_server = nullptr;
 
 namespace {
     /// @brief Called by Godot to let us register our classes with Godot.
@@ -124,6 +127,13 @@ namespace {
             parameter_server.instantiate();
             Engine::get_singleton()->register_singleton( "ParameterServer",
                                                          ParameterServer::get_singleton() );
+
+            // ====================
+            // Lip Syncing
+
+            lipsync_server.instantiate();
+            Engine::get_singleton()->register_singleton( "LipsyncServer",
+                                                         LipsyncServer::get_singleton() );
 
             // ====================
             // Tracking
