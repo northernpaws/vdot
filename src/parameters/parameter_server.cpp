@@ -5,34 +5,46 @@
 ParameterServer *ParameterServer::singleton = nullptr;
 
 void ParameterServer::_bind_methods() {
-    ADD_SIGNAL( godot::MethodInfo( "parameter_registered",
-                                   godot::PropertyInfo( godot::Variant::OBJECT, "input_parameter",
+    ADD_SIGNAL( godot::MethodInfo( SIGNAL_CONTEXT_ADDED,
+                                   godot::PropertyInfo( godot::Variant::OBJECT, "context",
                                                         godot::PROPERTY_HINT_TYPE_STRING,
-                                                        InputParameter::get_class_static() ) ) );
+                                                        ParameterContext::get_class_static() ) ) );
 
-    ADD_SIGNAL( godot::MethodInfo( "parameter_removed",
-                                   godot::PropertyInfo( godot::Variant::OBJECT, "input_parameter",
+    ADD_SIGNAL( godot::MethodInfo( SIGNAL_CONTEXT_REMOVED,
+                                   godot::PropertyInfo( godot::Variant::OBJECT, "context",
                                                         godot::PROPERTY_HINT_TYPE_STRING,
-                                                        InputParameter::get_class_static() ) ) );
+                                                        ParameterContext::get_class_static() ) ) );
 
-    godot::ClassDB::bind_method( godot::D_METHOD( "register_input_parameter", "input_parameter" ),
-                                 &ParameterServer::register_input_parameter );
+    ADD_SIGNAL( godot::MethodInfo(
+        SIGNAL_CONTEXT_PARAMETER_ADDED,
+        godot::PropertyInfo( godot::Variant::OBJECT, "context", godot::PROPERTY_HINT_TYPE_STRING,
+                             ParameterContext::get_class_static() ),
+        godot::PropertyInfo( godot::Variant::OBJECT, "parameter", godot::PROPERTY_HINT_TYPE_STRING,
+                             InputParameter::get_class_static() ) ) );
 
-    godot::ClassDB::bind_method( godot::D_METHOD( "get_input_parameters" ),
-                                 &ParameterServer::get_input_parameters );
-    godot::ClassDB::bind_method( godot::D_METHOD( "set_input_parameters", "input_parameters" ),
-                                 &ParameterServer::set_input_parameters );
-    ADD_PROPERTY( godot::PropertyInfo( godot::Variant::ARRAY, "input_parameters",
-                                       godot::PROPERTY_HINT_ARRAY_TYPE, InputParameter::get_class_static() ),
-                  "set_input_parameters", "get_input_parameters" );
+    ADD_SIGNAL( godot::MethodInfo(
+        SIGNAL_CONTEXT_PARAMETER_REMOVED,
+        godot::PropertyInfo( godot::Variant::OBJECT, "context", godot::PROPERTY_HINT_TYPE_STRING,
+                             ParameterContext::get_class_static() ),
+        godot::PropertyInfo( godot::Variant::OBJECT, "parameter", godot::PROPERTY_HINT_TYPE_STRING,
+                             InputParameter::get_class_static() ) ) );
 
-    godot::ClassDB::bind_method( godot::D_METHOD( "get_parameter_contexts" ),
-                                 &ParameterServer::get_parameter_contexts );
-    godot::ClassDB::bind_method( godot::D_METHOD( "set_parameter_contexts", "parameter_contexts" ),
-                                 &ParameterServer::set_parameter_contexts );
-    ADD_PROPERTY( godot::PropertyInfo( godot::Variant::ARRAY, "parameter_contexts",
-                                       godot::PROPERTY_HINT_ARRAY_TYPE, ParameterContext::get_class_static() ),
-                  "set_parameter_contexts", "get_parameter_contexts" );
+
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_parameter_context", "context_id" ),
+                                 &ParameterServer::get_parameter_context );
+
+    godot::ClassDB::bind_method( godot::D_METHOD( "list_context_ids" ),
+                                 &ParameterServer::list_context_ids );
+
+    godot::ClassDB::bind_method( godot::D_METHOD( "add_parameter_context", "parameter_context" ),
+                                 &ParameterServer::add_parameter_context );
+    godot::ClassDB::bind_method( godot::D_METHOD( "remove_parameter_context", "context_id" ),
+                                 &ParameterServer::remove_parameter_context );
+
+    godot::ClassDB::bind_method( godot::D_METHOD( "_context_parameter_added" ),
+                                 &ParameterServer::_context_parameter_added );
+    godot::ClassDB::bind_method( godot::D_METHOD( "_context_parameter_removed" ),
+                                 &ParameterServer::_context_parameter_removed );
 }
 
 ParameterServer *ParameterServer::get_singleton() {
@@ -43,38 +55,83 @@ ParameterServer::ParameterServer() {
     singleton = this;
 }
 
-void ParameterServer::register_input_parameter( const godot::Ref<InputParameter> &p_parameter ) {
-    input_parameters.push_back( p_parameter );
-
-    emit_signal( "parameter_registered", p_parameter );
-}
-
-void ParameterServer::remove_input_parameter( const godot::Ref<InputParameter> &p_parameter ) {
-    emit_signal( "parameter_removed", p_parameter );
-    input_parameters.erase( p_parameter );
-}
-
-godot::TypedArray<InputParameter> ParameterServer::get_input_parameters() const {
-    return input_parameters;
-}
-
-void ParameterServer::set_input_parameters(
-    const godot::TypedArray<InputParameter> &p_parameters ) {
-    input_parameters = p_parameters;
-}
-
-godot::TypedArray<ParameterContext> ParameterServer::get_parameter_contexts() const {
+godot::HashMap<godot::StringName, godot::Ref<ParameterContext>> ParameterServer::
+    get_parameter_contexts() const {
     return parameter_contexts;
 }
 
-void ParameterServer::set_parameter_contexts( const godot::TypedArray<ParameterContext> &p_parameter_contexts ) {
+void ParameterServer::set_parameter_contexts(
+    const godot::HashMap<godot::StringName, godot::Ref<ParameterContext>> &p_parameter_contexts ) {
     parameter_contexts = p_parameter_contexts;
 }
 
-void ParameterServer::add_parameter_context(const godot::Ref<ParameterContext> &p_parameter_context) {
-    parameter_contexts.append(p_parameter_context);
+godot::Ref<ParameterContext> ParameterServer::get_parameter_context(
+    const godot::StringName &p_context_id ) const {
+    ERR_FAIL_COND_V_MSG(
+        !parameter_contexts.has( p_context_id ), nullptr,
+        godot::vformat( "Requested context '%s' does not exist.", p_context_id ) );
+
+    return parameter_contexts[p_context_id];
 }
 
-void ParameterServer::remove_parameter_context(const godot::Ref<ParameterContext> &p_parameter_context) {
-    parameter_contexts.erase(p_parameter_context);
+godot::TypedArray<godot::StringName> ParameterServer::list_context_ids() const {
+    godot::TypedArray<godot::StringName> context_ids;
+
+    for ( const godot::KeyValue<godot::StringName, godot::Ref<ParameterContext>>
+              &parameter_context : parameter_contexts ) {
+        context_ids.append( parameter_context.key );
+    }
+
+    return context_ids;
+}
+
+void ParameterServer::add_parameter_context(
+    const godot::Ref<ParameterContext> &p_parameter_context ) {
+    parameter_contexts[p_parameter_context->context_id] = p_parameter_context;
+
+    p_parameter_context->connect( ParameterContext::SIGNAL_PARAMETER_ADDED,
+                                  godot::Callable( this, "_context_parameter_added" ) );
+
+    emit_signal( SIGNAL_CONTEXT_ADDED, p_parameter_context );
+}
+
+void ParameterServer::remove_parameter_context(
+    const godot::Ref<ParameterContext> &p_parameter_context ) {
+
+    p_parameter_context->connect( ParameterContext::SIGNAL_PARAMETER_REMOVED,
+                                  godot::Callable( this, "_context_parameter_removed" ) );
+
+    emit_signal( SIGNAL_CONTEXT_REMOVED, p_parameter_context );
+
+    parameter_contexts[p_parameter_context->context_id] = p_parameter_context;
+}
+
+godot::Ref<InputParameter> ParameterServer::get_input_parameter(
+    const godot::StringName &p_name ) const {
+    for ( const godot::KeyValue<godot::StringName, godot::Ref<ParameterContext>>
+              &parameter_context : parameter_contexts ) {
+        if ( parameter_context.value->has_input_parameter( p_name ) ) {
+            return parameter_context.value->get_input_parameter( p_name );
+        }
+    }
+
+    return nullptr;
+}
+
+void ParameterServer::_context_parameter_added( const godot::StringName &p_context_id,
+                                                const godot::Ref<InputParameter> &p_parameter ) {
+    ERR_FAIL_COND_MSG(
+        !parameter_contexts.has( p_context_id ),
+        godot::vformat( "Got signal for context '%s' which isn't registered.", p_context_id ) );
+
+    emit_signal( SIGNAL_CONTEXT_PARAMETER_ADDED, parameter_contexts[p_context_id], p_parameter );
+}
+
+void ParameterServer::_context_parameter_removed( const godot::StringName &p_context_id,
+                                                  const godot::Ref<InputParameter> &p_parameter ) {
+    ERR_FAIL_COND_MSG(
+        !parameter_contexts.has( p_context_id ),
+        godot::vformat( "Got signal for context '%s' which isn't registered.", p_context_id ) );
+
+    emit_signal( SIGNAL_CONTEXT_PARAMETER_REMOVED, parameter_contexts[p_context_id], p_parameter );
 }

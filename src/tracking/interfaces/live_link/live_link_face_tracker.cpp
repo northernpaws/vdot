@@ -10,7 +10,8 @@ LiveLinkFaceTracker::LiveLinkFaceTracker( const godot::Ref<LiveLinkClient> &p_cl
 
     tracker_type = TrackingServer::TRACKER_FACE;
     tracker_name = _tracker_name( _client );
-    tracker_description = godot::vformat( "LiveLink face tracker %s (%s).", _client->_name, _client->_id );
+    tracker_description =
+        godot::vformat( "LiveLink face tracker %s (%s).", _client->_name, _client->_id );
 }
 
 LiveLinkFaceTracker::~LiveLinkFaceTracker() = default;

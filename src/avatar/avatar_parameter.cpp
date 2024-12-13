@@ -1,6 +1,7 @@
 
 
 #include "avatar_parameter.h"
+#include "parameters/parameter_server.h"
 
 void AvatarParameter::_bind_methods() {
     godot::ClassDB::bind_method( godot::D_METHOD( "get_parameter_id" ),
@@ -10,12 +11,12 @@ void AvatarParameter::_bind_methods() {
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::STRING_NAME, "id" ), "set_parameter_id",
                   "get_parameter_id" );
 
-    godot::ClassDB::bind_method( godot::D_METHOD( "get_parameter_name" ),
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_parameter_label" ),
                                  &AvatarParameter::get_parameter_name );
     godot::ClassDB::bind_method( godot::D_METHOD( "set_parameter_name", "name" ),
                                  &AvatarParameter::set_parameter_name );
     ADD_PROPERTY( godot::PropertyInfo( godot::Variant::STRING, "name" ), "set_parameter_name",
-                  "get_parameter_name" );
+                  "get_parameter_label" );
 
     godot::ClassDB::bind_method( godot::D_METHOD( "get_parameter_description" ),
                                  &AvatarParameter::get_parameter_description );
@@ -42,10 +43,7 @@ void AvatarParameter::_bind_methods() {
                                  &AvatarParameter::get_input_parameter );
     godot::ClassDB::bind_method( godot::D_METHOD( "set_input_parameter", "input_parameter" ),
                                  &AvatarParameter::set_input_parameter );
-    ADD_PROPERTY( godot::PropertyInfo(
-                      godot::Variant::OBJECT, "input_parameter", godot::PROPERTY_HINT_TYPE_STRING,
-                      InputParameter::get_class_static(),
-                      godot::PROPERTY_USAGE_DEFAULT | godot::PROPERTY_USAGE_NEVER_DUPLICATE ),
+    ADD_PROPERTY( godot::PropertyInfo( godot::Variant::STRING_NAME, "input_parameter" ),
                   "set_input_parameter", "get_input_parameter" );
 
     godot::ClassDB::bind_method( godot::D_METHOD( "get_output_parameter" ),
@@ -105,21 +103,30 @@ void AvatarParameter::set_output_range( const godot::Vector2 &p_range ) {
     output_range = p_range;
 }
 
-godot::Ref<InputParameter> AvatarParameter::get_input_parameter() const {
+godot::StringName AvatarParameter::get_input_parameter() const {
     return input_parameter;
 }
 
-void AvatarParameter::set_input_parameter( const godot::Ref<InputParameter> &p_input_parameter ) {
-    if (input_parameter.is_valid()) {
-        input_parameter->disconnect(InputParameter::SIGNAL_VALUE_CHANGED, godot::Callable(this, "_on_input_changed"));
+void AvatarParameter::set_input_parameter( const godot::StringName &p_input_parameter ) {
+    ParameterServer *server = ParameterServer::get_singleton();
+    godot::Ref<InputParameter> new_parameter = server->get_input_parameter( p_input_parameter );
+    ERR_FAIL_COND_MSG( new_parameter.is_null(), "Failed to find requested input parameter." );
+
+    if ( !input_parameter.is_empty() ) {
+        godot::Ref<InputParameter> old_parameter = server->get_input_parameter( input_parameter );
+        if ( old_parameter.is_valid() ) {
+            old_parameter->disconnect( InputParameter::SIGNAL_VALUE_CHANGED,
+                                       godot::Callable( this, "_on_input_changed" ) );
+        }
     }
 
     input_parameter = p_input_parameter;
 
-    input_range = godot::Vector2(input_parameter->parameter_minimum,
-                                  input_parameter->parameter_maximum);
+    input_range =
+        godot::Vector2( new_parameter->parameter_minimum, new_parameter->parameter_maximum );
 
-    input_parameter->connect(InputParameter::SIGNAL_VALUE_CHANGED, godot::Callable(this, "_on_input_changed"));
+    new_parameter->connect( InputParameter::SIGNAL_VALUE_CHANGED,
+                            godot::Callable( this, "_on_input_changed" ) );
 }
 
 godot::Ref<OutputParameter> AvatarParameter::get_output_parameter() const {
@@ -142,6 +149,6 @@ float AvatarParameter::calculate_value( float p_input, double delta ) const {
            output_range.x;
 }
 
-void AvatarParameter::_on_input_changed(float p_input_value) {
+void AvatarParameter::_on_input_changed( float p_input_value ) {
     // TODO: signal for new value
 }

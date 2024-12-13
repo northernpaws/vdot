@@ -14,6 +14,7 @@ class LipsyncServer : public godot::RefCounted {
     static void _bind_methods();
 
     godot::Ref<ParameterContext> param_context;
+
   public:
     static LipsyncServer *get_singleton();
 

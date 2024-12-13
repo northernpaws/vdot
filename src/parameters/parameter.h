@@ -13,10 +13,10 @@ class Parameter : public godot::Resource {
   public:
     godot::StringName parameter_id; // unique for the parameter
 
-    godot::String parameter_name;        // user-friendly name
+    godot::String parameter_label;        // user-friendly name
     godot::String parameter_description; // user-friendly description
 
-    godot::PackedStringArray parameter_labels; // contextual user-facing hints
+    godot::PackedStringArray parameter_tags; // contextual user-facing hints
 
     float parameter_minimum = 0.0f;
     float parameter_maximum = 1.0f;
@@ -25,10 +25,10 @@ class Parameter : public godot::Resource {
 
     [[nodiscard]] godot::StringName get_parameter_id() const;
 
-    [[nodiscard]] godot::String get_parameter_name() const;
+    [[nodiscard]] godot::String get_parameter_label() const;
     [[nodiscard]] godot::String get_parameter_description() const;
 
-    [[nodiscard]] godot::PackedStringArray get_parameter_labels() const;
+    [[nodiscard]] godot::PackedStringArray get_parameter_tags() const;
 
     [[nodiscard]] float get_parameter_minimum_value() const;
     [[nodiscard]] float get_parameter_maximum_value() const;

@@ -11,8 +11,9 @@ class InputParameter : public Parameter {
     GDCLASS( InputParameter, Parameter )
   protected:
     static void _bind_methods();
+
   public:
-    static constexpr const char * SIGNAL_VALUE_CHANGED = "value_changed";
+    static constexpr const char *SIGNAL_VALUE_CHANGED = "value_changed";
 
     float parameter_value = 0.0f;
 

@@ -24,16 +24,16 @@
 #include "tracking/editor/editor_plugin.h"
 #include "tracking/editor/trackers/face_tracker_panel.h"
 
-#include "parameters/parameter_server.h"
+#include "parameters/parameter_context.h"
 #include "parameters/parameter_input.h"
 #include "parameters/parameter_output.h"
-#include "parameters/parameter_context.h"
+#include "parameters/parameter_server.h"
 
 #include "models/model.h"
 #include "models/model_bundle.h"
 #include "models/model_format.h"
-#include "models/model_parameter.h"
 #include "models/model_loader.h"
+#include "models/model_parameter.h"
 
 #include "models/2d/model_2d.h"
 

@@ -388,20 +388,20 @@ void CubismModel::set_assets( const godot::String p_assets ) {
                     if ( param_id == param_info_id ) {
                         found_displayinfo = true;
 
-                        model_param->parameter_name = param_info_name;
+                        model_param->parameter_label = param_info_name;
                         model_param->parameter_description = param_info_name;
-                        model_param->parameter_labels.append( param_info_group );
+                        model_param->parameter_tags.append( param_info_group );
                     }
                 }
             }
 
             if ( !found_displayinfo ) {
-                model_param->parameter_name = godot::StringName( param_id );
+                model_param->parameter_label = godot::StringName( param_id );
                 model_param->parameter_description = godot::StringName( param_id );
             }
 
             if ( param_type == Live2D::Cubism::Core::csmParameterType_BlendShape ) {
-                model_param->parameter_labels.push_back( "Blend Shape" );
+                model_param->parameter_tags.push_back( "Blend Shape" );
             }
 
             model_param->parameter_minimum =

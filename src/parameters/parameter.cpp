@@ -7,12 +7,12 @@ void Parameter::_bind_methods() {
                              godot::PROPERTY_USAGE_READ_ONLY | godot::PROPERTY_USAGE_EDITOR ),
         godot::String(), "get_parameter_id" );
 
-    godot::ClassDB::bind_method( godot::D_METHOD( "get_parameter_name" ),
-                                 &Parameter::get_parameter_name );
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_parameter_label" ),
+                                 &Parameter::get_parameter_label );
     ADD_PROPERTY(
-        godot::PropertyInfo( godot::Variant::STRING, "name", godot::PROPERTY_HINT_NONE, "",
+        godot::PropertyInfo( godot::Variant::STRING, "label", godot::PROPERTY_HINT_NONE, "",
                              godot::PROPERTY_USAGE_READ_ONLY | godot::PROPERTY_USAGE_EDITOR ),
-        godot::String(), "get_parameter_name" );
+        godot::String(), "get_parameter_label" );
 
     godot::ClassDB::bind_method( godot::D_METHOD( "get_parameter_description" ),
                                  &Parameter::get_parameter_description );
@@ -21,12 +21,12 @@ void Parameter::_bind_methods() {
                              godot::PROPERTY_USAGE_READ_ONLY | godot::PROPERTY_USAGE_EDITOR ),
         godot::String(), "get_parameter_description" );
 
-    godot::ClassDB::bind_method( godot::D_METHOD( "get_parameter_labels" ),
-                                 &Parameter::get_parameter_labels );
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_parameter_tags" ),
+                                 &Parameter::get_parameter_tags );
     ADD_PROPERTY(
-        godot::PropertyInfo( godot::Variant::STRING, "labels", godot::PROPERTY_HINT_NONE, "",
+        godot::PropertyInfo( godot::Variant::STRING, "tags", godot::PROPERTY_HINT_NONE, "",
                              godot::PROPERTY_USAGE_READ_ONLY | godot::PROPERTY_USAGE_EDITOR ),
-        godot::String(), "get_parameter_labels" );
+        godot::String(), "get_parameter_tags" );
 
     godot::ClassDB::bind_method( godot::D_METHOD( "get_parameter_minimum_value" ),
                                  &Parameter::get_parameter_minimum_value );
@@ -54,16 +54,16 @@ godot::StringName Parameter::get_parameter_id() const {
     return parameter_id;
 }
 
-godot::String Parameter::get_parameter_name() const {
-    return parameter_name;
+godot::String Parameter::get_parameter_label() const {
+    return parameter_label;
 }
 
 godot::String Parameter::get_parameter_description() const {
     return parameter_description;
 }
 
-godot::PackedStringArray Parameter::get_parameter_labels() const {
-    return parameter_labels;
+godot::PackedStringArray Parameter::get_parameter_tags() const {
+    return parameter_tags;
 }
 
 float Parameter::get_parameter_minimum_value() const {
@@ -77,4 +77,3 @@ float Parameter::get_parameter_maximum_value() const {
 float Parameter::get_parameter_default_value() const {
     return parameter_default;
 }
-

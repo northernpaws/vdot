@@ -3,6 +3,7 @@ extends Window
 @onready var model_type_options: OptionButton = $VBoxContainer/ModelSetup/HBoxContainer/HBoxContainer/ModelTypeOptions
 @onready var load_model_button: Button = $VBoxContainer/ModelSetup/HBoxContainer/LoadModelButton
 @onready var load_model_dialog: FileDialog = $LoadModelDialog
+@onready var input_parameters: ItemList = $VBoxContainer/MarginContainer2/TabContainer/Parameters/VBoxContainer/InputParameters
 
 @export var avatar_manager: AvatarManager
 
@@ -18,6 +19,13 @@ func _ready() -> void:
 		model_type_options.set_item_metadata(model_type_options.item_count-1, format)
 		if !selected_model_format:
 			selected_model_format = format
+	
+	input_parameters.clear()
+	for context_id in ParameterServer.list_context_ids():
+		// var context = ParameterServer.contect
+		for param_id in context.list_parameters():
+			var param = context.get_input_parameter(param_id)
+			input_parameters.add_item("(%s:%s) %s" % [context.context_id, param_id, param.name])
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -186,34 +186,36 @@ FaceTracker::FaceTracker() {
     // This groups all the tracker's parameters together to
     // make modifying or unregistering them later easier.
     parameter_context.instantiate();
-    parameter_context->context_id = godot::vformat("/trackers/%s", get_tracker_name());
-    parameter_context->context_name = godot::vformat("Facial Tracker %s", get_tracker_name());
-    parameter_context->context_description = godot::vformat("Facial Tracker %s", get_tracker_name());
+    parameter_context->context_id = godot::vformat( "/trackers/%s", get_tracker_name() );
+    parameter_context->context_label = godot::vformat( "Facial Tracker %s", get_tracker_name() );
+    parameter_context->context_description =
+        godot::vformat( "Facial Tracker %s", get_tracker_name() );
 
     // Construct the input parameters derived from the facial tracker.
-    for( int i = 0; i < UnifiedExpressions::BlendShape::FT_MAX; i++) {
+    for ( int i = 0; i < UnifiedExpressions::BlendShape::FT_MAX; i++ ) {
         auto blend_shape = static_cast<const UnifiedExpressions::BlendShape>( i );
 
         godot::Ref<InputParameter> param;
         param.instantiate();
 
-        param->parameter_id = godot::vformat("/tracking/facial/%s/%s", get_tracker_name(), UnifiedExpressions::blend_shape_names[blend_shape]);
-        param->parameter_name = UnifiedExpressions::blend_shape_names[blend_shape];
+        param->parameter_id = godot::vformat( "/tracking/facial/%s/%s", get_tracker_name(),
+                                              UnifiedExpressions::blend_shape_names[blend_shape] );
+        param->parameter_label = UnifiedExpressions::blend_shape_names[blend_shape];
         param->parameter_description = "Facial tracking blend shape data.";
 
-        param->parameter_labels.push_back("BlendShape");
+        param->parameter_tags.push_back( "BlendShape" );
 
         param->parameter_minimum = 0.0f;
         param->parameter_maximum = 1.0f;
 
-        parameter_context->add_input_parameter(param);
+        parameter_context->add_input_parameter( param );
         blend_shape_parameters[blend_shape] = param;
     }
 
     // Register the tracker parameter context with the parameter server.
-    ParameterServer* parameters = ParameterServer::get_singleton();
-    ERR_FAIL_COND_MSG(parameters == nullptr, "Expected parameter server to be initialized.");
-    parameters->add_parameter_context(parameter_context);
+    ParameterServer *parameters = ParameterServer::get_singleton();
+    ERR_FAIL_COND_MSG( parameters == nullptr, "Expected parameter server to be initialized." );
+    parameters->add_parameter_context( parameter_context );
 }
 FaceTracker::~FaceTracker() = default;
 
@@ -230,7 +232,7 @@ void FaceTracker::set_blend_shape( UnifiedExpressions::BlendShape blend_shape, f
 
     blend_shape_values[blend_shape] = weight;
 
-    blend_shape_parameters[blend_shape]->set_parameter_value(weight);
+    blend_shape_parameters[blend_shape]->set_parameter_value( weight );
     emit_signal( "blend_shape_updated", blend_shape, weight );
 }
 
@@ -251,10 +253,10 @@ void FaceTracker::set_blend_shapes( const godot::PackedFloat32Array &p_blend_sha
     // Copy the blend shape values into the blend shape array.
     memcpy( blend_shape_values, p_blend_shapes.ptr(), sizeof( blend_shape_values ) );
 
-    for (int i =0; i < UnifiedExpressions::BlendShape::FT_MAX; i++) {
+    for ( int i = 0; i < UnifiedExpressions::BlendShape::FT_MAX; i++ ) {
         auto blend_shape = static_cast<const UnifiedExpressions::BlendShape>( i );
 
-        blend_shape_parameters[blend_shape]->set_parameter_value(blend_shape_values[blend_shape]);
+        blend_shape_parameters[blend_shape]->set_parameter_value( blend_shape_values[blend_shape] );
         emit_signal( "blend_shape_updated", blend_shape, blend_shape_values[blend_shape] );
     }
 

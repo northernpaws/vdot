@@ -178,6 +178,26 @@ theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 6
 
+[node name="TabContainer" type="TabContainer" parent="AddAvatarWindow/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+current_tab = 0
+
+[node name="Parameters" type="ScrollContainer" parent="AddAvatarWindow/VBoxContainer/MarginContainer2/TabContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="HBoxContainer" parent="AddAvatarWindow/VBoxContainer/MarginContainer2/TabContainer/Parameters"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InputParameters" type="ItemList" parent="AddAvatarWindow/VBoxContainer/MarginContainer2/TabContainer/Parameters/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 1
+item_0/text = "Dummy Param"
+
 [node name="ModelConfirmation" type="MarginContainer" parent="AddAvatarWindow/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 6

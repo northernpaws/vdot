@@ -17,26 +17,41 @@ class ParameterServer : public godot::RefCounted {
   protected:
     static ParameterServer *singleton;
 
-    godot::TypedArray<InputParameter> input_parameters;
-    godot::TypedArray<ParameterContext> parameter_contexts;
+    godot::HashMap<godot::StringName, godot::Ref<ParameterContext>> parameter_contexts;
 
     static void _bind_methods();
 
   public:
+    static constexpr const char *SIGNAL_CONTEXT_ADDED = "context_added";
+    static constexpr const char *SIGNAL_CONTEXT_REMOVED = "context_removed";
+
+    static constexpr const char *SIGNAL_CONTEXT_PARAMETER_ADDED = "context_parameter_added";
+    static constexpr const char *SIGNAL_CONTEXT_PARAMETER_REMOVED = "context_parameter_removed";
+
     static ParameterServer *get_singleton();
 
     ParameterServer();
 
-    void register_input_parameter( const godot::Ref<InputParameter> &p_parameter );
-    void remove_input_parameter( const godot::Ref<InputParameter> &p_parameter );
+    [[nodiscard]] godot::HashMap<godot::StringName, godot::Ref<ParameterContext>>
+        get_parameter_contexts() const;
+    void set_parameter_contexts(
+        const godot::HashMap<godot::StringName, godot::Ref<ParameterContext>>
+            &p_parameter_contexts );
 
-    [[nodiscard]] godot::TypedArray<InputParameter> get_input_parameters() const;
-    void set_input_parameters( const godot::TypedArray<InputParameter> &p_parameters );
+    [[nodiscard]] godot::Ref<ParameterContext> get_parameter_context(
+        const godot::StringName &p_context_id ) const;
+    [[nodiscard]] godot::TypedArray<godot::StringName> list_context_ids() const;
 
-    [[nodiscard]] godot::TypedArray<ParameterContext> get_parameter_contexts() const;
-    void set_parameter_contexts( const godot::TypedArray<ParameterContext> &p_parameter_contexts );
-    void add_parameter_context(const godot::Ref<ParameterContext> &p_parameter_context);
-    void remove_parameter_context(const godot::Ref<ParameterContext> &p_parameter_context);
+    void add_parameter_context( const godot::Ref<ParameterContext> &p_parameter_context );
+    void remove_parameter_context( const godot::Ref<ParameterContext> &p_parameter_context );
+
+    [[nodiscard]] godot::Ref<InputParameter> get_input_parameter(
+        const godot::StringName &p_id ) const;
+
+    void _context_parameter_added( const godot::StringName &p_context_id,
+                                   const godot::Ref<InputParameter> &p_parameter );
+    void _context_parameter_removed( const godot::StringName &p_context_id,
+                                     const godot::Ref<InputParameter> &p_parameter );
 };
 
 #endif // VDOT_PARAMETER_SERVER_H

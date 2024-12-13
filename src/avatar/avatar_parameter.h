@@ -25,10 +25,14 @@ class AvatarParameter : public godot::Resource {
 
     // references to the input parameter to pull values from,
     // and the output parameter to push the derived values to.
-    godot::Ref<InputParameter> input_parameter;
+    //
+    // NOTE: We don't store a direct reference to the input parameter, as the parameter
+    //  source may be changed or invalidated at any point (i.e., face tracker disconnecting).
+    godot::StringName input_parameter;
     godot::Ref<OutputParameter> output_parameter;
 
     static void _bind_methods();
+
   public:
     [[nodiscard]] godot::StringName get_parameter_id() const;
     void set_parameter_id( const godot::StringName &p_id );
@@ -45,15 +49,15 @@ class AvatarParameter : public godot::Resource {
     godot::Vector2 get_output_range() const;
     void set_output_range( const godot::Vector2 &p_range );
 
-    godot::Ref<InputParameter> get_input_parameter() const;
-    void set_input_parameter( const godot::Ref<InputParameter> &p_input_parameter );
+    godot::StringName get_input_parameter() const;
+    void set_input_parameter( const godot::StringName &p_input_parameter );
 
     godot::Ref<OutputParameter> get_output_parameter() const;
     void set_output_parameter( const godot::Ref<OutputParameter> &p_output_parameter );
 
     float calculate_value( float p_input, double delta ) const;
 
-    void _on_input_changed(float p_input_value);
+    void _on_input_changed( float p_input_value );
 };
 
 namespace godot {
